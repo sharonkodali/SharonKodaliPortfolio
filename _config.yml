@@ -1,3 +1,10 @@
 title: Sharon Kodali
 description: Math-CS @ UCSD | Projects + Blog
 theme: minima
+
+
+plugins:
+  - jekyll-feed
+
+baseurl: "/SharonKodaliPortfolio"
+url: "https://sharonkodali.github.io"

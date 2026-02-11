@@ -1,0 +1,38 @@
+<div class="section" id="projects">
+    <h2>Featured Projects</h2>
+  
+    <div class="filters">
+      <button class="filter active" data-filter="All">All</button>
+      <button class="filter" data-filter="Python">Python</button>
+      <button class="filter" data-filter="Data Science">Data Science</button>
+      <button class="filter" data-filter="Machine Learning">Machine Learning</button>
+      <button class="filter" data-filter="JavaScript">JavaScript</button>
+      <button class="filter" data-filter="APIs">APIs</button>
+    </div>
+  
+    <div class="grid">
+      {% for p in site.data.projects %}
+        <div class="card" data-tags="{{ p.tags | join: ', ' }}">
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.desc }}</p>
+  
+          <div class="tags">
+            {% for t in p.tags %}
+              <span class="tag">{{ t }}</span>
+            {% endfor %}
+          </div>
+  
+          <div>
+            {% if p.github and p.github != "" %}
+              <a href="{{ p.github }}" target="_blank" rel="noopener">GitHub →</a>
+            {% endif %}
+            {% if p.demo and p.demo != "" %}
+              &nbsp;•&nbsp;
+              <a href="{{ p.demo }}" target="_blank" rel="noopener">Live Demo →</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  

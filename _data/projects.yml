@@ -1,0 +1,18 @@
+- title: "Study Habits Data Explorer"
+  desc: "Exploring relationships between study time, sleep, and performance using Python."
+  tags: ["Python", "Data Science"]
+  github: "https://github.com/sharonkodali"
+  demo: ""
+
+- title: "Mini ML Predictor"
+  desc: "First ML pipeline with train/test split + metrics + model comparison."
+  tags: ["Python", "Machine Learning"]
+  github: "https://github.com/sharonkodali"
+  demo: ""
+
+- title: "API Dashboard"
+  desc: "Pulls data from a public API and visualizes trends in a clean dashboard."
+  tags: ["APIs", "JavaScript"]
+  github: "https://github.com/sharonkodali"
+  demo: ""
+
