@@ -297,7 +297,7 @@
             <span class="zoom-val" id="zoomVal">100%</span>
             <button class="modal-btn" id="zoomIn">＋</button>
           </div>
-          <a href="RESUME-SharonKodali.pdf" download class="modal-btn">Download</a>
+          <a href="/SharonKodaliPortfolio/RESUME-SharonKodali.pdf" download class="modal-btn">Download</a>
           <button class="modal-btn close-btn" id="closeModal">✕ Close</button>
         </div>
       </div>
@@ -637,7 +637,7 @@
 
     async function loadPDF() {
       try {
-        pdfDoc = await pdfjsLib.getDocument('RESUME-SharonKodali.pdf').promise;
+        pdfDoc = await pdfjsLib.getDocument('/SharonKodaliPortfolio/RESUME-SharonKodali.pdf').promise;
         pdfLoaded = true;
         renderAllPages();
       } catch(e) {
