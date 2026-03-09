@@ -637,7 +637,7 @@
 
     async function loadPDF() {
       try {
-        pdfDoc = await pdfjsLib.getDocument('/SharonKodaliPortfolio/RESUME-SharonKodali.pdf').promise;
+        pdfDoc = await pdfjsLib.getDocument('https://sharonkodali.github.io/SharonKodaliPortfolio/RESUME-SharonKodali.pdf').promise;
         pdfLoaded = true;
         renderAllPages();
       } catch(e) {
