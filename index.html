@@ -636,12 +636,13 @@
     }
 
     async function loadPDF() {
+      const url = window.location.origin + '/SharonKodaliPortfolio/RESUME-SharonKodali.pdf';
       try {
-        pdfDoc = await pdfjsLib.getDocument('https://sharonkodali.github.io/SharonKodaliPortfolio/RESUME-SharonKodali.pdf').promise;
+        pdfDoc = await pdfjsLib.getDocument({ url: url, withCredentials: false }).promise;
         pdfLoaded = true;
         renderAllPages();
       } catch(e) {
-        canvasWrap.innerHTML = '<p class="pdf-loading">Could not load PDF. Make sure RESUME-SharonKodali.pdf is in the same folder as index.html.</p>';
+        canvasWrap.innerHTML = '<p class="pdf-loading">Could not load PDF — <a href="' + url + '" target="_blank" style="color:var(--mauve)">click here to open it directly</a>.</p>';
       }
     }
 
