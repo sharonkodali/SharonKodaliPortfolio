@@ -1,335 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sharon Kodali — Data Scientist</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sharon Kodali</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --maroon:    #3d0a0a;
-    --maroon2:   #5c1010;
-    --crimson:   #8b1a1a;
-    --rose:      #c0392b;
-    --ember:     #e05c3a;
-    --tan:       #d4b896;
-    --parchment: #f0e6d3;
-    --gold:      #c9a96e;
-    --gold2:     #e8c97e;
-    --muted:     #9e7b65;
-    --glow:      rgba(192,57,43,0.4);
-    --glow2:     rgba(201,169,110,0.25);
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--maroon); color: var(--tan); font-family: 'DM Mono', monospace; font-size: 14px; overflow-x: hidden; cursor: none; }
+:root {
+  --maroon: #3d0a0a;
+  --crimson: #8b1a1a;
+  --rose: #c0392b;
+  --ember: #e05c3a;
+  --tan: #d4b896;
+  --parchment: #f0e6d3;
+  --gold: #c9a96e;
+  --gold2: #e8c97e;
+  --muted: #9e7b65;
+  --glow: rgba(192,57,43,0.4);
+  --glow2: rgba(201,169,110,0.25);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--maroon); color: var(--tan); font-family: 'DM Mono', monospace; font-size: 14px; overflow-x: hidden; cursor: none; }
 
-  /* ── CROSSHAIR CURSOR ── */
-  #cursor-cross {
-    position: fixed; pointer-events: none; z-index: 9999;
-    transform: translate(-50%, -50%);
-    width: 24px; height: 24px;
-  }
-  #cursor-cross::before,
-  #cursor-cross::after {
-    content: ''; position: absolute; background: var(--gold2);
-    transition: background .2s, opacity .2s;
-    opacity: .85;
-  }
-  #cursor-cross::before { /* horizontal bar */
-    width: 100%; height: 1px; top: 50%; left: 0; transform: translateY(-50%);
-  }
-  #cursor-cross::after { /* vertical bar */
-    height: 100%; width: 1px; left: 50%; top: 0; transform: translateX(-50%);
-  }
-  #cursor-dot {
-    position: fixed; pointer-events: none; z-index: 10000;
-    width: 4px; height: 4px; background: var(--gold2);
-    border-radius: 50%;
-    transform: translate(-50%,-50%);
-    transition: background .2s, transform .1s;
-    mix-blend-mode: screen;
-  }
-  body:has(a:hover) #cursor-cross::before,
-  body:has(a:hover) #cursor-cross::after { background: var(--rose); opacity: 1; }
-  body:has(a:hover) #cursor-dot { background: var(--rose); transform: translate(-50%,-50%) scale(2.5); }
+/* CURSOR */
+#cursor-cross { position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); width: 24px; height: 24px; }
+#cursor-cross::before, #cursor-cross::after { content: ''; position: absolute; background: var(--gold2); opacity: .85; }
+#cursor-cross::before { width: 100%; height: 1px; top: 50%; left: 0; transform: translateY(-50%); }
+#cursor-cross::after { height: 100%; width: 1px; left: 50%; top: 0; transform: translateX(-50%); }
+#cursor-dot { position: fixed; pointer-events: none; z-index: 10000; width: 4px; height: 4px; background: var(--gold2); border-radius: 50%; transform: translate(-50%,-50%); }
 
-  /* ── GRAIN ── */
-  body::before { content:''; position:fixed; inset:0; z-index:1000; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); background-size:180px; opacity:.045; }
+/* GRAIN */
+body::before { content: ''; position: fixed; inset: 0; z-index: 1000; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); background-size: 180px; opacity: .045; }
 
-  /* ── DYNAMIC BACKGROUND CANVAS ── */
-  #bg-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+/* BG */
+#bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.bg-glow { position: fixed; border-radius: 50%; pointer-events: none; filter: blur(130px); z-index: 1; }
+.bg-glow-1 { width: 650px; height: 650px; top: -180px; left: -220px; background: radial-gradient(circle, rgba(139,26,26,.5), transparent 70%); animation: floatGlow 9s ease-in-out infinite; }
+.bg-glow-2 { width: 520px; height: 520px; bottom: 8%; right: -170px; background: radial-gradient(circle, rgba(201,169,110,.16), transparent 70%); animation: floatGlow 12s ease-in-out infinite reverse; }
+.bg-glow-3 { width: 420px; height: 420px; top: 55%; left: 38%; background: radial-gradient(circle, rgba(80,10,10,.6), transparent 70%); animation: floatGlow 7s ease-in-out infinite 2s; }
 
-  /* ── AMBIENT GLOWS (on top of canvas) ── */
-  .bg-glow { position:fixed; border-radius:50%; pointer-events:none; filter:blur(130px); z-index:1; }
-  .bg-glow-1 { width:650px; height:650px; top:-180px; left:-220px; background:radial-gradient(circle, rgba(139,26,26,.5), transparent 70%); animation:floatGlow 9s ease-in-out infinite; }
-  .bg-glow-2 { width:520px; height:520px; bottom:8%; right:-170px; background:radial-gradient(circle, rgba(201,169,110,.16), transparent 70%); animation:floatGlow 12s ease-in-out infinite reverse; }
-  .bg-glow-3 { width:420px; height:420px; top:55%; left:38%; background:radial-gradient(circle, rgba(80,10,10,.6), transparent 70%); animation:floatGlow 7s ease-in-out infinite 2s; }
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 1.4rem 3rem; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(to bottom, rgba(40,7,7,.97), transparent); backdrop-filter: blur(3px); }
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; letter-spacing: .12em; color: var(--parchment); text-decoration: none; }
+.nav-logo span { color: var(--gold); }
+nav ul { list-style: none; display: flex; gap: 2rem; align-items: center; }
+nav ul a { text-decoration: none; color: var(--muted); font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; position: relative; transition: color .3s; }
+nav ul a::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 100%; height: 1px; background: var(--gold); transition: right .3s ease; }
+nav ul a:hover { color: var(--gold); }
+nav ul a:hover::after { right: 0; }
+.nav-resume-btn { padding: .35rem .9rem !important; border: 1px solid rgba(201,169,110,.4) !important; color: var(--gold) !important; background: rgba(201,169,110,.07); }
+.nav-resume-btn:hover { background: rgba(201,169,110,.2) !important; }
+.nav-resume-btn::after { display: none !important; }
+section { position: relative; z-index: 2; }
 
-  /* ── NAV ── */
-  nav { position:fixed; top:0; left:0; right:0; z-index:500; padding:1.4rem 3rem; display:flex; align-items:center; justify-content:space-between; background:linear-gradient(to bottom, rgba(40,7,7,.97), transparent); backdrop-filter:blur(3px); }
-  .nav-logo { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300; letter-spacing:.12em; color:var(--parchment); text-decoration:none; }
-  .nav-logo span { color:var(--gold); }
-  nav ul { list-style:none; display:flex; gap:2.2rem; align-items:center; }
-  nav ul a { text-decoration:none; color:var(--muted); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; position:relative; transition:color .3s; }
-  nav ul a::after { content:''; position:absolute; bottom:-3px; left:0; right:100%; height:1px; background:var(--gold); transition:right .3s ease; }
-  nav ul a:hover { color:var(--gold); }
-  nav ul a:hover::after { right:0; }
-  .nav-resume-btn { padding:.38rem 1rem !important; border:1px solid rgba(201,169,110,.4) !important; color:var(--gold) !important; background:rgba(201,169,110,.07); transition:background .3s, box-shadow .3s !important; }
-  .nav-resume-btn:hover { background:rgba(201,169,110,.2) !important; box-shadow:0 0 16px var(--glow2) !important; }
-  .nav-resume-btn::after { display:none !important; }
+/* HERO */
+#hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10vw; overflow: hidden; }
+h1.hero-name { font-family: 'Playfair Display', serif; font-size: clamp(4rem,9vw,9rem); font-weight: 700; line-height: .95; color: var(--parchment); opacity: 0; animation: fadeUp .7s .4s forwards; }
+h1.hero-name em { font-style: italic; color: var(--gold); text-shadow: 0 0 80px rgba(201,169,110,.55); }
+.hero-tagline { margin-top: 1.8rem; font-size: clamp(.85rem,1.6vw,1rem); color: var(--tan); max-width: 560px; line-height: 1.9; opacity: 0; animation: fadeUp .7s .6s forwards; }
+.hero-badges { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .7rem; opacity: 0; animation: fadeUp .7s .75s forwards; }
+.badge { padding: .35rem .9rem; border: 1px solid rgba(201,169,110,.3); border-radius: 2px; font-size: .62rem; letter-spacing: .12em; color: var(--gold); background: rgba(201,169,110,.07); }
+.hero-ctas { margin-top: 2.8rem; display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp .7s .9s forwards; }
+.btn-primary { padding: .75rem 2rem; background: var(--crimson); color: var(--parchment); text-decoration: none; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; border: 1px solid var(--rose); position: relative; overflow: hidden; transition: box-shadow .3s; cursor: pointer; font-family: 'DM Mono', monospace; display: inline-block; }
+.btn-primary::before { content: ''; position: absolute; inset: 0; background: var(--rose); transform: translateX(-101%); transition: transform .35s ease; }
+.btn-primary:hover { box-shadow: 0 0 30px var(--glow); }
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary span { position: relative; z-index: 1; }
+.btn-ghost { padding: .75rem 2rem; color: var(--tan); text-decoration: none; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; border: 1px solid rgba(212,184,150,.3); transition: color .3s, border-color .3s; cursor: pointer; background: none; font-family: 'DM Mono', monospace; display: inline-block; }
+.btn-ghost:hover { color: var(--parchment); border-color: var(--tan); }
+.btn-gold { padding: .75rem 2rem; color: var(--gold); text-decoration: none; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; border: 1px solid rgba(201,169,110,.4); background: rgba(201,169,110,.08); transition: color .3s, background .3s; cursor: pointer; font-family: 'DM Mono', monospace; display: inline-block; }
+.btn-gold:hover { color: var(--parchment); background: rgba(201,169,110,.2); }
 
-  section { position:relative; z-index:2; }
+/* TICKER */
+.ticker { position: absolute; bottom: 2.5rem; left: 0; right: 0; overflow: hidden; opacity: .22; border-top: 1px solid rgba(212,184,150,.1); border-bottom: 1px solid rgba(212,184,150,.1); padding: .6rem 0; }
+.ticker-inner { display: flex; white-space: nowrap; font-family: 'Cormorant Garamond', serif; font-size: 1rem; letter-spacing: .4em; text-transform: uppercase; color: var(--gold); font-weight: 300; }
+.ticker-item { padding: 0 2rem; }
+.ticker-sep { color: var(--crimson); padding: 0 .5rem; }
 
-  /* ── HERO ── */
-  #hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:0 10vw; overflow:hidden; }
-  h1.hero-name { font-family:'Playfair Display',serif; font-size:clamp(4rem,9vw,9rem); font-weight:700; line-height:.95; color:var(--parchment); opacity:0; animation:fadeUp .7s .4s forwards; }
-  h1.hero-name em { font-style:italic; color:var(--gold); text-shadow:0 0 80px rgba(201,169,110,.55); }
-  .hero-tagline { margin-top:1.8rem; font-size:clamp(.9rem,1.8vw,1.05rem); color:var(--tan); max-width:560px; line-height:1.9; opacity:0; animation:fadeUp .7s .6s forwards; }
-  .hero-badges { margin-top:2rem; display:flex; flex-wrap:wrap; gap:.7rem; opacity:0; animation:fadeUp .7s .75s forwards; }
-  .badge { padding:.35rem .9rem; border:1px solid rgba(201,169,110,.3); border-radius:2px; font-size:.62rem; letter-spacing:.12em; color:var(--gold); background:rgba(201,169,110,.07); transition:background .3s, border-color .3s, box-shadow .3s; }
-  .badge:hover { background:rgba(201,169,110,.18); border-color:var(--gold); box-shadow:0 0 16px rgba(201,169,110,.25); }
-  .hero-ctas { margin-top:2.8rem; display:flex; gap:1rem; flex-wrap:wrap; opacity:0; animation:fadeUp .7s .9s forwards; }
+/* SHARED */
+.section-label { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--rose); margin-bottom: 1rem; display: flex; align-items: center; gap: .8rem; }
+.section-label::after { content: ''; flex: 1; height: 1px; background: rgba(139,26,26,.5); }
+h2.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem,5vw,4rem); font-weight: 300; line-height: 1.15; color: var(--parchment); }
+h2.section-title em { font-style: italic; color: var(--gold); }
 
-  .btn-primary { padding:.75rem 2rem; background:var(--crimson); color:var(--parchment); text-decoration:none; font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; border:1px solid var(--rose); position:relative; overflow:hidden; transition:color .3s, box-shadow .3s; }
-  .btn-primary::before { content:''; position:absolute; inset:0; background:var(--rose); transform:translateX(-101%); transition:transform .35s ease; }
-  .btn-primary:hover { box-shadow:0 0 30px var(--glow); }
-  .btn-primary:hover::before { transform:translateX(0); }
-  .btn-primary span { position:relative; z-index:1; }
-  .btn-ghost { padding:.75rem 2rem; color:var(--tan); text-decoration:none; font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; border:1px solid rgba(212,184,150,.3); transition:color .3s, border-color .3s, box-shadow .3s; }
-  .btn-ghost:hover { color:var(--parchment); border-color:var(--tan); box-shadow:0 0 20px rgba(212,184,150,.15); }
-  .btn-gold { padding:.75rem 2rem; color:var(--gold); text-decoration:none; font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; border:1px solid rgba(201,169,110,.4); background:rgba(201,169,110,.08); transition:color .3s, background .3s, box-shadow .3s; }
-  .btn-gold:hover { color:var(--parchment); background:rgba(201,169,110,.2); box-shadow:0 0 20px var(--glow2); }
+/* ABOUT */
+#about { padding: 8rem 10vw; max-width: 900px; }
+.about-body { margin-top: 1.8rem; line-height: 2.1; color: var(--tan); font-size: .88rem; }
+.about-body strong { color: var(--parchment); font-weight: 400; }
+.about-body p + p { margin-top: 1.3rem; }
 
-  /* TICKER */
-  .ticker { position:absolute; bottom:2.5rem; left:0; right:0; overflow:hidden; opacity:.22; border-top:1px solid rgba(212,184,150,.1); border-bottom:1px solid rgba(212,184,150,.1); padding:.6rem 0; }
-  .ticker-inner { display:flex; white-space:nowrap; font-family:'Cormorant Garamond',serif; font-size:1rem; letter-spacing:.4em; text-transform:uppercase; color:var(--gold); font-weight:300; }
-  .ticker-item { padding:0 2rem; }
-  .ticker-sep { color:var(--crimson); padding:0 .5rem; }
+/* DEGREE ACCORDION */
+.degree-boxes { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.degree-box { border: 1px solid rgba(212,184,150,.15); background: rgba(40,6,6,.55); overflow: hidden; transition: border-color .3s; }
+.degree-box:hover { border-color: rgba(212,184,150,.32); }
+.degree-box-btn { width: 100%; background: none; border: none; cursor: pointer; padding: 1.5rem 1.8rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-family: 'DM Mono', monospace; text-align: left; transition: background .25s; }
+.degree-box-btn:hover { background: rgba(201,169,110,.05); }
+.degree-box-left { display: flex; flex-direction: column; gap: .3rem; }
+.degree-box-label { font-size: .58rem; letter-spacing: .25em; text-transform: uppercase; color: var(--rose); }
+.degree-box-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; color: var(--parchment); }
+.degree-box-right { display: flex; flex-direction: column; align-items: flex-end; gap: .3rem; flex-shrink: 0; }
+.degree-box-school { font-size: .62rem; letter-spacing: .1em; color: var(--gold); text-transform: uppercase; }
+.degree-box-arrow { font-size: 1rem; color: var(--muted); transition: transform .38s, color .25s; display: inline-block; }
+.degree-box-arrow.open { transform: rotate(180deg); color: var(--gold); }
+.degree-courses { display: grid; grid-template-rows: 0fr; border-top: 1px solid transparent; transition: grid-template-rows .42s cubic-bezier(.16,1,.3,1), border-top-color .42s; }
+.degree-courses.open { grid-template-rows: 1fr; border-top-color: rgba(212,184,150,.1); }
+.degree-courses-inner { overflow: hidden; }
+.degree-courses-pad { padding: 0 1.8rem; transition: padding .42s; }
+.degree-courses.open .degree-courses-pad { padding: 1.6rem 1.8rem 1.8rem; }
+.course-group { margin-bottom: 1.4rem; }
+.course-group:last-child { margin-bottom: 0; }
+.course-group-title { font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--rose); margin-bottom: .9rem; display: flex; align-items: center; gap: .8rem; }
+.course-group-title::after { content: ''; flex: 1; height: 1px; background: rgba(139,26,26,.4); }
+.course-list { display: flex; flex-direction: column; gap: .35rem; }
+.course-item { display: flex; align-items: baseline; gap: 1rem; padding: .45rem .8rem; transition: background .2s; }
+.course-item:hover { background: rgba(201,169,110,.06); }
+.course-code { font-family: 'DM Mono', monospace; font-size: .65rem; color: var(--gold); letter-spacing: .05em; min-width: 75px; flex-shrink: 0; }
+.course-name { font-size: .82rem; color: var(--tan); line-height: 1.4; }
 
-  /* SHARED */
-  .about-label { font-size:.6rem; letter-spacing:.3em; text-transform:uppercase; color:var(--rose); margin-bottom:1rem; display:flex; align-items:center; gap:.8rem; }
-  .about-label::after { content:''; flex:1; height:1px; background:rgba(139,26,26,.5); }
-  h2.section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,5vw,4rem); font-weight:300; line-height:1.15; color:var(--parchment); }
-  h2.section-title em { font-style:italic; color:var(--gold); }
+/* PROJECTS */
+#projects { padding: 7rem 10vw; }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 2.5rem; margin-top: 3rem; }
+.project-card { border: 1px solid rgba(212,184,150,.12); background: rgba(50,8,8,.5); position: relative; overflow: hidden; transition: border-color .35s, box-shadow .4s, transform .35s; cursor: pointer; }
+.project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--crimson), var(--gold), transparent); transform: scaleX(0); transition: transform .45s ease; }
+.project-card:hover { border-color: rgba(212,184,150,.3); box-shadow: 0 28px 80px rgba(0,0,0,.5); transform: translateY(-7px); }
+.project-card:hover::before { transform: scaleX(1); }
+.project-card-inner { padding: 2.8rem 2.4rem; }
+.project-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: rgba(201,169,110,.1); line-height: 1; position: absolute; top: 1.5rem; right: 2rem; pointer-events: none; }
+.project-date { font-size: .6rem; letter-spacing: .15em; color: var(--rose); margin-bottom: 1rem; text-transform: uppercase; }
+.project-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; color: var(--parchment); margin-bottom: 1.2rem; line-height: 1.15; max-width: 85%; }
+.project-bullets { list-style: none; margin-bottom: 1.8rem; }
+.project-bullets li { font-size: .78rem; color: var(--tan); line-height: 1.8; padding-left: 1.4rem; position: relative; margin-bottom: .4rem; }
+.project-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--ember); }
+.project-tech { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.8rem; }
+.tech-pill { font-size: .58rem; letter-spacing: .1em; padding: .28rem .8rem; background: rgba(139,26,26,.35); border: 1px solid rgba(139,26,26,.5); color: var(--tan); border-radius: 20px; }
+.project-actions { display: flex; gap: 1rem; align-items: center; }
+.project-demo-btn { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); text-decoration: none; display: inline-flex; align-items: center; gap: .5rem; border-bottom: 1px solid rgba(201,169,110,.3); padding-bottom: .15rem; transition: gap .25s, color .25s; background: none; border-top: none; border-left: none; border-right: none; cursor: pointer; font-family: 'DM Mono', monospace; }
+.project-demo-btn:hover { gap: .9rem; color: var(--gold2); }
+.project-gh-link { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .25s; }
+.project-gh-link:hover { color: var(--tan); }
 
-  /* ABOUT — no stat grid */
-  #about { padding:8rem 10vw; max-width:900px; }
-  .about-body { margin-top:1.8rem; line-height:2.1; color:var(--tan); font-size:.88rem; }
-  .about-body strong { color:var(--parchment); font-weight:400; }
-  .about-body p+p { margin-top:1.3rem; }
+/* PROJECT OVERLAY */
+#project-overlay { position: fixed; inset: 0; z-index: 1500; background: rgba(15,2,2,.97); backdrop-filter: blur(12px); opacity: 0; pointer-events: none; transition: opacity .4s; overflow-y: auto; }
+#project-overlay.open { opacity: 1; pointer-events: all; }
+.overlay-inner { max-width: 900px; margin: 0 auto; padding: 6rem 4rem 5rem; }
+.overlay-back { display: inline-flex; align-items: center; gap: .6rem; font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; font-family: 'DM Mono', monospace; transition: color .25s; margin-bottom: 3rem; }
+.overlay-back:hover { color: var(--gold); }
+.overlay-back::before { content: '←'; }
+.overlay-eyebrow { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--rose); margin-bottom: 1rem; }
+.overlay-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem,5vw,4rem); font-weight: 700; color: var(--parchment); line-height: 1.05; margin-bottom: 1.5rem; }
+.overlay-title em { color: var(--gold); font-style: italic; }
+.overlay-tech { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2.5rem; }
+.overlay-divider { width: 60px; height: 1px; background: var(--crimson); margin-bottom: 2.5rem; }
+.overlay-section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--gold); margin-bottom: 1rem; }
+.overlay-body { font-size: .85rem; line-height: 2; color: var(--tan); margin-bottom: 2.5rem; }
+.overlay-body p + p { margin-top: 1rem; }
+.overlay-body strong { color: var(--parchment); font-weight: 400; }
+.overlay-features { list-style: none; margin-bottom: 2.5rem; }
+.overlay-features li { font-size: .82rem; line-height: 1.85; color: var(--tan); padding-left: 1.5rem; position: relative; margin-bottom: .5rem; }
+.overlay-features li::before { content: '◆'; position: absolute; left: 0; color: var(--crimson); font-size: .5rem; top: .4rem; }
+.overlay-demo { border: 1px solid rgba(212,184,150,.12); background: rgba(30,5,5,.6); margin-bottom: 2.5rem; overflow: hidden; }
+.overlay-demo-header { padding: 1rem 1.5rem; border-bottom: 1px solid rgba(212,184,150,.08); display: flex; align-items: center; gap: .8rem; }
+.demo-dot { width: 10px; height: 10px; border-radius: 50%; }
+.demo-dot-r { background: #ff5f57; }
+.demo-dot-y { background: #febc2e; }
+.demo-dot-g { background: #28c840; }
+.demo-url-bar { flex: 1; background: rgba(212,184,150,.06); border: 1px solid rgba(212,184,150,.1); padding: .3rem .8rem; font-size: .6rem; color: var(--muted); border-radius: 3px; }
+.demo-content { padding: 2.5rem; min-height: 320px; }
+.spotify-demo { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+.spotify-player { background: rgba(0,0,0,.4); border: 1px solid rgba(212,184,150,.1); padding: 1.5rem; border-radius: 4px; }
+.sp-cover { width: 100%; aspect-ratio: 1; background: linear-gradient(135deg,#1a0a0a,#3d0a0a,#5c1010,#8b1a1a); border-radius: 2px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; opacity: .7; }
+.sp-track { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--parchment); }
+.sp-artist { font-size: .65rem; color: var(--muted); margin-top: .2rem; margin-bottom: 1rem; }
+.sp-bar { height: 3px; background: rgba(212,184,150,.1); border-radius: 2px; margin-bottom: .5rem; }
+.sp-bar-fill { height: 100%; background: var(--gold); border-radius: 2px; width: 62%; }
+.sp-controls { display: flex; justify-content: center; gap: 1.5rem; font-size: 1rem; color: var(--muted); margin-top: .8rem; }
+.sp-play { color: var(--gold) !important; font-size: 1.3rem; }
+.viz-label { font-size: .6rem; letter-spacing: .15em; color: var(--rose); margin-bottom: .8rem; text-transform: uppercase; }
+.viz-bars { display: flex; align-items: flex-end; gap: 3px; height: 80px; }
+.viz-bar { flex: 1; background: linear-gradient(to top, var(--crimson), var(--gold)); border-radius: 1px 1px 0 0; opacity: .8; animation: vizPulse 1.5s ease-in-out infinite alternate; }
+.viz-feat-row { display: flex; align-items: center; gap: .8rem; margin-bottom: .7rem; }
+.viz-feat-label { font-size: .6rem; color: var(--muted); letter-spacing: .08em; min-width: 80px; text-transform: uppercase; }
+.viz-feat-bar { flex: 1; height: 4px; background: rgba(212,184,150,.08); border-radius: 2px; }
+.viz-feat-fill { height: 100%; border-radius: 2px; }
+.vibe-badge { display: inline-block; margin-top: 1rem; padding: .4rem 1rem; background: rgba(139,26,26,.4); border: 1px solid var(--rose); font-size: .65rem; letter-spacing: .12em; color: var(--tan); }
+.re-map { width: 100%; height: 180px; background: linear-gradient(135deg,#1c0808,#2a0a0a,#1a0606); border-radius: 2px; position: relative; overflow: hidden; margin-bottom: 1.5rem; border: 1px solid rgba(212,184,150,.08); }
+.re-map-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(212,184,150,.04) 1px,transparent 1px), linear-gradient(90deg,rgba(212,184,150,.04) 1px,transparent 1px); background-size: 30px 30px; }
+.re-pin { position: absolute; width: 10px; height: 10px; border-radius: 50%; border: 2px solid; transform: translate(-50%,-50%); }
+.re-pin-red { background: rgba(192,57,43,.7); border-color: var(--rose); }
+.re-pin-gold { background: rgba(201,169,110,.7); border-color: var(--gold); }
+.re-legend { display: flex; gap: 1.5rem; margin-bottom: 1.2rem; }
+.re-legend-item { display: flex; align-items: center; gap: .4rem; font-size: .58rem; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; }
+.re-legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+.re-listings { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+.re-card { padding: .9rem 1rem; background: rgba(0,0,0,.3); border: 1px solid rgba(212,184,150,.08); border-radius: 2px; }
+.re-price { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); }
+.re-loc { font-size: .58rem; color: var(--muted); margin: .15rem 0; }
+.re-roi { font-size: .6rem; color: var(--rose); }
+.overlay-links { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 1rem; }
 
-  /* ── PROJECTS (big, featured) ── */
-  #projects { padding:7rem 10vw; }
-  .projects-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(380px,1fr)); gap:2.5rem; margin-top:3rem; }
-  .project-card {
-    border:1px solid rgba(212,184,150,.12); padding:0;
-    background:rgba(50,8,8,.5);
-    position:relative; overflow:hidden;
-    transition:border-color .35s, box-shadow .4s, transform .35s;
-    cursor: pointer;
-  }
-  .project-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--crimson), var(--gold), transparent); transform:scaleX(0); transition:transform .45s ease; }
-  .project-card:hover { border-color:rgba(212,184,150,.3); box-shadow:0 28px 80px rgba(0,0,0,.5), 0 0 50px var(--glow); transform:translateY(-7px); }
-  .project-card:hover::before { transform:scaleX(1); }
+/* SKILLS */
+#skills { padding: 7rem 10vw; background: rgba(0,0,0,.12); }
+.skills-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: rgba(212,184,150,.06); border: 1px solid rgba(212,184,150,.08); margin-top: 3rem; }
+.skill-card { padding: 2.4rem 2.2rem; background: rgba(45,8,8,.78); position: relative; overflow: hidden; transition: background .35s; cursor: default; }
+.skill-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(139,26,26,.4), transparent 70%); opacity: 0; transition: opacity .4s; }
+.skill-card:hover { background: rgba(75,12,12,.85); }
+.skill-card:hover::after { opacity: 1; }
+.skill-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.3rem; }
+.skill-name { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 400; color: var(--gold); }
+.skill-icon { font-size: 1rem; opacity: .35; position: relative; z-index: 1; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: .45rem; position: relative; z-index: 1; }
+.skill-tag { font-size: .62rem; letter-spacing: .05em; padding: .32rem .8rem; background: rgba(61,10,10,.85); border: 1px solid rgba(212,184,150,.16); color: var(--tan); border-radius: 3px; transition: background .2s, color .2s; }
+.skill-card:hover .skill-tag { background: rgba(92,16,16,.7); color: var(--parchment); }
 
-  .project-card-inner { padding:2.8rem 2.4rem; }
-  .project-num { font-family:'Cormorant Garamond',serif; font-size:3.5rem; font-weight:300; color:rgba(201,169,110,.1); line-height:1; position:absolute; top:1.5rem; right:2rem; transition:color .3s; pointer-events:none; }
-  .project-card:hover .project-num { color:rgba(201,169,110,.2); }
-  .project-date { font-size:.6rem; letter-spacing:.15em; color:var(--rose); margin-bottom:1rem; text-transform:uppercase; }
-  .project-title { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:400; color:var(--parchment); margin-bottom:1.2rem; line-height:1.15; max-width:85%; }
-  .project-bullets { list-style:none; margin-bottom:1.8rem; }
-  .project-bullets li { font-size:.78rem; color:var(--tan); line-height:1.8; padding-left:1.4rem; position:relative; margin-bottom:.4rem; }
-  .project-bullets li::before { content:'→'; position:absolute; left:0; color:var(--ember); }
-  .project-tech { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.8rem; }
-  .tech-pill { font-size:.58rem; letter-spacing:.1em; padding:.28rem .8rem; background:rgba(139,26,26,.35); border:1px solid rgba(139,26,26,.5); color:var(--tan); border-radius:20px; transition:background .2s, color .2s; }
-  .project-card:hover .tech-pill { background:rgba(139,26,26,.6); color:var(--parchment); }
-  .project-actions { display:flex; gap:1rem; align-items:center; }
-  .project-demo-btn { font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); text-decoration:none; display:inline-flex; align-items:center; gap:.5rem; border-bottom:1px solid rgba(201,169,110,.3); padding-bottom:.15rem; transition:gap .25s, color .25s, border-color .25s; background:none; border-top:none; border-left:none; border-right:none; cursor:pointer; font-family:'DM Mono',monospace; }
-  .project-demo-btn:hover { gap:.9rem; color:var(--gold2); border-bottom-color:var(--gold2); }
-  .project-gh-link { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .25s; }
-  .project-gh-link:hover { color:var(--tan); }
+/* EXPERIENCE */
+#experience { padding: 7rem 10vw; }
+.timeline { position: relative; margin-top: 3rem; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, var(--crimson) 10%, var(--crimson) 90%, transparent); }
+.exp-item { padding: 0 0 3.5rem 3rem; position: relative; opacity: 0; transform: translateX(-20px); transition: opacity .5s, transform .5s; }
+.exp-item.visible { opacity: 1; transform: translateX(0); }
+.exp-dot { position: absolute; left: -5px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--maroon); border: 2px solid var(--crimson); transition: background .3s, border-color .3s; }
+.exp-item:hover .exp-dot { background: var(--gold); border-color: var(--gold); }
+.exp-meta { font-size: .6rem; letter-spacing: .15em; color: var(--rose); margin-bottom: .5rem; text-transform: uppercase; }
+.exp-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--parchment); margin-bottom: .25rem; }
+.exp-company { font-size: .75rem; color: var(--gold); margin-bottom: 1rem; }
+.exp-bullets { list-style: none; }
+.exp-bullets li { font-size: .8rem; line-height: 1.75; color: var(--tan); padding-left: 1.2rem; position: relative; margin-bottom: .4rem; }
+.exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--rose); }
 
-  /* ── PROJECT DETAIL OVERLAY ── */
-  #project-overlay {
-    position:fixed; inset:0; z-index:1500;
-    background:rgba(15,2,2,.97); backdrop-filter:blur(12px);
-    opacity:0; pointer-events:none;
-    transition:opacity .4s;
-    overflow-y:auto;
-  }
-  #project-overlay.open { opacity:1; pointer-events:all; }
-  .overlay-inner { max-width:900px; margin:0 auto; padding:6rem 4rem 5rem; }
-  .overlay-back { display:inline-flex; align-items:center; gap:.6rem; font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); background:none; border:none; cursor:pointer; font-family:'DM Mono',monospace; transition:color .25s; margin-bottom:3rem; }
-  .overlay-back:hover { color:var(--gold); }
-  .overlay-back::before { content:'←'; }
-  .overlay-eyebrow { font-size:.6rem; letter-spacing:.3em; text-transform:uppercase; color:var(--rose); margin-bottom:1rem; }
-  .overlay-title { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,4rem); font-weight:700; color:var(--parchment); line-height:1.05; margin-bottom:1.5rem; }
-  .overlay-title em { color:var(--gold); font-style:italic; }
-  .overlay-tech { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:2.5rem; }
-  .overlay-divider { width:60px; height:1px; background:var(--crimson); margin-bottom:2.5rem; }
-  .overlay-section-title { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300; color:var(--gold); margin-bottom:1rem; letter-spacing:.05em; }
-  .overlay-body { font-size:.85rem; line-height:2; color:var(--tan); margin-bottom:2.5rem; }
-  .overlay-body p+p { margin-top:1rem; }
-  .overlay-body strong { color:var(--parchment); font-weight:400; }
-  .overlay-features { list-style:none; margin-bottom:2.5rem; }
-  .overlay-features li { font-size:.82rem; line-height:1.85; color:var(--tan); padding-left:1.5rem; position:relative; margin-bottom:.5rem; }
-  .overlay-features li::before { content:'◆'; position:absolute; left:0; color:var(--crimson); font-size:.5rem; top:.4rem; }
+/* CERTIFICATIONS */
+#certifications { padding: 7rem 10vw; background: rgba(0,0,0,.08); }
+.cert-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; margin-top: 3rem; }
+.cert-card { border: 1px dashed rgba(212,184,150,.2); background: rgba(40,6,6,.45); padding: 2.2rem 2rem; display: flex; flex-direction: column; gap: .55rem; transition: border-color .3s, background .3s; }
+.cert-card:hover { border-color: rgba(201,169,110,.35); background: rgba(55,8,8,.55); }
+.cert-icon { font-size: 1.3rem; color: rgba(201,169,110,.22); margin-bottom: .2rem; }
+.cert-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: rgba(240,230,211,.35); font-weight: 400; }
+.cert-issuer { font-size: .7rem; color: rgba(201,169,110,.3); letter-spacing: .07em; }
+.cert-status { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(192,57,43,.45); margin-top: .3rem; }
 
-  /* demo area */
-  .overlay-demo { border:1px solid rgba(212,184,150,.12); background:rgba(30,5,5,.6); margin-bottom:2.5rem; overflow:hidden; }
-  .overlay-demo-header { padding:1rem 1.5rem; border-bottom:1px solid rgba(212,184,150,.08); display:flex; align-items:center; gap:.8rem; }
-  .demo-dot { width:10px; height:10px; border-radius:50%; }
-  .demo-dot-r { background:#ff5f57; }
-  .demo-dot-y { background:#febc2e; }
-  .demo-dot-g { background:#28c840; }
-  .demo-url-bar { flex:1; background:rgba(212,184,150,.06); border:1px solid rgba(212,184,150,.1); padding:.3rem .8rem; font-size:.6rem; letter-spacing:.05em; color:var(--muted); border-radius:3px; }
-  .demo-content { padding:2.5rem; min-height:320px; position:relative; }
+/* CONTACT */
+#contact { padding: 8rem 10vw 6rem; text-align: center; position: relative; }
+#contact::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 80px; background: linear-gradient(to bottom, transparent, var(--crimson)); }
+.contact-intro { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.5rem; }
+h2.contact-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem,6vw,5rem); font-weight: 300; color: var(--parchment); margin-bottom: 1.5rem; line-height: 1.1; }
+h2.contact-title em { color: var(--gold); font-style: italic; }
+.contact-body { font-size: .85rem; color: var(--muted); max-width: 480px; margin: 0 auto 3.5rem; line-height: 1.9; }
+.contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; }
+.contact-link { display: flex; align-items: center; gap: .8rem; padding: 1.2rem 2rem; border: 1px solid rgba(212,184,150,.15); color: var(--tan); text-decoration: none; transition: border-color .3s, color .3s, background .3s; min-width: 200px; }
+.contact-link:hover { border-color: var(--gold); color: var(--parchment); background: rgba(201,169,110,.07); }
+.contact-link-icon { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--gold); min-width: 1.5rem; }
+.contact-link-text { text-align: left; }
+.contact-link-label { font-size: .58rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin-bottom: .15rem; }
+.contact-link-value { font-size: .8rem; }
 
-  /* Spotify demo mockup */
-  .spotify-demo { display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start; }
-  .spotify-player { background:rgba(0,0,0,.4); border:1px solid rgba(212,184,150,.1); padding:1.5rem; border-radius:4px; }
-  .sp-cover { width:100%; aspect-ratio:1; background:linear-gradient(135deg, #1a0a0a, #3d0a0a, #5c1010, #8b1a1a); border-radius:2px; margin-bottom:1rem; display:flex; align-items:center; justify-content:center; font-size:2.5rem; opacity:.7; }
-  .sp-track { font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--parchment); }
-  .sp-artist { font-size:.65rem; color:var(--muted); margin-top:.2rem; margin-bottom:1rem; }
-  .sp-bar { height:3px; background:rgba(212,184,150,.1); border-radius:2px; margin-bottom:.5rem; position:relative; }
-  .sp-bar-fill { height:100%; background:var(--gold); border-radius:2px; width:62%; }
-  .sp-controls { display:flex; justify-content:center; gap:1.5rem; font-size:1rem; color:var(--muted); margin-top:.8rem; }
-  .sp-controls span { transition:color .2s; cursor:default; }
-  .sp-controls span:hover { color:var(--gold); }
-  .sp-play { color:var(--gold) !important; font-size:1.3rem; }
-  .spotify-viz { }
-  .viz-label { font-size:.6rem; letter-spacing:.15em; color:var(--rose); margin-bottom:.8rem; text-transform:uppercase; }
-  .viz-bars { display:flex; align-items:flex-end; gap:3px; height:80px; }
-  .viz-bar { flex:1; background:linear-gradient(to top, var(--crimson), var(--gold)); border-radius:1px 1px 0 0; opacity:.8; animation:vizPulse 1.5s ease-in-out infinite alternate; }
-  .viz-features { margin-top:1.5rem; }
-  .viz-feat-row { display:flex; align-items:center; gap:.8rem; margin-bottom:.7rem; }
-  .viz-feat-label { font-size:.6rem; color:var(--muted); letter-spacing:.08em; min-width:80px; text-transform:uppercase; }
-  .viz-feat-bar { flex:1; height:4px; background:rgba(212,184,150,.08); border-radius:2px; }
-  .viz-feat-fill { height:100%; border-radius:2px; background:var(--rose); }
-  .vibe-badge { display:inline-block; margin-top:1rem; padding:.4rem 1rem; background:rgba(139,26,26,.4); border:1px solid var(--rose); font-size:.65rem; letter-spacing:.12em; color:var(--tan); }
+/* FOOTER */
+footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); display: flex; justify-content: space-between; align-items: center; font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(158,123,101,.5); position: relative; z-index: 2; flex-wrap: wrap; gap: 1rem; }
 
-  /* Real estate demo mockup */
-  .realestate-demo { }
-  .re-map { width:100%; height:180px; background:linear-gradient(135deg, #1c0808 0%, #2a0a0a 40%, #1a0606 100%); border-radius:2px; position:relative; overflow:hidden; margin-bottom:1.5rem; border:1px solid rgba(212,184,150,.08); }
-  .re-map-grid { position:absolute; inset:0; background-image: linear-gradient(rgba(212,184,150,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(212,184,150,.04) 1px, transparent 1px); background-size:30px 30px; }
-  .re-pin { position:absolute; width:10px; height:10px; border-radius:50%; border:2px solid; transform:translate(-50%,-50%); }
-  .re-pin-red { background:rgba(192,57,43,.7); border-color:var(--rose); }
-  .re-pin-gold { background:rgba(201,169,110,.7); border-color:var(--gold); }
-  .re-legend { display:flex; gap:1.5rem; margin-bottom:1.2rem; }
-  .re-legend-item { display:flex; align-items:center; gap:.4rem; font-size:.58rem; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; }
-  .re-legend-dot { width:8px; height:8px; border-radius:50%; }
-  .re-listings { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; }
-  .re-card { padding:.9rem 1rem; background:rgba(0,0,0,.3); border:1px solid rgba(212,184,150,.08); border-radius:2px; }
-  .re-price { font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--gold); }
-  .re-loc { font-size:.58rem; color:var(--muted); margin:.15rem 0; letter-spacing:.05em; }
-  .re-roi { font-size:.6rem; color:var(--rose); }
+/* RESUME MODAL */
+#resume-modal { position: fixed; inset: 0; z-index: 2000; background: rgba(12,2,2,.96); backdrop-filter: blur(12px); display: flex; flex-direction: column; align-items: center; padding: 2rem 1rem 3rem; opacity: 0; pointer-events: none; transition: opacity .3s; overflow-y: auto; }
+#resume-modal.open { opacity: 1; pointer-events: all; }
+.modal-toolbar { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.5rem; width: min(760px,95vw); flex-wrap: wrap; flex-shrink: 0; }
+.modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--parchment); letter-spacing: .1em; flex: 1; }
+.modal-close-btn { padding: .4rem 1.1rem; border: 1px solid rgba(192,57,43,.5); background: rgba(139,26,26,.4); color: var(--tan); font-family: 'DM Mono', monospace; font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; cursor: pointer; transition: background .2s; }
+.modal-close-btn:hover { background: var(--crimson); color: var(--parchment); }
+.modal-download-btn { padding: .4rem 1.1rem; border: 1px solid rgba(201,169,110,.35); background: rgba(201,169,110,.1); color: var(--gold); font-family: 'DM Mono', monospace; font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: .4rem; transition: background .2s; }
+.modal-download-btn:hover { background: rgba(201,169,110,.22); }
+.resume-card { width: min(760px,95vw); background: rgba(22,4,4,.85); border: 1px solid rgba(212,184,150,.14); padding: 3rem 3.5rem; }
+.ri-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--parchment); margin-bottom: .4rem; }
+.ri-contact { font-size: .7rem; color: var(--muted); letter-spacing: .05em; line-height: 2; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(212,184,150,.12); }
+.ri-contact a { color: var(--gold); text-decoration: none; }
+.ri-section { margin-bottom: 1.8rem; }
+.ri-section-title { font-size: .58rem; letter-spacing: .3em; text-transform: uppercase; color: var(--rose); margin-bottom: 1rem; padding-bottom: .5rem; border-bottom: 1px solid rgba(139,26,26,.4); }
+.ri-item { margin-bottom: 1.4rem; }
+.ri-item:last-child { margin-bottom: 0; }
+.ri-row { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .5rem; margin-bottom: .2rem; }
+.ri-job-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--parchment); }
+.ri-date { font-size: .65rem; color: var(--gold); letter-spacing: .06em; white-space: nowrap; }
+.ri-org { font-size: .72rem; color: var(--gold); margin-bottom: .6rem; }
+.ri-note { font-size: .7rem; color: var(--muted); line-height: 1.7; margin-top: .3rem; }
+.ri-ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: .4rem; }
+.ri-ul li { font-size: .75rem; color: var(--tan); line-height: 1.75; padding-left: 1.2rem; position: relative; }
+.ri-ul li::before { content: '—'; position: absolute; left: 0; color: var(--rose); }
+.ri-skills { display: flex; flex-direction: column; gap: .6rem; }
+.ri-skill-row { display: flex; gap: 1rem; align-items: baseline; }
+.ri-skill-cat { font-size: .6rem; color: var(--gold); letter-spacing: .08em; text-transform: uppercase; min-width: 155px; flex-shrink: 0; }
+.ri-skill-list { font-size: .75rem; color: var(--tan); line-height: 1.7; }
 
-  .overlay-links { display:flex; gap:1.2rem; flex-wrap:wrap; margin-top:1rem; }
+/* KEYFRAMES */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes floatGlow { 0%,100% { opacity: .55; transform: scale(1); } 50% { opacity: .8; transform: scale(1.1); } }
+@keyframes vizPulse { from { opacity: .5; transform: scaleY(.7); } to { opacity: 1; transform: scaleY(1); } }
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
 
-  /* ── SKILLS ── */
-  #skills { padding:7rem 10vw; background:rgba(0,0,0,.12); }
-  .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(212,184,150,.06); border:1px solid rgba(212,184,150,.08); margin-top:3rem; }
-  .skill-card { padding:2.4rem 2.2rem; background:rgba(45,8,8,.78); position:relative; overflow:hidden; transition:background .35s; cursor:default; }
-  .skill-card::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 0%, rgba(139,26,26,.4), transparent 70%); opacity:0; transition:opacity .4s; }
-  .skill-card:hover { background:rgba(75,12,12,.85); }
-  .skill-card:hover::after { opacity:1; }
-  .skill-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.3rem; }
-  .skill-name { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:400; color:var(--gold); letter-spacing:.02em; }
-  .skill-icon { font-size:1rem; opacity:.35; transition:opacity .3s; position:relative; z-index:1; }
-  .skill-card:hover .skill-icon { opacity:.65; }
-  .skill-tags { display:flex; flex-wrap:wrap; gap:.45rem; position:relative; z-index:1; }
-  .skill-tag { font-size:.62rem; letter-spacing:.05em; padding:.32rem .8rem; background:rgba(61,10,10,.85); border:1px solid rgba(212,184,150,.16); color:var(--tan); border-radius:3px; transition:background .2s, border-color .2s, color .2s; }
-  .skill-card:hover .skill-tag { background:rgba(92,16,16,.7); border-color:rgba(201,169,110,.32); color:var(--parchment); }
-
-  /* ── EXPERIENCE ── */
-  #experience { padding:7rem 10vw; }
-  .timeline { position:relative; margin-top:3rem; }
-  .timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px; background:linear-gradient(to bottom, transparent, var(--crimson) 10%, var(--crimson) 90%, transparent); }
-  .exp-item { padding:0 0 3.5rem 3rem; position:relative; opacity:0; transform:translateX(-20px); transition:opacity .5s, transform .5s; }
-  .exp-item.visible { opacity:1; transform:translateX(0); }
-  .exp-dot { position:absolute; left:-5px; top:6px; width:11px; height:11px; border-radius:50%; background:var(--maroon); border:2px solid var(--crimson); transition:background .3s, border-color .3s, box-shadow .3s; }
-  .exp-item:hover .exp-dot { background:var(--gold); border-color:var(--gold); box-shadow:0 0 16px rgba(201,169,110,.6); }
-  .exp-meta { font-size:.6rem; letter-spacing:.15em; color:var(--rose); margin-bottom:.5rem; text-transform:uppercase; }
-  .exp-title { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:400; color:var(--parchment); margin-bottom:.25rem; }
-  .exp-company { font-size:.75rem; color:var(--gold); margin-bottom:1rem; }
-  .exp-bullets { list-style:none; }
-  .exp-bullets li { font-size:.8rem; line-height:1.75; color:var(--tan); padding-left:1.2rem; position:relative; margin-bottom:.4rem; }
-  .exp-bullets li::before { content:'—'; position:absolute; left:0; color:var(--rose); font-size:.7rem; }
-
-  /* ── CONTACT ── */
-  #contact { padding:8rem 10vw 6rem; text-align:center; position:relative; }
-  #contact::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:1px; height:80px; background:linear-gradient(to bottom, transparent, var(--crimson)); }
-  .contact-intro { font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--rose); margin-bottom:1.5rem; }
-  h2.contact-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,6vw,5rem); font-weight:300; color:var(--parchment); margin-bottom:1.5rem; line-height:1.1; }
-  h2.contact-title em { color:var(--gold); font-style:italic; }
-  .contact-body { font-size:.85rem; color:var(--muted); max-width:480px; margin:0 auto 3.5rem; line-height:1.9; }
-  .contact-links { display:flex; justify-content:center; flex-wrap:wrap; gap:1.5rem; }
-  .contact-link { display:flex; align-items:center; gap:.8rem; padding:1.2rem 2rem; border:1px solid rgba(212,184,150,.15); color:var(--tan); text-decoration:none; transition:border-color .3s, color .3s, box-shadow .3s, background .3s; min-width:200px; }
-  .contact-link:hover { border-color:var(--gold); color:var(--parchment); background:rgba(201,169,110,.07); box-shadow:0 0 25px var(--glow2); }
-  .contact-link-icon { font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:var(--gold); min-width:1.5rem; }
-  .contact-link-text { text-align:left; }
-  .contact-link-label { font-size:.58rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin-bottom:.15rem; }
-  .contact-link-value { font-size:.8rem; }
-
-  /* ── FOOTER ── */
-  footer { padding:2.5rem 10vw; border-top:1px solid rgba(212,184,150,.08); display:flex; justify-content:space-between; align-items:center; font-size:.62rem; letter-spacing:.1em; color:rgba(158,123,101,.5); position:relative; z-index:2; flex-wrap:wrap; gap:1rem; }
-  .footer-quote { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.85rem; color:rgba(212,184,150,.3); max-width:420px; }
-
-  /* ── RESUME MODAL ── */
-  #resume-modal { position:fixed; inset:0; z-index:2000; background:rgba(18,3,3,.93); backdrop-filter:blur(10px); display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s; }
-  #resume-modal.open { opacity:1; pointer-events:all; }
-  .modal-toolbar { display:flex; align-items:center; gap:.8rem; margin-bottom:1.2rem; width:min(860px,90vw); flex-wrap:wrap; }
-  .modal-title { font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--parchment); letter-spacing:.1em; flex:1; }
-  .zoom-btn { width:32px; height:32px; border:1px solid rgba(212,184,150,.22); background:rgba(61,10,10,.7); color:var(--gold); font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s, border-color .2s; }
-  .zoom-btn:hover { background:rgba(139,26,26,.6); border-color:var(--rose); }
-  .modal-close-btn { padding:.35rem 1rem; border:1px solid rgba(192,57,43,.5); background:rgba(139,26,26,.4); color:var(--tan); font-family:'DM Mono',monospace; font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; transition:background .2s, color .2s; }
-  .modal-close-btn:hover { background:var(--crimson); color:var(--parchment); }
-  .modal-download-btn { padding:.35rem 1rem; border:1px solid rgba(201,169,110,.35); background:rgba(201,169,110,.1); color:var(--gold); font-family:'DM Mono',monospace; font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; text-decoration:none; display:flex; align-items:center; gap:.4rem; transition:background .2s; }
-  .modal-download-btn:hover { background:rgba(201,169,110,.22); }
-  .pdf-viewport { width:min(860px,90vw); height:min(80vh,700px); border:1px solid rgba(212,184,150,.12); overflow:auto; background:#130202; }
-  .pdf-zoom-wrap { transform-origin:top left; transition:transform .25s; display:inline-block; min-width:100%; }
-  .pdf-zoom-wrap iframe { width:860px; height:1110px; border:none; display:block; }
-
-  /* ── KEYFRAMES ── */
-  @keyframes fadeUp { from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);} }
-  @keyframes floatGlow { 0%,100%{opacity:.55;transform:scale(1);}50%{opacity:.8;transform:scale(1.1);} }
-  @keyframes vizPulse { from{opacity:.5;transform:scaleY(.7);}to{opacity:1;transform:scaleY(1);} }
-  .reveal { opacity:0; transform:translateY(30px); transition:opacity .7s ease, transform .7s ease; }
-  .reveal.visible { opacity:1; transform:translateY(0); }
-
-  @media(max-width:1000px){.skills-grid{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:900px){.projects-grid{grid-template-columns:1fr;}.spotify-demo{grid-template-columns:1fr;}.overlay-inner{padding:5rem 2rem 4rem;}}
-  @media(max-width:650px){.skills-grid{grid-template-columns:1fr;}nav ul{display:none;}.re-listings{grid-template-columns:1fr;}}
+@media (max-width: 900px) {
+  .projects-grid { grid-template-columns: 1fr; }
+  .spotify-demo { grid-template-columns: 1fr; }
+  .overlay-inner { padding: 5rem 2rem 4rem; }
+  .resume-card { padding: 2rem 1.5rem; }
+}
+@media (max-width: 650px) {
+  .skills-grid { grid-template-columns: 1fr; }
+  .cert-grid { grid-template-columns: 1fr; }
+  nav ul { display: none; }
+  .re-listings { grid-template-columns: 1fr; }
+  .ri-skill-row { flex-direction: column; gap: .2rem; }
+  .ri-skill-cat { min-width: unset; }
+}
 </style>
 </head>
 <body>
 
-<!-- CURSORS -->
 <div id="cursor-cross"></div>
 <div id="cursor-dot"></div>
-
-<!-- BG CANVAS -->
 <canvas id="bg-canvas"></canvas>
-
-<!-- AMBIENT GLOWS -->
 <div class="bg-glow bg-glow-1"></div>
 <div class="bg-glow bg-glow-2"></div>
 <div class="bg-glow bg-glow-3"></div>
 
 <!-- RESUME MODAL -->
-<div id="resume-modal" role="dialog" aria-modal="true">
+<div id="resume-modal">
   <div class="modal-toolbar">
     <span class="modal-title">Sharon Kodali — Résumé</span>
-    <button class="zoom-btn" id="zoom-out">−</button>
-    <button class="zoom-btn" id="zoom-reset">⊙</button>
-    <button class="zoom-btn" id="zoom-in">+</button>
-    <a href="https://sharonkodali.github.io/SharonKodaliPortfolio/RESUME-SharonKodali.pdf" download class="modal-download-btn">↓ Download</a>
+    <a href="https://sharonkodali.github.io/SharonKodaliPortfolio/RESUME-SharonKodali.pdf" download class="modal-download-btn">↓ Download PDF</a>
     <button class="modal-close-btn" id="modal-close">✕ Close</button>
   </div>
-  <div class="pdf-viewport">
-    <div class="pdf-zoom-wrap" id="pdf-zoom-wrap">
-      <iframe src="https://sharonkodali.github.io/SharonKodaliPortfolio/RESUME-SharonKodali.pdf#toolbar=0&navpanes=0" title="Sharon Kodali Resume"></iframe>
+  <div class="resume-card">
+    <div class="ri-name">Sharon Kodali</div>
+    <div class="ri-contact">
+      San Diego, CA &nbsp;·&nbsp; spkodali@ucsd.edu &nbsp;·&nbsp; (858) 733-1391 &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/sharon-kodali-165729235/" target="_blank">LinkedIn</a>
+    </div>
+    <div class="ri-section">
+      <div class="ri-section-title">Education</div>
+      <div class="ri-item">
+        <div class="ri-row">
+          <span class="ri-job-title">University of California – San Diego</span>
+          <span class="ri-date">GPA: 4.0</span>
+        </div>
+        <div class="ri-org">B.S. Mathematics–Computer Science &nbsp;·&nbsp; Minor: Cognitive Science (Machine Learning)</div>
+        <div class="ri-note">Relevant Coursework: CSE 11, COGS 18, COGS 108 (Data Science in Practice), MATH 18 (Linear Algebra), MATH 20C (Multivariable Calculus)</div>
+      </div>
+    </div>
+    <div class="ri-section">
+      <div class="ri-section-title">Professional Experience</div>
+      <div class="ri-item">
+        <div class="ri-row"><span class="ri-job-title">Lead Research Intern</span><span class="ri-date">2023 – 2025</span></div>
+        <div class="ri-org">UCSD Institute of Engineering in Medicine · San Diego, CA</div>
+        <ul class="ri-ul">
+          <li>Led a multi-year biomedical imaging initiative analyzing 500+ DRG neuron microscopy images using Python, MATLAB, and ImageJ.</li>
+          <li>Designed and automated end-to-end image processing pipelines, reducing manual analysis time by ~60%.</li>
+          <li>Authored and presented technical analyses contributing to 2 peer-reviewed abstracts at the BMES Annual Conference.</li>
+        </ul>
+      </div>
+      <div class="ri-item">
+        <div class="ri-row"><span class="ri-job-title">Research Intern</span><span class="ri-date">Jun 2024 – Jan 2025</span></div>
+        <div class="ri-org">San Diego Supercomputer Center (SDSC) · San Diego, CA</div>
+        <ul class="ri-ul">
+          <li>Conducted applied computational research to improve accessibility of ML workflows on HPC systems.</li>
+          <li>Developed an AI training catalog for the ICICLE initiative with tutorials, Jupyter notebooks, and technical documentation.</li>
+          <li>Executed performance benchmarking studies on parallel computing architectures.</li>
+        </ul>
+      </div>
+      <div class="ri-item">
+        <div class="ri-row"><span class="ri-job-title">Project Manager and Developer</span><span class="ri-date">Nov 2024 – Jun 2025</span></div>
+        <div class="ri-org">Open Coding Society · San Diego, CA</div>
+        <ul class="ri-ul">
+          <li>Developed a full-stack Digital Bathroom Pass system deployed across all CS classes at Del Norte High School.</li>
+          <li>Built a Spring Boot + SQL backend for usage analytics and live queues per teacher.</li>
+          <li>Designed RESTful APIs and a responsive frontend; presented at Night at the Museum and CTE Expo.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ri-section">
+      <div class="ri-section-title">Leadership</div>
+      <div class="ri-item">
+        <div class="ri-row"><span class="ri-job-title">Leader in Training</span><span class="ri-date">2019 – 2025</span></div>
+        <div class="ri-org">AWANA, Maranatha Chapel · San Diego, CA</div>
+        <ul class="ri-ul">
+          <li>Mentored 6 elementary-aged students weekly with structured lessons and small-group discussions.</li>
+          <li>Selected as Master of Ceremonies, coordinating programs for 500+ students, parents, and staff.</li>
+        </ul>
+      </div>
+      <div class="ri-item">
+        <div class="ri-row"><span class="ri-job-title">Lead Math Instructor (K–12)</span><span class="ri-date">2021 – 2025</span></div>
+        <div class="ri-org">Mathnasium · San Diego, CA</div>
+        <ul class="ri-ul">
+          <li>Delivered individualized instruction from elementary math through Calculus; 4–5 concurrent students per shift.</li>
+          <li>Supported onboarding for a 10+ instructor team and contributed to scheduling and instructional consistency.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ri-section">
+      <div class="ri-section-title">Technical Skills</div>
+      <div class="ri-skills">
+        <div class="ri-skill-row"><span class="ri-skill-cat">Programming &amp; Systems</span><span class="ri-skill-list">Python · Java · MATLAB · C</span></div>
+        <div class="ri-skill-row"><span class="ri-skill-cat">Data &amp; ML</span><span class="ri-skill-list">NumPy · pandas · scikit-learn · statistical modeling · data visualization</span></div>
+        <div class="ri-skill-row"><span class="ri-skill-cat">Research &amp; Computing</span><span class="ri-skill-list">ImageJ · Jupyter Notebooks · parallel computing · high-performance computing</span></div>
+        <div class="ri-skill-row"><span class="ri-skill-cat">Tools &amp; Practices</span><span class="ri-skill-list">Git/GitHub · Agile/SCRUM · experiment documentation · technical writing</span></div>
+      </div>
     </div>
   </div>
 </div>
@@ -347,6 +416,7 @@
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#" class="nav-resume-btn" id="resume-open">Résumé</a></li>
   </ul>
@@ -355,11 +425,7 @@
 <!-- HERO -->
 <section id="hero">
   <h1 class="hero-name">Sharon<br><em>Kodali.</em></h1>
-  <p class="hero-tagline">
-    Mathematics–Computer Science student at UC San Diego,<br>
-    passionate about using data to solve real-world problems —<br>
-    from ML research to full-stack data applications.
-  </p>
+  <p class="hero-tagline">Mathematics–Computer Science student at UC San Diego,<br>passionate about using data to solve real-world problems —<br>from ML research to full-stack data applications.</p>
   <div class="hero-badges">
     <span class="badge">B.S. Mathematics–Computer Science</span>
     <span class="badge">Minor · Cognitive Science (ML)</span>
@@ -368,7 +434,7 @@
   <div class="hero-ctas">
     <a href="#projects" class="btn-primary"><span>View Projects</span></a>
     <a href="#contact" class="btn-ghost">Get In Touch</a>
-    <a href="#" class="btn-gold" id="resume-open-hero">Résumé</a>
+    <button class="btn-gold" id="resume-open-hero">Résumé</button>
   </div>
   <div class="ticker" aria-hidden="true">
     <div class="ticker-inner" id="ticker-inner"></div>
@@ -378,12 +444,78 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="reveal">
-    <div class="about-label">About</div>
+    <div class="section-label">About</div>
     <h2 class="section-title">A little about <em>me</em></h2>
     <div class="about-body">
       <p>Hi, I'm <strong>Sharon Kodali</strong> — a Mathematics–Computer Science student at UC San Diego (graduating 2029) with a minor in Cognitive Science focused on Machine Learning.</p>
       <p>I've done research at the <strong>UCSD Institute of Engineering in Medicine</strong> and the <strong>San Diego Supercomputer Center</strong>, where I built ML tools and contributed to peer-reviewed work. I care deeply about using data to create real impact.</p>
       <p>Whether it's analyzing microscopy images, building AI catalogs for researchers, or creating full-stack data applications — I love problems that require both technical rigor and creative thinking.</p>
+    </div>
+    <div class="degree-boxes">
+      <div class="degree-box">
+        <button class="degree-box-btn" onclick="toggleDegree('major')" aria-expanded="false">
+          <div class="degree-box-left">
+            <span class="degree-box-label">Major</span>
+            <span class="degree-box-name">Mathematics – Computer Science</span>
+          </div>
+          <div class="degree-box-right">
+            <span class="degree-box-school">UC San Diego</span>
+            <span class="degree-box-arrow" id="major-arrow">▾</span>
+          </div>
+        </button>
+        <div class="degree-courses" id="major-courses">
+          <div class="degree-courses-inner">
+            <div class="degree-courses-pad">
+              <div class="course-group">
+                <div class="course-group-title">Computer Science</div>
+                <div class="course-list">
+                  <div class="course-item"><span class="course-code">CSE 11</span><span class="course-name">Accelerated Introduction to Programming</span></div>
+                  <div class="course-item"><span class="course-code">CSE 12</span><span class="course-name">Basic Data Structures &amp; Object-Oriented Design</span></div>
+                  <div class="course-item"><span class="course-code">CSE 15L</span><span class="course-name">Software Tools &amp; Techniques Laboratory</span></div>
+                  <div class="course-item"><span class="course-code">CSE 20</span><span class="course-name">Discrete Mathematics</span></div>
+                </div>
+              </div>
+              <div class="course-group">
+                <div class="course-group-title">Mathematics</div>
+                <div class="course-list">
+                  <div class="course-item"><span class="course-code">MATH 18</span><span class="course-name">Linear Algebra</span></div>
+                  <div class="course-item"><span class="course-code">MATH 20A</span><span class="course-name">Calculus for Science &amp; Engineering I</span></div>
+                  <div class="course-item"><span class="course-code">MATH 20B</span><span class="course-name">Calculus for Science &amp; Engineering II</span></div>
+                  <div class="course-item"><span class="course-code">MATH 20C</span><span class="course-name">Multivariable Calculus</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="degree-box">
+        <button class="degree-box-btn" onclick="toggleDegree('minor')" aria-expanded="false">
+          <div class="degree-box-left">
+            <span class="degree-box-label">Minor</span>
+            <span class="degree-box-name">Cognitive Science <em style="font-style:italic;color:var(--gold);font-size:.82rem">(Machine Learning)</em></span>
+          </div>
+          <div class="degree-box-right">
+            <span class="degree-box-school">UC San Diego</span>
+            <span class="degree-box-arrow" id="minor-arrow">▾</span>
+          </div>
+        </button>
+        <div class="degree-courses" id="minor-courses">
+          <div class="degree-courses-inner">
+            <div class="degree-courses-pad">
+              <div class="course-group">
+                <div class="course-group-title">Cognitive Science &amp; Data</div>
+                <div class="course-list">
+                  <div class="course-item"><span class="course-code">COGS 9</span><span class="course-name">Introduction to Data Science</span></div>
+                  <div class="course-item"><span class="course-code">COGS 18</span><span class="course-name">Introduction to Python (Cognitive Science)</span></div>
+                  <div class="course-item"><span class="course-code">COGS 108</span><span class="course-name">Data Science in Practice</span></div>
+                  <div class="course-item"><span class="course-code">COGS 118A</span><span class="course-name">Supervised Machine Learning Algorithms</span></div>
+                  <div class="course-item"><span class="course-code">COGS 118B</span><span class="course-name">Introduction to Machine Learning II</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -391,11 +523,10 @@
 <!-- PROJECTS -->
 <section id="projects">
   <div class="reveal">
-    <div class="about-label">Work</div>
+    <div class="section-label">Work</div>
     <h2 class="section-title">Selected <em>Projects</em></h2>
   </div>
   <div class="projects-grid">
-
     <div class="project-card reveal" data-project="spotify">
       <div class="project-num">01</div>
       <div class="project-card-inner">
@@ -414,7 +545,6 @@
         </div>
       </div>
     </div>
-
     <div class="project-card reveal" data-project="realestate">
       <div class="project-num">02</div>
       <div class="project-card-inner">
@@ -433,40 +563,31 @@
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
 <!-- SKILLS -->
 <section id="skills">
   <div class="reveal">
-    <div class="about-label">Toolkit</div>
+    <div class="section-label">Toolkit</div>
     <h2 class="section-title">Skills <em>&amp; Tools</em></h2>
   </div>
   <div class="skills-grid">
     <div class="skill-card reveal">
-      <div class="skill-card-header"><div class="skill-name">Machine Learning</div><span class="skill-icon">⚙</span></div>
-      <div class="skill-tags"><span class="skill-tag">scikit-learn</span><span class="skill-tag">XGBoost</span><span class="skill-tag">Ridge Regression</span><span class="skill-tag">PCA</span><span class="skill-tag">LDA</span><span class="skill-tag">Transformers</span></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-card-header"><div class="skill-name">Data Science</div><span class="skill-icon">◈</span></div>
-      <div class="skill-tags"><span class="skill-tag">pandas</span><span class="skill-tag">NumPy</span><span class="skill-tag">Statistical Analysis</span><span class="skill-tag">Data Visualization</span><span class="skill-tag">Feature Engineering</span><span class="skill-tag">EDA</span></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-card-header"><div class="skill-name">Deep Learning</div><span class="skill-icon">◉</span></div>
-      <div class="skill-tags"><span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow</span><span class="skill-tag">Keras</span><span class="skill-tag">CNNs</span><span class="skill-tag">Neural Networks</span></div>
-    </div>
-    <div class="skill-card reveal">
       <div class="skill-card-header"><div class="skill-name">Programming</div><span class="skill-icon">〈/〉</span></div>
-      <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Java</span><span class="skill-tag">HTML/CSS</span></div>
+      <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">MATLAB</span><span class="skill-tag">C</span></div>
     </div>
     <div class="skill-card reveal">
-      <div class="skill-card-header"><div class="skill-name">Data Engineering</div><span class="skill-icon">⬡</span></div>
-      <div class="skill-tags"><span class="skill-tag">MySQL</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">ETL</span><span class="skill-tag">REST APIs</span><span class="skill-tag">Spring Boot</span><span class="skill-tag">Flask</span></div>
+      <div class="skill-card-header"><div class="skill-name">Data &amp; ML</div><span class="skill-icon">◈</span></div>
+      <div class="skill-tags"><span class="skill-tag">NumPy</span><span class="skill-tag">pandas</span><span class="skill-tag">scikit-learn</span><span class="skill-tag">Statistical Modeling</span><span class="skill-tag">Data Visualization</span></div>
     </div>
     <div class="skill-card reveal">
-      <div class="skill-card-header"><div class="skill-name">Tools &amp; Platforms</div><span class="skill-icon">◎</span></div>
-      <div class="skill-tags"><span class="skill-tag">Git/GitHub</span><span class="skill-tag">Linux HPC</span><span class="skill-tag">Jupyter</span><span class="skill-tag">Tableau</span><span class="skill-tag">MATLAB</span><span class="skill-tag">ImageJ</span></div>
+      <div class="skill-card-header"><div class="skill-name">Research &amp; Computing</div><span class="skill-icon">◉</span></div>
+      <div class="skill-tags"><span class="skill-tag">ImageJ</span><span class="skill-tag">Jupyter Notebooks</span><span class="skill-tag">Parallel Computing</span><span class="skill-tag">HPC Environments</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-header"><div class="skill-name">Tools &amp; Practices</div><span class="skill-icon">◎</span></div>
+      <div class="skill-tags"><span class="skill-tag">Git/GitHub</span><span class="skill-tag">Agile/SCRUM</span><span class="skill-tag">Experiment Documentation</span><span class="skill-tag">Technical Writing</span></div>
     </div>
   </div>
 </section>
@@ -474,28 +595,29 @@
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="reveal">
-    <div class="about-label">Experience</div>
+    <div class="section-label">Experience</div>
     <h2 class="section-title">Work <em>History</em></h2>
   </div>
   <div class="timeline">
     <div class="exp-item">
       <div class="exp-dot"></div>
-      <div class="exp-meta">2024 – 2025 · San Diego, CA</div>
+      <div class="exp-meta">2023 – 2025 · San Diego, CA</div>
       <div class="exp-title">Lead Research Intern</div>
       <div class="exp-company">UCSD Institute of Engineering in Medicine</div>
       <ul class="exp-bullets">
-        <li>Led a 5-person team analyzing 500+ DRG neuron microscopy images using Python, MATLAB, and ImageJ.</li>
-        <li>Authored analyses contributing to 2 peer-reviewed abstracts at the Biomedical Engineering Society (BMES).</li>
+        <li>Led a multi-year biomedical imaging initiative analyzing 500+ DRG neuron microscopy images using Python, MATLAB, and ImageJ.</li>
+        <li>Automated end-to-end processing pipelines, reducing manual analysis time by ~60%.</li>
+        <li>Authored analyses contributing to 2 peer-reviewed abstracts at the BMES Annual Conference.</li>
       </ul>
     </div>
     <div class="exp-item">
       <div class="exp-dot"></div>
-      <div class="exp-meta">Jun 2024 – Aug 2024 · San Diego, CA</div>
+      <div class="exp-meta">Jun 2024 – Jan 2025 · San Diego, CA</div>
       <div class="exp-title">Research Intern</div>
       <div class="exp-company">San Diego Supercomputer Center (SDSC)</div>
       <ul class="exp-bullets">
-        <li>Built an AI training catalog using Python, Jupyter, and Linux HPC systems for 100+ researchers.</li>
-        <li>Performed benchmarking and runtime analysis across supercomputing clusters.</li>
+        <li>Built an AI training catalog for the ICICLE initiative using Python, Jupyter, and Linux HPC systems.</li>
+        <li>Performed benchmarking and runtime analysis across national supercomputing clusters.</li>
       </ul>
     </div>
     <div class="exp-item">
@@ -504,18 +626,53 @@
       <div class="exp-title">Project Manager &amp; Developer</div>
       <div class="exp-company">Open Coding Society</div>
       <ul class="exp-bullets">
-        <li>Led Agile development with Git/GitHub workflows across multiple campuses.</li>
-        <li>Built a full-stack task management system using Spring Boot, SQL, and REST APIs.</li>
+        <li>Built a full-stack Digital Bathroom Pass system deployed across all CS classes at Del Norte High School.</li>
+        <li>Spring Boot + SQL backend; RESTful APIs and responsive frontend; presented at Night at the Museum &amp; CTE Expo.</li>
       </ul>
     </div>
     <div class="exp-item">
       <div class="exp-dot"></div>
-      <div class="exp-meta">2023 – 2025 · San Diego, CA</div>
-      <div class="exp-title">Lead Math Instructor</div>
+      <div class="exp-meta">2021 – 2025 · San Diego, CA</div>
+      <div class="exp-title">Lead Math Instructor (K–12)</div>
       <div class="exp-company">Mathnasium</div>
       <ul class="exp-bullets">
-        <li>Taught K–12 math from Pre-Algebra to Calculus; mentored a 10+ instructor team.</li>
+        <li>Individualized instruction from elementary math through Calculus; 4–5 concurrent students per shift.</li>
+        <li>Supported onboarding for 10+ instructor team; scheduling and instructional consistency.</li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="reveal">
+    <div class="section-label">Credentials</div>
+    <h2 class="section-title">Certifi<em>cations</em></h2>
+  </div>
+  <div class="cert-grid reveal">
+    <div class="cert-card">
+      <div class="cert-icon">◈</div>
+      <div class="cert-name">Certification Name</div>
+      <div class="cert-issuer">Issuing Organization</div>
+      <div class="cert-status">Coming soon</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">◈</div>
+      <div class="cert-name">Certification Name</div>
+      <div class="cert-issuer">Issuing Organization</div>
+      <div class="cert-status">Coming soon</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">◈</div>
+      <div class="cert-name">Certification Name</div>
+      <div class="cert-issuer">Issuing Organization</div>
+      <div class="cert-status">Coming soon</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">◈</div>
+      <div class="cert-name">Certification Name</div>
+      <div class="cert-issuer">Issuing Organization</div>
+      <div class="cert-status">Coming soon</div>
     </div>
   </div>
 </section>
@@ -534,325 +691,143 @@
       <span class="contact-link-icon">GH</span>
       <div class="contact-link-text"><div class="contact-link-label">GitHub</div><div class="contact-link-value">@sharonkodali</div></div>
     </a>
-    <a href="#" class="contact-link">
+    <a href="https://www.linkedin.com/in/sharon-kodali-165729235/" target="_blank" class="contact-link">
       <span class="contact-link-icon">in</span>
-      <div class="contact-link-text"><div class="contact-link-label">LinkedIn</div><div class="contact-link-value">Connect with me</div></div>
+      <div class="contact-link-text"><div class="contact-link-label">LinkedIn</div><div class="contact-link-value">Sharon Kodali</div></div>
     </a>
   </div>
 </section>
 
 <footer>
   <span>© 2025 Sharon Kodali</span>
-  <span class="footer-quote">"The goal is to turn data into information, and information into insight."</span>
-  <span>Hosted on GitHub Pages</span>
+  <span>San Diego, CA</span>
+  <span>UC San Diego</span>
 </footer>
 
 <script>
-/* ══════════════════════════════════════
-   DYNAMIC BACKGROUND CANVAS
-   Slow-drifting ember particles + subtle vein lines
-══════════════════════════════════════ */
+// BG CANVAS
 (function(){
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H;
+  var canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d'), W, H;
   function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  resize(); window.addEventListener('resize', resize);
-
-  // Particles
-  const NUM = 55;
-  const particles = Array.from({length: NUM}, () => ({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    r: Math.random() * 1.8 + .3,
-    vx: (Math.random() - .5) * .22,
-    vy: (Math.random() - .5) * .18,
-    alpha: Math.random() * .35 + .05,
-    hue: Math.random() > .7 ? 'gold' : 'rose',
-  }));
-
-  // Vein nodes (static-ish slow-moving)
-  const VEINS = 6;
-  const veins = Array.from({length: VEINS}, () => ({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    vx: (Math.random() - .5) * .08,
-    vy: (Math.random() - .5) * .08,
-  }));
-
+  resize();
+  window.addEventListener('resize', resize);
+  var particles = [];
+  for(var i = 0; i < 55; i++){
+    particles.push({ x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, r: Math.random()*1.8+.3, vx: (Math.random()-.5)*.22, vy: (Math.random()-.5)*.18, alpha: Math.random()*.35+.05, hue: Math.random()>.7 ? 'gold' : 'rose' });
+  }
+  var veins = [];
+  for(var j = 0; j < 6; j++){
+    veins.push({ x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, vx: (Math.random()-.5)*.08, vy: (Math.random()-.5)*.08 });
+  }
   function draw(){
     ctx.clearRect(0,0,W,H);
-
-    // draw faint vein lines between nearby vein nodes
-    for(let i=0;i<veins.length;i++){
-      for(let j=i+1;j<veins.length;j++){
-        const dx=veins[i].x-veins[j].x, dy=veins[i].y-veins[j].y;
-        const d=Math.sqrt(dx*dx+dy*dy);
-        if(d<340){
-          const alpha = (1-d/340)*.04;
-          ctx.beginPath();
-          ctx.moveTo(veins[i].x, veins[i].y);
-          ctx.lineTo(veins[j].x, veins[j].y);
-          ctx.strokeStyle = `rgba(139,26,26,${alpha})`;
-          ctx.lineWidth = .6;
-          ctx.stroke();
-        }
+    for(var a = 0; a < veins.length; a++){
+      for(var b = a+1; b < veins.length; b++){
+        var dx = veins[a].x - veins[b].x, dy = veins[a].y - veins[b].y, d = Math.sqrt(dx*dx+dy*dy);
+        if(d < 340){ ctx.beginPath(); ctx.moveTo(veins[a].x,veins[a].y); ctx.lineTo(veins[b].x,veins[b].y); ctx.strokeStyle = 'rgba(139,26,26,'+(1-d/340)*.04+')'; ctx.lineWidth = .6; ctx.stroke(); }
       }
     }
-
-    // draw particles
-    particles.forEach(p => {
-      const color = p.hue === 'gold'
-        ? `rgba(201,169,110,${p.alpha})`
-        : `rgba(192,57,43,${p.alpha})`;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-      ctx.fillStyle = color;
-      ctx.shadowBlur = p.hue==='gold' ? 8 : 5;
-      ctx.shadowColor = color;
-      ctx.fill();
-      ctx.shadowBlur = 0;
-
-      // move
+    particles.forEach(function(p){
+      var c = p.hue === 'gold' ? 'rgba(201,169,110,'+p.alpha+')' : 'rgba(192,57,43,'+p.alpha+')';
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle = c; ctx.fill();
       p.x += p.vx; p.y += p.vy;
-      if(p.x<-10) p.x=W+10;
-      if(p.x>W+10) p.x=-10;
-      if(p.y<-10) p.y=H+10;
-      if(p.y>H+10) p.y=-10;
+      if(p.x < -10) p.x = W+10; if(p.x > W+10) p.x = -10;
+      if(p.y < -10) p.y = H+10; if(p.y > H+10) p.y = -10;
     });
-
-    // move veins
-    veins.forEach(v => {
-      v.x += v.vx; v.y += v.vy;
-      if(v.x<0||v.x>W) v.vx*=-1;
-      if(v.y<0||v.y>H) v.vy*=-1;
-    });
-
+    veins.forEach(function(v){ v.x += v.vx; v.y += v.vy; if(v.x<0||v.x>W) v.vx*=-1; if(v.y<0||v.y>H) v.vy*=-1; });
     requestAnimationFrame(draw);
   }
   draw();
 })();
 
-/* ══════════════════════════════════════
-   CROSSHAIR CURSOR
-══════════════════════════════════════ */
-const cross = document.getElementById('cursor-cross');
-const dot   = document.getElementById('cursor-dot');
-let mx=0, my=0, cx=0, cy=0;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-(function moveCursor(){
-  cx += (mx-cx)*.25; cy += (my-cy)*.25;
-  cross.style.left = mx+'px'; cross.style.top = my+'px';
-  dot.style.left   = mx+'px'; dot.style.top   = my+'px';
-  requestAnimationFrame(moveCursor);
-})();
+// CURSOR
+var cross = document.getElementById('cursor-cross'), dot = document.getElementById('cursor-dot'), mx = 0, my = 0;
+document.addEventListener('mousemove', function(e){ mx = e.clientX; my = e.clientY; });
+(function tick(){ cross.style.left = mx+'px'; cross.style.top = my+'px'; dot.style.left = mx+'px'; dot.style.top = my+'px'; requestAnimationFrame(tick); })();
 
-/* ══════════════════════════════════════
-   TICKER
-══════════════════════════════════════ */
-const tickerEl = document.getElementById('ticker-inner');
-const unit = '<span class="ticker-item">Sharon Kodali</span><span class="ticker-sep">✦</span>';
+// TICKER
+var tickerEl = document.getElementById('ticker-inner');
+var unit = '<span class="ticker-item">Sharon Kodali</span><span class="ticker-sep">✦</span>';
 tickerEl.innerHTML = unit.repeat(20) + unit.repeat(20);
-const styleEl = document.createElement('style');
-styleEl.textContent = '@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}';
-document.head.appendChild(styleEl);
-requestAnimationFrame(()=>{
-  const dur = (tickerEl.scrollWidth/2)/75;
-  tickerEl.style.animation = `ticker ${dur}s linear infinite`;
-});
+var sEl = document.createElement('style');
+sEl.textContent = '@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}';
+document.head.appendChild(sEl);
+requestAnimationFrame(function(){ var dur = (tickerEl.scrollWidth/2)/75; tickerEl.style.animation = 'ticker '+dur+'s linear infinite'; });
 
-/* ══════════════════════════════════════
-   SCROLL REVEAL
-══════════════════════════════════════ */
-const obs = new IntersectionObserver((entries)=>{
-  entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*70); obs.unobserve(e.target); } });
-},{threshold:.1, rootMargin:'0px 0px -50px 0px'});
-document.querySelectorAll('.reveal,.exp-item').forEach(el=>obs.observe(el));
-document.querySelectorAll('.exp-item').forEach((el,i)=>{ el.style.transitionDelay=(i*.12)+'s'; });
+// SCROLL REVEAL
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e, i){
+    if(e.isIntersecting){ setTimeout(function(){ e.target.classList.add('visible'); }, i*70); obs.unobserve(e.target); }
+  });
+}, { threshold: .1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal, .exp-item').forEach(function(el){ obs.observe(el); });
+document.querySelectorAll('.exp-item').forEach(function(el, i){ el.style.transitionDelay = (i*.12)+'s'; });
 
-/* ══════════════════════════════════════
-   RESUME MODAL
-══════════════════════════════════════ */
-const resumeModal = document.getElementById('resume-modal');
-const zoomWrap    = document.getElementById('pdf-zoom-wrap');
-let zoom = 1;
-function setZoom(z){ zoom=Math.min(2.5,Math.max(.5,z)); zoomWrap.style.transform=`scale(${zoom})`; }
-function openResume(e){ e.preventDefault(); resumeModal.classList.add('open'); document.body.style.overflow='hidden'; }
-function closeResume(){ resumeModal.classList.remove('open'); document.body.style.overflow=''; }
+// RESUME MODAL
+var resumeModal = document.getElementById('resume-modal');
+function openResume(e){ e.preventDefault(); resumeModal.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeResume(){ resumeModal.classList.remove('open'); document.body.style.overflow = ''; }
 document.getElementById('resume-open').addEventListener('click', openResume);
 document.getElementById('resume-open-hero').addEventListener('click', openResume);
 document.getElementById('modal-close').addEventListener('click', closeResume);
-resumeModal.addEventListener('click', e=>{ if(e.target===resumeModal) closeResume(); });
-document.getElementById('zoom-in').addEventListener('click', ()=>setZoom(zoom+.2));
-document.getElementById('zoom-out').addEventListener('click', ()=>setZoom(zoom-.2));
-document.getElementById('zoom-reset').addEventListener('click', ()=>setZoom(1));
+resumeModal.addEventListener('click', function(e){ if(e.target === resumeModal) closeResume(); });
 
-/* ══════════════════════════════════════
-   PROJECT OVERLAY DATA
-══════════════════════════════════════ */
-const projects = {
+// DEGREE ACCORDION
+function toggleDegree(key){
+  var courses = document.getElementById(key+'-courses');
+  var arrow = document.getElementById(key+'-arrow');
+  var btn = courses.previousElementSibling;
+  var isOpen = courses.classList.contains('open');
+  courses.classList.toggle('open', !isOpen);
+  arrow.classList.toggle('open', !isOpen);
+  btn.setAttribute('aria-expanded', String(!isOpen));
+}
+
+// PROJECT OVERLAY
+var projects = {
   spotify: {
     eyebrow: 'Jan 2026 – Present',
     title: 'Spotify Visual<br><em>Art Generator</em>',
     tech: ['Python','Flask','scikit-learn','NumPy','pandas','Spotify API','JavaScript'],
-    overview: `<p>A full-stack ML application that connects to the Spotify Web API, pulls audio feature vectors from a user's playlists, and uses a trained classification model to infer the "vibe" — then generates a corresponding piece of generative visual art in real time.</p>
-    <p>The system analyzes features like <strong>energy, valence, danceability, tempo, and acousticness</strong> across 1,000+ tracks using a scikit-learn pipeline with preprocessing, dimensionality reduction, and classification layers.</p>`,
-    features: [
-      'Spotify OAuth integration for real-time playlist access',
-      'scikit-learn ML pipeline: StandardScaler → PCA → KNN/SVM classifier',
-      '6 vibe categories: Melancholic, Euphoric, Focused, Chill, Hype, Dreamy',
-      'Generative canvas art driven by the classified audio features',
-      'Flask REST API backend with JavaScript frontend',
-      'Batch processing of 1,000+ audio vectors per session',
-    ],
-    demoHTML: `
-      <div class="spotify-demo">
-        <div class="spotify-player">
-          <div class="sp-cover">🎵</div>
-          <div class="sp-track">Late Night Drive</div>
-          <div class="sp-artist">Indie Chill Playlist · 47 tracks</div>
-          <div class="sp-bar"><div class="sp-bar-fill"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:.58rem;color:var(--muted)"><span>2:14</span><span>4:02</span></div>
-          <div class="sp-controls">
-            <span>⏮</span><span class="sp-play">▶</span><span>⏭</span>
-          </div>
-        </div>
-        <div class="spotify-viz">
-          <div class="viz-label">Audio Feature Analysis</div>
-          <div class="viz-bars">
-            ${[90,55,72,40,85,60,78,45,92,50,68,80,35,70,88].map((h,i)=>`<div class="viz-bar" style="height:${h}%;animation-delay:${i*.1}s"></div>`).join('')}
-          </div>
-          <div class="viz-features" style="margin-top:1.5rem">
-            <div class="viz-feat-row"><span class="viz-feat-label">Energy</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:82%;background:var(--rose)"></div></div></div>
-            <div class="viz-feat-row"><span class="viz-feat-label">Valence</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:45%;background:var(--gold)"></div></div></div>
-            <div class="viz-feat-row"><span class="viz-feat-label">Danceability</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:67%;background:var(--ember)"></div></div></div>
-            <div class="viz-feat-row"><span class="viz-feat-label">Acousticness</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:30%;background:var(--muted)"></div></div></div>
-          </div>
-          <div class="vibe-badge">✦ Classified Vibe: Melancholic</div>
-        </div>
-      </div>`,
+    overview: '<p>A full-stack ML application that connects to the Spotify Web API, pulls audio feature vectors from playlists, and uses a trained classification model to infer the "vibe" — then generates generative visual art in real time.</p><p>Analyzes features like <strong>energy, valence, danceability, tempo, and acousticness</strong> across 1,000+ tracks using a scikit-learn pipeline with preprocessing, dimensionality reduction, and classification.</p>',
+    features: ['Spotify OAuth integration for real-time playlist access','scikit-learn pipeline: StandardScaler → PCA → KNN/SVM classifier','6 vibe categories: Melancholic, Euphoric, Focused, Chill, Hype, Dreamy','Generative canvas art driven by classified audio features','Flask REST API backend with JavaScript frontend','Batch processing of 1,000+ audio vectors per session'],
     urlBar: 'localhost:5000/analyze',
+    demoHTML: '<div class="spotify-demo"><div class="spotify-player"><div class="sp-cover">🎵</div><div class="sp-track">Late Night Drive</div><div class="sp-artist">Indie Chill Playlist · 47 tracks</div><div class="sp-bar"><div class="sp-bar-fill"></div></div><div style="display:flex;justify-content:space-between;font-size:.58rem;color:var(--muted)"><span>2:14</span><span>4:02</span></div><div class="sp-controls"><span>⏮</span><span class="sp-play">▶</span><span>⏭</span></div></div><div class="spotify-viz"><div class="viz-label">Audio Feature Analysis</div><div class="viz-bars"><div class="viz-bar" style="height:90%"></div><div class="viz-bar" style="height:55%;animation-delay:.1s"></div><div class="viz-bar" style="height:72%;animation-delay:.2s"></div><div class="viz-bar" style="height:40%;animation-delay:.3s"></div><div class="viz-bar" style="height:85%;animation-delay:.4s"></div><div class="viz-bar" style="height:60%;animation-delay:.5s"></div><div class="viz-bar" style="height:78%;animation-delay:.6s"></div><div class="viz-bar" style="height:45%;animation-delay:.7s"></div><div class="viz-bar" style="height:92%;animation-delay:.8s"></div><div class="viz-bar" style="height:50%;animation-delay:.9s"></div></div><div class="viz-features" style="margin-top:1.5rem"><div class="viz-feat-row"><span class="viz-feat-label">Energy</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:82%;background:var(--rose)"></div></div></div><div class="viz-feat-row"><span class="viz-feat-label">Valence</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:45%;background:var(--gold)"></div></div></div><div class="viz-feat-row"><span class="viz-feat-label">Danceability</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:67%;background:var(--ember)"></div></div></div><div class="viz-feat-row"><span class="viz-feat-label">Acousticness</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:30%;background:var(--muted)"></div></div></div></div><div class="vibe-badge">✦ Classified Vibe: Melancholic</div></div></div>'
   },
   realestate: {
     eyebrow: 'Oct 2025 – Nov 2025',
     title: 'California Real Estate<br><em>Intelligence Tracker</em>',
     tech: ['Python','Flask','MySQL','Google Maps API','Pandas','HTML/CSS','JavaScript'],
-    overview: `<p>A full-stack data platform that aggregates over <strong>5,000 Zillow listings</strong> across California, stores them in an indexed SQL database, and surfaces them through an interactive map-based interface with smart filtering.</p>
-    <p>Users can filter properties by price range, estimated ROI, square footage, and proximity radius — all rendered in real time on a Google Maps overlay with color-coded pins.</p>`,
-    features: [
-      '5,000+ Zillow listings scraped and normalized into MySQL',
-      'Google Maps API integration with dynamic pin rendering',
-      'ROI estimation engine based on rental yield data',
-      'Multi-filter UI: price, ROI, sqft, bedrooms, location radius',
-      'Flask REST API with indexed SQL queries for fast response',
-      'Responsive frontend with map + listing card split view',
-    ],
-    demoHTML: `
-      <div class="realestate-demo">
-        <div class="re-map">
-          <div class="re-map-grid"></div>
-          <div class="re-pin re-pin-gold" style="left:28%;top:35%"></div>
-          <div class="re-pin re-pin-gold" style="left:45%;top:55%"></div>
-          <div class="re-pin re-pin-red"  style="left:62%;top:30%"></div>
-          <div class="re-pin re-pin-red"  style="left:38%;top:70%"></div>
-          <div class="re-pin re-pin-gold" style="left:72%;top:60%"></div>
-          <div class="re-pin re-pin-red"  style="left:20%;top:55%"></div>
-          <div class="re-pin re-pin-gold" style="left:55%;top:42%"></div>
-          <div class="re-pin re-pin-red"  style="left:80%;top:45%"></div>
-          <div style="position:absolute;bottom:.8rem;left:1rem;font-size:.55rem;color:rgba(212,184,150,.4);letter-spacing:.1em">CALIFORNIA · 5,247 LISTINGS</div>
-        </div>
-        <div class="re-legend">
-          <div class="re-legend-item"><div class="re-legend-dot" style="background:var(--gold)"></div> High ROI (&gt;6%)</div>
-          <div class="re-legend-item"><div class="re-legend-dot" style="background:var(--rose)"></div> Standard ROI</div>
-        </div>
-        <div class="re-listings">
-          <div class="re-card">
-            <div class="re-price">$849,000</div>
-            <div class="re-loc">San Diego, CA · 3bd 2ba</div>
-            <div class="re-roi">↑ ROI est. 7.2%</div>
-          </div>
-          <div class="re-card">
-            <div class="re-price">$1,200,000</div>
-            <div class="re-loc">Los Angeles, CA · 4bd 3ba</div>
-            <div class="re-roi" style="color:var(--muted)">ROI est. 4.1%</div>
-          </div>
-          <div class="re-card">
-            <div class="re-price">$620,000</div>
-            <div class="re-loc">Sacramento, CA · 3bd 2ba</div>
-            <div class="re-roi">↑ ROI est. 6.8%</div>
-          </div>
-          <div class="re-card">
-            <div class="re-price">$975,000</div>
-            <div class="re-loc">San Jose, CA · 4bd 2ba</div>
-            <div class="re-roi" style="color:var(--muted)">ROI est. 3.9%</div>
-          </div>
-        </div>
-      </div>`,
+    overview: '<p>A full-stack data platform aggregating over <strong>5,000 Zillow listings</strong> across California, stored in an indexed SQL database and surfaced through an interactive map-based interface with smart filtering.</p><p>Users filter by price range, estimated ROI, square footage, and proximity radius — rendered in real time on a Google Maps overlay with color-coded pins.</p>',
+    features: ['5,000+ Zillow listings scraped and normalized into MySQL','Google Maps API integration with dynamic pin rendering','ROI estimation engine based on rental yield data','Multi-filter UI: price, ROI, sqft, bedrooms, location radius','Flask REST API with indexed SQL queries for fast response','Responsive frontend with map + listing card split view'],
     urlBar: 'localhost:5000/map?filter=roi&min=6&radius=25mi',
-  },
+    demoHTML: '<div class="realestate-demo"><div class="re-map"><div class="re-map-grid"></div><div class="re-pin re-pin-gold" style="left:28%;top:35%"></div><div class="re-pin re-pin-gold" style="left:45%;top:55%"></div><div class="re-pin re-pin-red" style="left:62%;top:30%"></div><div class="re-pin re-pin-red" style="left:38%;top:70%"></div><div class="re-pin re-pin-gold" style="left:72%;top:60%"></div><div class="re-pin re-pin-red" style="left:20%;top:55%"></div><div class="re-pin re-pin-gold" style="left:55%;top:42%"></div><div class="re-pin re-pin-red" style="left:80%;top:45%"></div><div style="position:absolute;bottom:.8rem;left:1rem;font-size:.55rem;color:rgba(212,184,150,.4);letter-spacing:.1em">CALIFORNIA · 5,247 LISTINGS</div></div><div class="re-legend"><div class="re-legend-item"><div class="re-legend-dot" style="background:var(--gold)"></div>High ROI (&gt;6%)</div><div class="re-legend-item"><div class="re-legend-dot" style="background:var(--rose)"></div>Standard ROI</div></div><div class="re-listings"><div class="re-card"><div class="re-price">$849,000</div><div class="re-loc">San Diego, CA · 3bd 2ba</div><div class="re-roi">↑ ROI est. 7.2%</div></div><div class="re-card"><div class="re-price">$1,200,000</div><div class="re-loc">Los Angeles, CA · 4bd 3ba</div><div class="re-roi" style="color:var(--muted)">ROI est. 4.1%</div></div><div class="re-card"><div class="re-price">$620,000</div><div class="re-loc">Sacramento, CA · 3bd 2ba</div><div class="re-roi">↑ ROI est. 6.8%</div></div><div class="re-card"><div class="re-price">$975,000</div><div class="re-loc">San Jose, CA · 4bd 2ba</div><div class="re-roi" style="color:var(--muted)">ROI est. 3.9%</div></div></div></div>'
+  }
 };
 
-/* ══════════════════════════════════════
-   OPEN / CLOSE PROJECT OVERLAY
-══════════════════════════════════════ */
-const overlay = document.getElementById('project-overlay');
-const overlayContent = document.getElementById('overlay-content');
+var overlay = document.getElementById('project-overlay');
+var overlayContent = document.getElementById('overlay-content');
 
 function openProject(key){
-  const p = projects[key];
+  var p = projects[key];
   if(!p) return;
-  overlayContent.innerHTML = `
-    <button class="overlay-back" id="overlay-back">Back to Portfolio</button>
-    <div class="overlay-eyebrow">${p.eyebrow}</div>
-    <h2 class="overlay-title">${p.title}</h2>
-    <div class="overlay-tech">${p.tech.map(t=>`<span class="tech-pill">${t}</span>`).join('')}</div>
-    <div class="overlay-divider"></div>
-    <div class="overlay-section-title">Overview</div>
-    <div class="overlay-body">${p.overview}</div>
-    <div class="overlay-section-title">Key Features</div>
-    <ul class="overlay-features">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul>
-    <div class="overlay-section-title">Interactive Demo</div>
-    <div class="overlay-demo">
-      <div class="overlay-demo-header">
-        <div class="demo-dot demo-dot-r"></div>
-        <div class="demo-dot demo-dot-y"></div>
-        <div class="demo-dot demo-dot-g"></div>
-        <div class="demo-url-bar">${p.urlBar}</div>
-      </div>
-      <div class="demo-content">${p.demoHTML}</div>
-    </div>
-    <div class="overlay-links">
-      <a href="#" class="btn-primary"><span>View on GitHub</span></a>
-      <button class="btn-ghost" id="overlay-back2" style="border:1px solid rgba(212,184,150,.3)">← Back</button>
-    </div>
-  `;
+  var feats = p.features.map(function(f){ return '<li>'+f+'</li>'; }).join('');
+  var techs = p.tech.map(function(t){ return '<span class="tech-pill">'+t+'</span>'; }).join('');
+  overlayContent.innerHTML = '<button class="overlay-back" id="ov-back">Back to Portfolio</button><div class="overlay-eyebrow">'+p.eyebrow+'</div><h2 class="overlay-title">'+p.title+'</h2><div class="overlay-tech">'+techs+'</div><div class="overlay-divider"></div><div class="overlay-section-title">Overview</div><div class="overlay-body">'+p.overview+'</div><div class="overlay-section-title">Key Features</div><ul class="overlay-features">'+feats+'</ul><div class="overlay-section-title">Interactive Demo</div><div class="overlay-demo"><div class="overlay-demo-header"><div class="demo-dot demo-dot-r"></div><div class="demo-dot demo-dot-y"></div><div class="demo-dot demo-dot-g"></div><div class="demo-url-bar">'+p.urlBar+'</div></div><div class="demo-content">'+p.demoHTML+'</div></div><div class="overlay-links"><a href="#" class="btn-primary"><span>View on GitHub</span></a><button class="btn-ghost" id="ov-back2">Back</button></div>';
   overlay.classList.add('open');
   overlay.scrollTop = 0;
   document.body.style.overflow = 'hidden';
-
-  document.getElementById('overlay-back').addEventListener('click', closeProject);
-  document.getElementById('overlay-back2').addEventListener('click', closeProject);
+  document.getElementById('ov-back').addEventListener('click', closeProject);
+  document.getElementById('ov-back2').addEventListener('click', closeProject);
 }
 
-function closeProject(){
-  overlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
+function closeProject(){ overlay.classList.remove('open'); document.body.style.overflow = ''; }
 
-// Click on card or demo button
-document.querySelectorAll('[data-project]').forEach(el=>{
-  el.addEventListener('click', e=>{
-    e.stopPropagation();
-    openProject(el.dataset.project);
-  });
+document.querySelectorAll('[data-project]').forEach(function(el){
+  el.addEventListener('click', function(e){ e.stopPropagation(); openProject(el.dataset.project); });
 });
 
-document.addEventListener('keydown', e=>{
-  if(e.key==='Escape'){
-    closeProject();
-    closeResume();
-  }
-});
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeProject(); closeResume(); } });
 </script>
 </body>
 </html>
