@@ -201,7 +201,7 @@ h2.section-title em { font-style: italic; color: var(--gold); }
 
 /* SKILLS */
 #skills { padding: 7rem 10vw; background: rgba(0,0,0,.12); }
-.skills-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: rgba(212,184,150,.06); border: 1px solid rgba(212,184,150,.08); margin-top: 3rem; }
+.skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(212,184,150,.06); border: 1px solid rgba(212,184,150,.08); margin-top: 3rem; }
 .skill-card { padding: 2.4rem 2.2rem; background: rgba(45,8,8,.78); position: relative; overflow: hidden; transition: background .35s; cursor: default; }
 .skill-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(139,26,26,.4), transparent 70%); opacity: 0; transition: opacity .4s; }
 .skill-card:hover { background: rgba(75,12,12,.85); }
@@ -231,12 +231,54 @@ h2.section-title em { font-style: italic; color: var(--gold); }
 /* CERTIFICATIONS */
 #certifications { padding: 7rem 10vw; background: rgba(0,0,0,.08); }
 .cert-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; margin-top: 3rem; }
-.cert-card { border: 1px dashed rgba(212,184,150,.2); background: rgba(40,6,6,.45); padding: 2.2rem 2rem; display: flex; flex-direction: column; gap: .55rem; transition: border-color .3s, background .3s; }
-.cert-card:hover { border-color: rgba(201,169,110,.35); background: rgba(55,8,8,.55); }
-.cert-icon { font-size: 1.3rem; color: rgba(201,169,110,.22); margin-bottom: .2rem; }
-.cert-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: rgba(240,230,211,.35); font-weight: 400; }
-.cert-issuer { font-size: .7rem; color: rgba(201,169,110,.3); letter-spacing: .07em; }
-.cert-status { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(192,57,43,.45); margin-top: .3rem; }
+.cert-card { border: 1px solid rgba(212,184,150,.18); background: rgba(40,6,6,.55); padding: 2rem 2rem 1.8rem; display: flex; flex-direction: column; gap: .5rem; position: relative; overflow: hidden; transition: border-color .35s, transform .35s, box-shadow .35s; cursor: pointer; }
+.cert-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(201,169,110,.08), transparent 65%); opacity: 0; transition: opacity .4s; }
+.cert-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); transform: scaleX(0); transition: transform .5s ease; }
+.cert-card:hover { border-color: rgba(201,169,110,.4); transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 40px rgba(201,169,110,.1); }
+.cert-card:hover::before { opacity: 1; }
+.cert-card:hover::after { transform: scaleX(1); }
+.cert-card:hover .cert-icon-wrap { transform: scale(1.08); }
+.cert-card:hover .cert-arrow { opacity: 1; transform: translateX(0); }
+.cert-icon-wrap { width: 44px; height: 44px; border: 1px solid rgba(201,169,110,.25); display: flex; align-items: center; justify-content: center; margin-bottom: .6rem; transition: transform .3s; background: rgba(201,169,110,.06); flex-shrink: 0; }
+.cert-icon-letter { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--gold); line-height: 1; }
+.cert-issuer-badge { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--rose); margin-bottom: .2rem; }
+.cert-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--parchment); line-height: 1.25; }
+.cert-short { font-size: .72rem; color: var(--muted); line-height: 1.6; margin-top: .3rem; }
+.cert-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; padding-top: .8rem; border-top: 1px solid rgba(212,184,150,.08); }
+.cert-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+.cert-tag { font-size: .55rem; letter-spacing: .08em; padding: .2rem .6rem; background: rgba(139,26,26,.4); border: 1px solid rgba(139,26,26,.55); color: var(--tan); border-radius: 2px; text-transform: uppercase; }
+.cert-arrow { font-size: .7rem; color: var(--gold); opacity: 0; transform: translateX(-6px); transition: opacity .3s, transform .3s; white-space: nowrap; letter-spacing: .1em; }
+
+/* CERT OVERLAY */
+#cert-overlay { position: fixed; inset: 0; z-index: 1500; background: rgba(10,1,1,.98); backdrop-filter: blur(16px); opacity: 0; pointer-events: none; transition: opacity .4s; overflow-y: auto; }
+#cert-overlay.open { opacity: 1; pointer-events: all; }
+.cert-overlay-inner { max-width: 820px; margin: 0 auto; padding: 6rem 4rem 5rem; }
+.cert-ov-back { display: inline-flex; align-items: center; gap: .6rem; font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; font-family: 'DM Mono', monospace; transition: color .25s; margin-bottom: 3.5rem; }
+.cert-ov-back:hover { color: var(--gold); }
+.cert-ov-back::before { content: '←'; }
+.cert-ov-hero { display: flex; align-items: flex-start; gap: 2.5rem; margin-bottom: 3rem; }
+.cert-ov-icon { width: 72px; height: 72px; border: 1px solid rgba(201,169,110,.3); background: rgba(201,169,110,.07); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cert-ov-icon-letter { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: var(--gold); }
+.cert-ov-meta { flex: 1; }
+.cert-ov-issuer { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--rose); margin-bottom: .7rem; }
+.cert-ov-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,4vw,3rem); font-weight: 700; color: var(--parchment); line-height: 1.05; margin-bottom: .8rem; }
+.cert-ov-title em { color: var(--gold); font-style: italic; }
+.cert-ov-platform { font-size: .72rem; color: var(--muted); letter-spacing: .06em; }
+.cert-ov-divider { width: 60px; height: 1px; background: var(--crimson); margin: 2.5rem 0; }
+.cert-ov-section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--gold); margin-bottom: 1rem; letter-spacing: .03em; }
+.cert-ov-body { font-size: .85rem; line-height: 2; color: var(--tan); margin-bottom: 2.5rem; }
+.cert-ov-body p + p { margin-top: 1rem; }
+.cert-ov-body strong { color: var(--parchment); font-weight: 400; }
+.cert-ov-skills { display: grid; grid-template-columns: repeat(2,1fr); gap: .6rem; margin-bottom: 2.5rem; }
+.cert-ov-skill { padding: .8rem 1rem; border: 1px solid rgba(212,184,150,.1); background: rgba(40,6,6,.6); font-size: .75rem; color: var(--tan); display: flex; align-items: center; gap: .7rem; }
+.cert-ov-skill::before { content: '◆'; color: var(--crimson); font-size: .45rem; flex-shrink: 0; }
+.cert-ov-bar-section { margin-bottom: 2.5rem; }
+.cert-ov-bar-row { display: flex; align-items: center; gap: 1rem; margin-bottom: .9rem; }
+.cert-ov-bar-label { font-size: .68rem; color: var(--muted); letter-spacing: .06em; min-width: 140px; flex-shrink: 0; }
+.cert-ov-bar-track { flex: 1; height: 3px; background: rgba(212,184,150,.08); border-radius: 2px; overflow: hidden; }
+.cert-ov-bar-fill { height: 100%; background: linear-gradient(90deg, var(--crimson), var(--gold)); border-radius: 2px; width: 0; transition: width 1s cubic-bezier(.16,1,.3,1); }
+.cert-ov-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2.5rem; }
+.cert-ov-tag { font-size: .62rem; letter-spacing: .1em; padding: .35rem .9rem; background: rgba(139,26,26,.35); border: 1px solid rgba(139,26,26,.5); color: var(--tan); border-radius: 20px; }
 
 /* CONTACT */
 #contact { padding: 8rem 10vw 6rem; text-align: center; position: relative; }
@@ -295,6 +337,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
 
 @media (max-width: 900px) {
   .projects-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: repeat(2,1fr); }
   .spotify-demo { grid-template-columns: 1fr; }
   .overlay-inner { padding: 5rem 2rem 4rem; }
   .resume-card { padding: 2rem 1.5rem; }
@@ -403,6 +446,11 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
   </div>
 </div>
 
+<!-- CERT OVERLAY -->
+<div id="cert-overlay">
+  <div class="cert-overlay-inner" id="cert-overlay-content"></div>
+</div>
+
 <!-- PROJECT OVERLAY -->
 <div id="project-overlay">
   <div class="overlay-inner" id="overlay-content"></div>
@@ -415,7 +463,6 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#" class="nav-resume-btn" id="resume-open">Résumé</a></li>
@@ -575,73 +622,31 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
   <div class="skills-grid">
     <div class="skill-card reveal">
       <div class="skill-card-header"><div class="skill-name">Programming</div><span class="skill-icon">〈/〉</span></div>
-      <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">MATLAB</span><span class="skill-tag">C</span></div>
+      <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">MATLAB</span><span class="skill-tag">C</span><span class="skill-tag">SQL</span><span class="skill-tag">HTML/CSS</span><span class="skill-tag">JavaScript</span></div>
     </div>
     <div class="skill-card reveal">
       <div class="skill-card-header"><div class="skill-name">Data &amp; ML</div><span class="skill-icon">◈</span></div>
-      <div class="skill-tags"><span class="skill-tag">NumPy</span><span class="skill-tag">pandas</span><span class="skill-tag">scikit-learn</span><span class="skill-tag">Statistical Modeling</span><span class="skill-tag">Data Visualization</span></div>
+      <div class="skill-tags"><span class="skill-tag">NumPy</span><span class="skill-tag">pandas</span><span class="skill-tag">scikit-learn</span><span class="skill-tag">Statistical Modeling</span><span class="skill-tag">Data Visualization</span><span class="skill-tag">Feature Engineering</span></div>
     </div>
     <div class="skill-card reveal">
       <div class="skill-card-header"><div class="skill-name">Research &amp; Computing</div><span class="skill-icon">◉</span></div>
-      <div class="skill-tags"><span class="skill-tag">ImageJ</span><span class="skill-tag">Jupyter Notebooks</span><span class="skill-tag">Parallel Computing</span><span class="skill-tag">HPC Environments</span></div>
+      <div class="skill-tags"><span class="skill-tag">ImageJ</span><span class="skill-tag">Jupyter Notebooks</span><span class="skill-tag">Parallel Computing</span><span class="skill-tag">HPC Environments</span><span class="skill-tag">Matplotlib</span><span class="skill-tag">Seaborn</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-header"><div class="skill-name">Web Dev</div><span class="skill-icon">⬡</span></div>
+      <div class="skill-tags"><span class="skill-tag">Flask</span><span class="skill-tag">Spring Boot</span><span class="skill-tag">REST APIs</span><span class="skill-tag">MySQL</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">React</span></div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-header"><div class="skill-name">Design &amp; PM</div><span class="skill-icon">◇</span></div>
+      <div class="skill-tags"><span class="skill-tag">Figma</span><span class="skill-tag">Product Management</span><span class="skill-tag">Agile/SCRUM</span><span class="skill-tag">Wireframing</span><span class="skill-tag">User Research</span></div>
     </div>
     <div class="skill-card reveal">
       <div class="skill-card-header"><div class="skill-name">Tools &amp; Practices</div><span class="skill-icon">◎</span></div>
-      <div class="skill-tags"><span class="skill-tag">Git/GitHub</span><span class="skill-tag">Agile/SCRUM</span><span class="skill-tag">Experiment Documentation</span><span class="skill-tag">Technical Writing</span></div>
+      <div class="skill-tags"><span class="skill-tag">Git/GitHub</span><span class="skill-tag">Linux</span><span class="skill-tag">Experiment Documentation</span><span class="skill-tag">Technical Writing</span><span class="skill-tag">Data Cleaning</span></div>
     </div>
   </div>
 </section>
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="reveal">
-    <div class="section-label">Experience</div>
-    <h2 class="section-title">Work <em>History</em></h2>
-  </div>
-  <div class="timeline">
-    <div class="exp-item">
-      <div class="exp-dot"></div>
-      <div class="exp-meta">2023 – 2025 · San Diego, CA</div>
-      <div class="exp-title">Lead Research Intern</div>
-      <div class="exp-company">UCSD Institute of Engineering in Medicine</div>
-      <ul class="exp-bullets">
-        <li>Led a multi-year biomedical imaging initiative analyzing 500+ DRG neuron microscopy images using Python, MATLAB, and ImageJ.</li>
-        <li>Automated end-to-end processing pipelines, reducing manual analysis time by ~60%.</li>
-        <li>Authored analyses contributing to 2 peer-reviewed abstracts at the BMES Annual Conference.</li>
-      </ul>
-    </div>
-    <div class="exp-item">
-      <div class="exp-dot"></div>
-      <div class="exp-meta">Jun 2024 – Jan 2025 · San Diego, CA</div>
-      <div class="exp-title">Research Intern</div>
-      <div class="exp-company">San Diego Supercomputer Center (SDSC)</div>
-      <ul class="exp-bullets">
-        <li>Built an AI training catalog for the ICICLE initiative using Python, Jupyter, and Linux HPC systems.</li>
-        <li>Performed benchmarking and runtime analysis across national supercomputing clusters.</li>
-      </ul>
-    </div>
-    <div class="exp-item">
-      <div class="exp-dot"></div>
-      <div class="exp-meta">Nov 2024 – Jun 2025 · San Diego, CA</div>
-      <div class="exp-title">Project Manager &amp; Developer</div>
-      <div class="exp-company">Open Coding Society</div>
-      <ul class="exp-bullets">
-        <li>Built a full-stack Digital Bathroom Pass system deployed across all CS classes at Del Norte High School.</li>
-        <li>Spring Boot + SQL backend; RESTful APIs and responsive frontend; presented at Night at the Museum &amp; CTE Expo.</li>
-      </ul>
-    </div>
-    <div class="exp-item">
-      <div class="exp-dot"></div>
-      <div class="exp-meta">2021 – 2025 · San Diego, CA</div>
-      <div class="exp-title">Lead Math Instructor (K–12)</div>
-      <div class="exp-company">Mathnasium</div>
-      <ul class="exp-bullets">
-        <li>Individualized instruction from elementary math through Calculus; 4–5 concurrent students per shift.</li>
-        <li>Supported onboarding for 10+ instructor team; scheduling and instructional consistency.</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
 <!-- CERTIFICATIONS -->
 <section id="certifications">
@@ -650,30 +655,51 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
     <h2 class="section-title">Certifi<em>cations</em></h2>
   </div>
   <div class="cert-grid reveal">
-    <div class="cert-card">
-      <div class="cert-icon">◈</div>
-      <div class="cert-name">Certification Name</div>
-      <div class="cert-issuer">Issuing Organization</div>
-      <div class="cert-status">Coming soon</div>
+
+    <div class="cert-card" data-cert="googleai">
+      <div class="cert-icon-wrap"><span class="cert-icon-letter">G</span></div>
+      <div class="cert-issuer-badge">Google · Coursera</div>
+      <div class="cert-name">Google AI Professional Certificate</div>
+      <div class="cert-short">Vibe coding, generative AI, data analysis, content creation, and AI-powered business workflows.</div>
+      <div class="cert-footer">
+        <div class="cert-tags"><span class="cert-tag">Generative AI</span><span class="cert-tag">Data Analysis</span><span class="cert-tag">AI Tools</span></div>
+        <span class="cert-arrow">View Details →</span>
+      </div>
     </div>
-    <div class="cert-card">
-      <div class="cert-icon">◈</div>
-      <div class="cert-name">Certification Name</div>
-      <div class="cert-issuer">Issuing Organization</div>
-      <div class="cert-status">Coming soon</div>
+
+    <div class="cert-card" data-cert="googlepm">
+      <div class="cert-icon-wrap"><span class="cert-icon-letter">G</span></div>
+      <div class="cert-issuer-badge">Google · Coursera</div>
+      <div class="cert-name">Google Project Management Certificate</div>
+      <div class="cert-short">Agile, Scrum, project planning, stakeholder management, risk assessment, and team leadership.</div>
+      <div class="cert-footer">
+        <div class="cert-tags"><span class="cert-tag">Agile</span><span class="cert-tag">Scrum</span><span class="cert-tag">Leadership</span></div>
+        <span class="cert-arrow">View Details →</span>
+      </div>
     </div>
-    <div class="cert-card">
-      <div class="cert-icon">◈</div>
-      <div class="cert-name">Certification Name</div>
-      <div class="cert-issuer">Issuing Organization</div>
-      <div class="cert-status">Coming soon</div>
+
+    <div class="cert-card" data-cert="googleaiessentials">
+      <div class="cert-icon-wrap"><span class="cert-icon-letter">G</span></div>
+      <div class="cert-issuer-badge">Google · Coursera</div>
+      <div class="cert-name">Google AI Essentials</div>
+      <div class="cert-short">Technology roadmaps, generative AI fundamentals, critical thinking with AI tools, and innovation frameworks.</div>
+      <div class="cert-footer">
+        <div class="cert-tags"><span class="cert-tag">Generative AI</span><span class="cert-tag">Innovation</span><span class="cert-tag">AI Strategy</span></div>
+        <span class="cert-arrow">View Details →</span>
+      </div>
     </div>
-    <div class="cert-card">
-      <div class="cert-icon">◈</div>
-      <div class="cert-name">Certification Name</div>
-      <div class="cert-issuer">Issuing Organization</div>
-      <div class="cert-status">Coming soon</div>
+
+    <div class="cert-card" data-cert="sql">
+      <div class="cert-icon-wrap"><span class="cert-icon-letter">in</span></div>
+      <div class="cert-issuer-badge">LinkedIn Learning</div>
+      <div class="cert-name">SQL for Data Analysis</div>
+      <div class="cert-short">Advanced querying, joins, aggregations, window functions, and data transformation for analytics workflows.</div>
+      <div class="cert-footer">
+        <div class="cert-tags"><span class="cert-tag">SQL</span><span class="cert-tag">Analytics</span><span class="cert-tag">Data Wrangling</span></div>
+        <span class="cert-arrow">View Details →</span>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -783,6 +809,123 @@ function toggleDegree(key){
   btn.setAttribute('aria-expanded', String(!isOpen));
 }
 
+// CERT OVERLAY
+var certs = {
+  googleai: {
+    issuer: 'Google · Coursera',
+    title: 'Google AI<br><em>Professional Certificate</em>',
+    platform: 'Professional Certificate · 3–6 Months · Beginner',
+    description: '<p>The Google AI Professional Certificate is a comprehensive program covering the full landscape of modern AI tooling and workflows. It prepares learners to apply AI practically across business, research, and creative domains.</p><p>The curriculum spans <strong>generative AI fundamentals</strong>, prompt engineering, AI-assisted data analysis, content creation pipelines, and responsible AI usage — with hands-on projects that mirror real-world applications.</p>',
+    learned: ['Prompt engineering and generative AI workflows', 'AI-powered data analysis and visualization', 'Content creation using AI tools at scale', 'Planning and executing AI-assisted projects', 'Responsible AI practices and ethics', 'Integrating AI tools into business workflows'],
+    topics: [
+      { label: 'Generative AI', pct: 90 },
+      { label: 'Data Analysis', pct: 75 },
+      { label: 'Prompt Engineering', pct: 85 },
+      { label: 'AI Ethics', pct: 70 },
+    ],
+    tags: ['Generative AI', 'Data Analysis', 'Prompt Engineering', 'Content Creation', 'AI Ethics', 'Business AI', 'Vibe Coding'],
+    link: 'https://grow.google/certificates/'
+  },
+  googlepm: {
+    issuer: 'Google · Coursera',
+    title: 'Google Project<br><em>Management Certificate</em>',
+    platform: 'Professional Certificate · 3–6 Months · Beginner',
+    description: '<p>The Google Project Management Certificate covers the full project lifecycle — from initiation and planning through execution, monitoring, and closure. It builds both traditional and Agile project management skills.</p><p>Core focus areas include <strong>Agile and Scrum frameworks</strong>, stakeholder communication, risk management, resource planning, and the use of PM tools like Asana and Jira to coordinate cross-functional teams.</p>',
+    learned: ['Agile and Scrum sprint planning and retrospectives', 'Stakeholder identification and communication strategies', 'Risk assessment and mitigation planning', 'Project charter and timeline creation', 'Quality management and project closure', 'Team leadership and conflict resolution'],
+    topics: [
+      { label: 'Agile / Scrum', pct: 88 },
+      { label: 'Stakeholder Mgmt', pct: 80 },
+      { label: 'Risk Management', pct: 75 },
+      { label: 'Team Leadership', pct: 82 },
+    ],
+    tags: ['Agile', 'Scrum', 'Project Planning', 'Stakeholder Management', 'Risk Assessment', 'Jira', 'Team Leadership'],
+    link: 'https://grow.google/certificates/'
+  },
+  googleaiessentials: {
+    issuer: 'Google · Coursera',
+    title: 'Google AI<br><em>Essentials</em>',
+    platform: 'Specialization · 3–6 Months · Beginner',
+    description: '<p>Google AI Essentials is a foundational specialization that builds fluency with AI concepts and tools across multiple domains. It focuses on practical, real-world application of generative AI in professional contexts.</p><p>The course develops <strong>critical thinking frameworks</strong> for evaluating AI outputs, understanding technology roadmaps, and building an innovation mindset — key skills for applying AI responsibly in research and industry settings.</p>',
+    learned: ['Generative AI fundamentals and core terminology', 'Evaluating AI outputs critically and responsibly', 'Technology roadmapping and AI strategy', 'Innovation frameworks for AI-driven problem solving', 'Applying AI tools in professional workflows', 'Understanding AI limitations and bias'],
+    topics: [
+      { label: 'Generative AI', pct: 85 },
+      { label: 'Critical Thinking', pct: 80 },
+      { label: 'AI Strategy', pct: 72 },
+      { label: 'Innovation', pct: 78 },
+    ],
+    tags: ['Generative AI', 'AI Essentials', 'Critical Thinking', 'Technology Roadmaps', 'Innovation', 'AI Tools'],
+    link: 'https://grow.google/certificates/'
+  },
+  sql: {
+    issuer: 'LinkedIn Learning',
+    title: 'SQL for<br><em>Data Analysis</em>',
+    platform: 'Course · LinkedIn Learning',
+    description: '<p>This LinkedIn Learning course provides a thorough grounding in SQL as a data analysis tool. It covers everything from basic querying to advanced analytical functions used in real data science workflows.</p><p>Emphasis is placed on <strong>real-world data wrangling</strong> — filtering, aggregating, joining datasets, and using window functions to derive insights from structured databases in analytics and ML pipelines.</p>',
+    learned: ['Writing complex SELECT queries with filters and sorting', 'Multi-table JOINs: INNER, LEFT, RIGHT, FULL OUTER', 'Aggregation with GROUP BY, HAVING, and subqueries', 'Window functions: ROW_NUMBER, RANK, LEAD, LAG', 'Data transformation and cleaning with SQL', 'Applying SQL in data science and analytics workflows'],
+    topics: [
+      { label: 'Query Writing', pct: 92 },
+      { label: 'Joins & Aggregation', pct: 88 },
+      { label: 'Window Functions', pct: 78 },
+      { label: 'Data Wrangling', pct: 85 },
+    ],
+    tags: ['SQL', 'Data Analysis', 'Joins', 'Aggregation', 'Window Functions', 'Data Wrangling', 'Analytics'],
+    link: 'https://www.linkedin.com/learning/'
+  }
+};
+
+var certOverlay = document.getElementById('cert-overlay');
+var certOverlayContent = document.getElementById('cert-overlay-content');
+
+function openCert(key) {
+  var c = certs[key];
+  if(!c) return;
+  var learned = c.learned.map(function(l){ return '<div class="cert-ov-skill">'+l+'</div>'; }).join('');
+  var bars = c.topics.map(function(t){ return '<div class="cert-ov-bar-row"><span class="cert-ov-bar-label">'+t.label+'</span><div class="cert-ov-bar-track"><div class="cert-ov-bar-fill" data-pct="'+t.pct+'"></div></div></div>'; }).join('');
+  var tags = c.tags.map(function(t){ return '<span class="cert-ov-tag">'+t+'</span>'; }).join('');
+  certOverlayContent.innerHTML =
+    '<button class="cert-ov-back" id="cert-ov-back">Back to Portfolio</button>' +
+    '<div class="cert-ov-hero">' +
+      '<div class="cert-ov-icon"><span class="cert-ov-icon-letter">' + (key==='sql'?'in':'G') + '</span></div>' +
+      '<div class="cert-ov-meta">' +
+        '<div class="cert-ov-issuer">'+c.issuer+'</div>' +
+        '<h2 class="cert-ov-title">'+c.title+'</h2>' +
+        '<div class="cert-ov-platform">'+c.platform+'</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="cert-ov-divider"></div>' +
+    '<div class="cert-ov-section-title">About This Certificate</div>' +
+    '<div class="cert-ov-body">'+c.description+'</div>' +
+    '<div class="cert-ov-section-title">What I Learned</div>' +
+    '<div class="cert-ov-skills" style="margin-bottom:2.5rem">'+learned+'</div>' +
+    '<div class="cert-ov-section-title">Topic Coverage</div>' +
+    '<div class="cert-ov-bar-section">'+bars+'</div>' +
+    '<div class="cert-ov-section-title">Skills &amp; Keywords</div>' +
+    '<div class="cert-ov-tags" style="margin-bottom:2.5rem">'+tags+'</div>' +
+    '<div style="display:flex;gap:1rem;flex-wrap:wrap">' +
+      '<a href="'+c.link+'" target="_blank" class="btn-primary"><span>View on Coursera ↗</span></a>' +
+      '<button class="btn-ghost" id="cert-ov-back2">← Back</button>' +
+    '</div>';
+  certOverlay.classList.add('open');
+  certOverlay.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+  // animate bars after paint
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      certOverlayContent.querySelectorAll('.cert-ov-bar-fill').forEach(function(bar){
+        bar.style.width = bar.dataset.pct + '%';
+      });
+    });
+  });
+  document.getElementById('cert-ov-back').addEventListener('click', closeCert);
+  document.getElementById('cert-ov-back2').addEventListener('click', closeCert);
+}
+
+function closeCert(){ certOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+
+document.querySelectorAll('[data-cert]').forEach(function(el){
+  el.addEventListener('click', function(){ openCert(el.dataset.cert); });
+});
+
 // PROJECT OVERLAY
 var projects = {
   spotify: {
@@ -827,7 +970,7 @@ document.querySelectorAll('[data-project]').forEach(function(el){
   el.addEventListener('click', function(e){ e.stopPropagation(); openProject(el.dataset.project); });
 });
 
-document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeProject(); closeResume(); } });
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeProject(); closeResume(); closeCert(); } });
 </script>
 </body>
 </html>
