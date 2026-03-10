@@ -371,7 +371,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
   <div class="resume-card">
     <div class="ri-name">Sharon Kodali</div>
     <div class="ri-contact">
-      San Diego, CA &nbsp;·&nbsp; spkodali@ucsd.edu &nbsp;·&nbsp; (858) 733-1391 &nbsp;·&nbsp;
+      San Diego, CA &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f083809b9f94919c99b085938394de959485">[email&#160;protected]</a> &nbsp;·&nbsp; (858) 733-1391 &nbsp;·&nbsp;
       <a href="https://www.linkedin.com/in/sharon-kodali-165729235/" target="_blank">LinkedIn</a>
     </div>
     <div class="ri-section">
@@ -574,21 +574,21 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
     <h2 class="section-title">Selected <em>Projects</em></h2>
   </div>
   <div class="projects-grid">
-    <div class="project-card reveal" data-project="spotify" onclick="window.open('https://sharonkodali.github.io/vibecanvas/','_blank')" style="cursor:pointer;">
+    <div class="project-card reveal" onclick="window.open('https://sharonkodali.github.io/vibecanvas/','_blank')" style="cursor:pointer;">
       <div class="project-num">01</div>
       <div class="project-card-inner">
         <div class="project-date">Jan 2026 – Present</div>
         <div class="project-title">Vibe Canvas</div>
         <ul class="project-bullets">
-          <li> Built an end-to-end 7-stage ML pipeline in Python trained on 28,351 real Spotify tracks — from data cleaning and EDA to PCA, KMeans clustering, and Random Forest classification (54.1% accuracy, 3× above baseline).</li>
+          <li>Built an end-to-end 7-stage ML pipeline in Python trained on 28,351 real Spotify tracks — from data cleaning and EDA to PCA, KMeans clustering, and Random Forest classification (54.1% accuracy, 3× above baseline).</li>
           <li>Engineered 9 interaction audio features and built a generative art engine mapping real Spotify audio features (energy, valence, danceability, tempo) directly to HTML5 Canvas visuals.</li>
         </ul>
         <div class="project-tech">
-          <span class="tech-pill">Python</span><span class="tech-pill">Pandas</span><span class="tech-pill">scikit-learn</span><span class="tech-pill">Logistic Regression</span><span class="tech-pill">Matplotlib</span>
+          <span class="tech-pill">Python</span><span class="tech-pill">Pandas</span><span class="tech-pill">scikit-learn</span><span class="tech-pill">PCA</span><span class="tech-pill">KMeans</span><span class="tech-pill">HTML5 Canvas</span><span class="tech-pill">Vanilla JS</span>
         </div>
         <div class="project-actions">
-          <a href="https://sharonkodali.github.io/vibecanvas/" target="_blank" class="project-demo-btn" style="text-decoration:none;">See Demo ↗</a>
-          <a href="#" class="project-gh-link">GitHub →</a>
+          <a href="https://sharonkodali.github.io/vibecanvas/" target="_blank" class="project-demo-btn" style="text-decoration:none;" onclick="event.stopPropagation()">See Demo ↗</a>
+          <a href="https://github.com/sharonkodali/vibecanvas" target="_blank" class="project-gh-link" onclick="event.stopPropagation()">GitHub →</a>
         </div>
       </div>
     </div>
@@ -709,9 +709,9 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
   <h2 class="contact-title reveal">Let's <em>connect</em></h2>
   <p class="contact-body reveal"> Email me for any questions!!</p>
   <div class="contact-links reveal">
-    <a href="mailto:spkodali@ucsd.edu" class="contact-link">
+    <a href="/cdn-cgi/l/email-protection#a8dbd8c3c7ccc9c4c1e8ddcbdbcc86cdccdd" class="contact-link">
       <span class="contact-link-icon">@</span>
-      <div class="contact-link-text"><div class="contact-link-label">Email</div><div class="contact-link-value">spkodali@ucsd.edu</div></div>
+      <div class="contact-link-text"><div class="contact-link-label">Email</div><div class="contact-link-value"><span class="__cf_email__" data-cfemail="0b787b60646f6a67624b7e68786f256e6f7e">[email&#160;protected]</span></div></div>
     </a>
     <a href="https://github.com/sharonkodali" target="_blank" class="contact-link">
       <span class="contact-link-icon">GH</span>
@@ -730,7 +730,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
   <span>UC San Diego</span>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // BG CANVAS
 (function(){
   var canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d'), W, H;
@@ -928,15 +928,6 @@ document.querySelectorAll('[data-cert]').forEach(function(el){
 
 // PROJECT OVERLAY
 var projects = {
-  spotify: {
-    eyebrow: 'Jan 2026 – Present',
-    title: 'Spotify Visual<br><em>Art Generator</em>',
-    tech: ['Python','Flask','scikit-learn','NumPy','pandas','Spotify API','JavaScript'],
-    overview: '<p>A full-stack ML application that connects to the Spotify Web API, pulls audio feature vectors from playlists, and uses a trained classification model to infer the "vibe" — then generates generative visual art in real time.</p><p>Analyzes features like <strong>energy, valence, danceability, tempo, and acousticness</strong> across 1,000+ tracks using a scikit-learn pipeline with preprocessing, dimensionality reduction, and classification.</p>',
-    features: ['Spotify OAuth integration for real-time playlist access','scikit-learn pipeline: StandardScaler → PCA → KNN/SVM classifier','6 vibe categories: Melancholic, Euphoric, Focused, Chill, Hype, Dreamy','Generative canvas art driven by classified audio features','Flask REST API backend with JavaScript frontend','Batch processing of 1,000+ audio vectors per session'],
-    urlBar: 'localhost:5000/analyze',
-    demoHTML: '<div class="spotify-demo"><div class="spotify-player"><div class="sp-cover">🎵</div><div class="sp-track">Late Night Drive</div><div class="sp-artist">Indie Chill Playlist · 47 tracks</div><div class="sp-bar"><div class="sp-bar-fill"></div></div><div style="display:flex;justify-content:space-between;font-size:.58rem;color:var(--muted)"><span>2:14</span><span>4:02</span></div><div class="sp-controls"><span>⏮</span><span class="sp-play">▶</span><span>⏭</span></div></div><div class="spotify-viz"><div class="viz-label">Audio Feature Analysis</div><div class="viz-bars"><div class="viz-bar" style="height:90%"></div><div class="viz-bar" style="height:55%;animation-delay:.1s"></div><div class="viz-bar" style="height:72%;animation-delay:.2s"></div><div class="viz-bar" style="height:40%;animation-delay:.3s"></div><div class="viz-bar" style="height:85%;animation-delay:.4s"></div><div class="viz-bar" style="height:60%;animation-delay:.5s"></div><div class="viz-bar" style="height:78%;animation-delay:.6s"></div><div class="viz-bar" style="height:45%;animation-delay:.7s"></div><div class="viz-bar" style="height:92%;animation-delay:.8s"></div><div class="viz-bar" style="height:50%;animation-delay:.9s"></div></div><div class="viz-features" style="margin-top:1.5rem"><div class="viz-feat-row"><span class="viz-feat-label">Energy</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:82%;background:var(--rose)"></div></div></div><div class="viz-feat-row"><span class="viz-feat-label">Valence</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:45%;background:var(--gold)"></div></div></div><div class="viz-feat-row"><span class="viz-feat-label">Danceability</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:67%;background:var(--ember)"></div></div></div><div class="viz-feat-row"><span class="viz-feat-label">Acousticness</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:30%;background:var(--muted)"></div></div></div></div><div class="vibe-badge">✦ Classified Vibe: Melancholic</div></div></div>'
-  },
   realestate: {
     eyebrow: 'Oct 2025 – Nov 2025',
     title: 'California Real Estate<br><em>Intelligence Tracker</em>',
@@ -964,13 +955,4 @@ function openProject(key){
   document.getElementById('ov-back2').addEventListener('click', closeProject);
 }
 
-function closeProject(){ overlay.classList.remove('open'); document.body.style.overflow = ''; }
-
-document.querySelectorAll('[data-project]').forEach(function(el){
-  el.addEventListener('click', function(e){ e.stopPropagation(); openProject(el.dataset.project); });
-});
-
-document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeProject(); closeResume(); closeCert(); } });
-</script>
-</body>
-</html>
+function closeProject(){ overlay.classList.remove('open'); do
