@@ -21,14 +21,7 @@
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { background: var(--maroon); color: var(--tan); font-family: 'DM Mono', monospace; font-size: 14px; overflow-x: hidden; cursor: none; }
-
-/* CURSOR */
-#cursor-cross { position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); width: 24px; height: 24px; }
-#cursor-cross::before, #cursor-cross::after { content: ''; position: absolute; background: var(--gold2); opacity: .85; }
-#cursor-cross::before { width: 100%; height: 1px; top: 50%; left: 0; transform: translateY(-50%); }
-#cursor-cross::after { height: 100%; width: 1px; left: 50%; top: 0; transform: translateX(-50%); }
-#cursor-dot { position: fixed; pointer-events: none; z-index: 10000; width: 4px; height: 4px; background: var(--gold2); border-radius: 50%; transform: translate(-50%,-50%); }
+body { background: var(--maroon); color: var(--tan); font-family: 'DM Mono', monospace; font-size: 14px; overflow-x: hidden; }
 
 /* GRAIN */
 body::before { content: ''; position: fixed; inset: 0; z-index: 1000; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); background-size: 180px; opacity: .045; }
@@ -71,12 +64,6 @@ h1.hero-name em { font-style: italic; color: var(--gold); text-shadow: 0 0 80px 
 .btn-ghost:hover { color: var(--parchment); border-color: var(--tan); }
 .btn-gold { padding: .75rem 2rem; color: var(--gold); text-decoration: none; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; border: 1px solid rgba(201,169,110,.4); background: rgba(201,169,110,.08); transition: color .3s, background .3s; cursor: pointer; font-family: 'DM Mono', monospace; display: inline-block; }
 .btn-gold:hover { color: var(--parchment); background: rgba(201,169,110,.2); }
-
-/* TICKER */
-.ticker { position: absolute; bottom: 2.5rem; left: 0; right: 0; overflow: hidden; opacity: .22; border-top: 1px solid rgba(212,184,150,.1); border-bottom: 1px solid rgba(212,184,150,.1); padding: .6rem 0; }
-.ticker-inner { display: flex; white-space: nowrap; font-family: 'Cormorant Garamond', serif; font-size: 1rem; letter-spacing: .4em; text-transform: uppercase; color: var(--gold); font-weight: 300; }
-.ticker-item { padding: 0 2rem; }
-.ticker-sep { color: var(--crimson); padding: 0 .5rem; }
 
 /* SHARED */
 .section-label { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--rose); margin-bottom: 1rem; display: flex; align-items: center; gap: .8rem; }
@@ -354,8 +341,6 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
 </head>
 <body>
 
-<div id="cursor-cross"></div>
-<div id="cursor-dot"></div>
 <canvas id="bg-canvas"></canvas>
 <div class="bg-glow bg-glow-1"></div>
 <div class="bg-glow bg-glow-2"></div>
@@ -381,7 +366,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
           <span class="ri-job-title">University of California – San Diego</span>
           <span class="ri-date">Graduation 2029 &nbsp;·&nbsp; GPA: 4.0</span>
         </div>
-        <div class="ri-org">B.S. Mathematics–Computer Science &nbsp;·&nbsp; Minor: Cognitive Science (Machine Learning)</div>
+        <div class="ri-org">B.S. Data Science &nbsp;·&nbsp; Minor: Cognitive Science (Machine Learning)</div>
       </div>
     </div>
     <div class="ri-section">
@@ -464,6 +449,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
   <a href="#" class="nav-logo">SK<span>.</span></a>
   <ul>
     <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#certifications">Certifications</a></li>
@@ -475,9 +461,9 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
 <!-- HERO -->
 <section id="hero">
   <h1 class="hero-name">Sharon<br><em>Kodali.</em></h1>
-  <p class="hero-tagline">Mathematics–Computer Science student at UC San Diego,<br>passionate about using data to solve real-world problems —<br>from ML research to full-stack data applications.</p>
+  <p class="hero-tagline">Data Science student at UC San Diego,<br>passionate about using data to solve real-world problems —<br>from ML research to full-stack data applications.</p>
   <div class="hero-badges">
-    <span class="badge">B.S. Mathematics–Computer Science</span>
+    <span class="badge">B.S. Data Science</span>
     <span class="badge">Minor · Cognitive Science (ML)</span>
     <span class="badge">UC San Diego · GPA 4.0 · Class of 2029</span>
   </div>
@@ -485,9 +471,6 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
     <a href="#projects" class="btn-primary"><span>View Projects</span></a>
     <a href="#contact" class="btn-ghost">Get In Touch</a>
     <button class="btn-gold" id="resume-open-hero">Résumé</button>
-  </div>
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-inner" id="ticker-inner"></div>
   </div>
 </section>
 
@@ -497,16 +480,14 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
     <div class="section-label">About</div>
     <h2 class="section-title">A little about <em>me</em></h2>
     <div class="about-body">
-      <p>Hi, I'm <strong>Sharon Kodali</strong> — a freshman at UC San Diego studying Mathematics and Computer Science, with a minor in Cognitive Science. I've grown up in San Diego my whole life, and living here has given me a lot of opportunities to explore different paths in tech and beyond.</p>
-      <p>Academically, I'm really drawn to the intersection of math and data science — things like statistical modeling, machine learning theory, and how we can use data to actually understand complex systems.</p>
-      <p>Outside of school, you'll probably find me reading, cooking something new, or scoping out the next café to try in the city.</p>
+      <p>I'm <strong>Sharon Kodali</strong>, a Data Science student at UC San Diego who likes building things that touch real data — ML models, full-stack apps, whatever the problem needs.</p>
     </div>
     <div class="degree-boxes">
       <div class="degree-box">
         <button class="degree-box-btn" onclick="toggleDegree('major')" aria-expanded="false">
           <div class="degree-box-left">
             <span class="degree-box-label">Major</span>
-            <span class="degree-box-name">Mathematics – Computer Science</span>
+            <span class="degree-box-name">Data Science</span>
           </div>
           <div class="degree-box-right">
             <span class="degree-box-school">UC San Diego</span>
@@ -570,6 +551,55 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
   </div>
 </section>
 
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="reveal">
+    <div class="section-label">Background</div>
+    <h2 class="section-title">Where I've <em>worked</em></h2>
+  </div>
+  <div class="timeline">
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-meta">2026 – Present</div>
+      <div class="exp-title">Data &amp; Machine Learning Analyst</div>
+      <div class="exp-company">Sprout Media · Remote</div>
+      <ul class="exp-bullets">
+        <li>Analyze Meta Ads performance using Python (pandas, NumPy) and Excel across full-funnel metrics (CTR, CPC, CPA, ROAS).</li>
+        <li>Build predictive LLM models to forecast campaign success from creative, audience, and spend features; present findings directly to clients.</li>
+      </ul>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-meta">2024 – 2025</div>
+      <div class="exp-title">Lead Research Intern</div>
+      <div class="exp-company">UCSD Institute of Engineering in Medicine</div>
+      <ul class="exp-bullets">
+        <li>Led a 5-person team analyzing 500+ DRG neuron microscopy images with Python, MATLAB, and ImageJ to extract morphological and intensity features.</li>
+        <li>Co-authored 2 peer-reviewed abstracts presented at the Biomedical Engineering Society (BMES) conference.</li>
+      </ul>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-meta">Nov 2024 – Jun 2025</div>
+      <div class="exp-title">Project Manager &amp; Developer</div>
+      <div class="exp-company">Open Coding Society</div>
+      <ul class="exp-bullets">
+        <li>Led Agile development of a district-wide learning platform with live review recording and AI-powered homework support, deployed across 6 high schools.</li>
+        <li>Built full-stack features with Spring Boot, SQL, and REST APIs; coordinated Git/GitHub workflows across campus teams.</li>
+      </ul>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-meta">2023 – 2025</div>
+      <div class="exp-title">Lead Math Instructor</div>
+      <div class="exp-company">Mathnasium · San Diego, CA</div>
+      <ul class="exp-bullets">
+        <li>Taught 4–5 students per session (K–12 through Calculus) with individualized instruction.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- PROJECTS -->
 <section id="projects">
   <div class="reveal">
@@ -577,10 +607,63 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
     <h2 class="section-title">Selected <em>Projects</em></h2>
   </div>
   <div class="projects-grid">
-    <div class="project-card reveal" onclick="window.open('https://sharonkodali.github.io/vibecanvas/','_blank')" style="cursor:pointer;">
+    <div class="project-card reveal" onclick="window.open('https://resume-tailor-seven-zeta.vercel.app','_blank')" style="cursor:pointer;">
       <div class="project-num">01</div>
       <div class="project-card-inner">
-        <div class="project-date">Jan 2026 – Present</div>
+        <div class="project-date">Jul 2026 – Aug 2026</div>
+        <div class="project-title">ResumeTailor</div>
+        <ul class="project-bullets">
+          <li>AI-powered resume tailoring platform: rewrites bullets against a target job description with an ATS match score, keyword extraction, and per-bullet reasoning.</li>
+          <li>LaTeX-aware tailoring engine splices model-rewritten bullets back into the original .tex at exact character offsets — never touches document structure, so output always compiles. FastAPI backend with 96 passing tests.</li>
+        </ul>
+        <div class="project-tech">
+          <span class="tech-pill">Next.js</span><span class="tech-pill">FastAPI</span><span class="tech-pill">TypeScript</span><span class="tech-pill">SQLAlchemy</span><span class="tech-pill">OpenAI API</span>
+        </div>
+        <div class="project-actions">
+          <a href="https://resume-tailor-seven-zeta.vercel.app" target="_blank" class="project-demo-btn" style="text-decoration:none;" onclick="event.stopPropagation()">See Demo ↗</a>
+          <a href="https://github.com/sharonkodali/ResumeTailor" target="_blank" class="project-gh-link" onclick="event.stopPropagation()">GitHub →</a>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal" onclick="window.open('https://github.com/sharonkodali/DistributedKV','_blank')" style="cursor:pointer;">
+      <div class="project-num">02</div>
+      <div class="project-card-inner">
+        <div class="project-date">Aug 2026</div>
+        <div class="project-title">Distributed Key-Value Store</div>
+        <ul class="project-bullets">
+          <li>5-node Raft consensus cluster in Go (hashicorp/raft) with leader election and majority-commit log replication — killing the leader triggers automatic failover with zero data loss.</li>
+          <li>Diagnosed and fixed two real distributed-systems bugs: a hostname/IP resolution mismatch in write-forwarding, and a Docker Compose DNS startup race between containers.</li>
+        </ul>
+        <div class="project-tech">
+          <span class="tech-pill">Go</span><span class="tech-pill">Raft Consensus</span><span class="tech-pill">Docker</span><span class="tech-pill">Distributed Systems</span>
+        </div>
+        <div class="project-actions">
+          <a href="https://github.com/sharonkodali/DistributedKV" target="_blank" class="project-gh-link" onclick="event.stopPropagation()">GitHub →</a>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal" onclick="window.open('https://blinkguard-one.vercel.app','_blank')" style="cursor:pointer;">
+      <div class="project-num">03</div>
+      <div class="project-card-inner">
+        <div class="project-date">Apr 2026</div>
+        <div class="project-title">BlinkGuard</div>
+        <ul class="project-bullets">
+          <li>Real-time drowsy-driving detection: MediaPipe eye/mouth-aspect-ratio tracking in the browser streams telemetry every 2 seconds to a Next.js API bridge.</li>
+          <li>Adaptive safety coach built on Fetch.ai uAgents — escalates alerts from recent history, logs incidents by severity, and tracks a rolling trip safety score.</li>
+        </ul>
+        <div class="project-tech">
+          <span class="tech-pill">Next.js</span><span class="tech-pill">MediaPipe</span><span class="tech-pill">Fetch.ai uAgents</span><span class="tech-pill">TypeScript</span>
+        </div>
+        <div class="project-actions">
+          <a href="https://blinkguard-one.vercel.app" target="_blank" class="project-demo-btn" style="text-decoration:none;" onclick="event.stopPropagation()">See Demo ↗</a>
+          <a href="https://github.com/sharonkodali/blinkguard" target="_blank" class="project-gh-link" onclick="event.stopPropagation()">GitHub →</a>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal" onclick="window.open('https://sharonkodali.github.io/vibecanvas/','_blank')" style="cursor:pointer;">
+      <div class="project-num">04</div>
+      <div class="project-card-inner">
+        <div class="project-date">Feb 2026 – Apr 2026</div>
         <div class="project-title">Vibe Canvas</div>
         <ul class="project-bullets">
           <li> Built an end-to-end 7-stage ML pipeline in Python trained on 28,351 real Spotify tracks — from data cleaning and EDA to PCA, KMeans clustering, and Random Forest classification (54.1% accuracy, 3× above baseline).</li>
@@ -596,7 +679,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
       </div>
     </div>
     <div class="project-card reveal" data-project="realestate" onclick="openProject('realestate')" style="cursor:pointer;">
-      <div class="project-num">02</div>
+      <div class="project-num">05</div>
       <div class="project-card-inner">
         <div class="project-date">Oct 2025 – Nov 2025</div>
         <div class="project-title">CA Real Estate Intelligence Tracker</div>
@@ -609,7 +692,6 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
         </div>
         <div class="project-actions">
           <button class="project-demo-btn" onclick="event.stopPropagation(); openProject('realestate')">See Demo ↗</button>
-          <a href="#" class="project-gh-link">GitHub →</a>
         </div>
       </div>
     </div>
@@ -625,7 +707,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
   <div class="skills-grid">
     <div class="skill-card reveal">
       <div class="skill-card-header"><div class="skill-name">Programming</div><span class="skill-icon">〈/〉</span></div>
-      <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">MATLAB</span><span class="skill-tag">C</span><span class="skill-tag">SQL</span><span class="skill-tag">HTML/CSS</span><span class="skill-tag">JavaScript</span></div>
+      <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">Go</span><span class="skill-tag">Java</span><span class="skill-tag">MATLAB</span><span class="skill-tag">C</span><span class="skill-tag">SQL</span><span class="skill-tag">TypeScript</span><span class="skill-tag">HTML/CSS</span></div>
     </div>
     <div class="skill-card reveal">
       <div class="skill-card-header"><div class="skill-name">Data &amp; ML</div><span class="skill-icon">◈</span></div>
@@ -637,7 +719,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
     </div>
     <div class="skill-card reveal">
       <div class="skill-card-header"><div class="skill-name">Web Dev</div><span class="skill-icon">⬡</span></div>
-      <div class="skill-tags"><span class="skill-tag">Flask</span><span class="skill-tag">Spring Boot</span><span class="skill-tag">REST APIs</span><span class="skill-tag">MySQL</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">React</span></div>
+      <div class="skill-tags"><span class="skill-tag">Next.js</span><span class="skill-tag">React</span><span class="skill-tag">Flask</span><span class="skill-tag">FastAPI</span><span class="skill-tag">Spring Boot</span><span class="skill-tag">REST APIs</span><span class="skill-tag">Docker</span><span class="skill-tag">MySQL</span><span class="skill-tag">PostgreSQL</span></div>
     </div>
     <div class="skill-card reveal">
       <div class="skill-card-header"><div class="skill-name">Design &amp; PM</div><span class="skill-icon">◇</span></div>
@@ -728,7 +810,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
 </section>
 
 <footer>
-  <span>© 2025 Sharon Kodali</span>
+  <span>© 2026 Sharon Kodali</span>
   <span>San Diego, CA</span>
   <span>UC San Diego</span>
 </footer>
@@ -768,20 +850,6 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
   }
   draw();
 })();
-
-// CURSOR
-var cross = document.getElementById('cursor-cross'), dot = document.getElementById('cursor-dot'), mx = 0, my = 0;
-document.addEventListener('mousemove', function(e){ mx = e.clientX; my = e.clientY; });
-(function tick(){ cross.style.left = mx+'px'; cross.style.top = my+'px'; dot.style.left = mx+'px'; dot.style.top = my+'px'; requestAnimationFrame(tick); })();
-
-// TICKER
-var tickerEl = document.getElementById('ticker-inner');
-var unit = '<span class="ticker-item">Sharon Kodali</span><span class="ticker-sep">✦</span>';
-tickerEl.innerHTML = unit.repeat(20) + unit.repeat(20);
-var sEl = document.createElement('style');
-sEl.textContent = '@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}';
-document.head.appendChild(sEl);
-requestAnimationFrame(function(){ var dur = (tickerEl.scrollWidth/2)/75; tickerEl.style.animation = 'ticker '+dur+'s linear infinite'; });
 
 // SCROLL REVEAL
 var obs = new IntersectionObserver(function(entries){
@@ -931,15 +999,6 @@ document.querySelectorAll('[data-cert]').forEach(function(el){
 
 // PROJECT OVERLAY
 var projects = {
-  spotify: {
-    eyebrow: 'Jan 2026 – Present',
-    title: 'Spotify Visual<br><em>Art Generator</em>',
-    tech: ['Python','Flask','scikit-learn','NumPy','pandas','Spotify API','JavaScript'],
-    overview: '<p>A full-stack ML application that connects to the Spotify Web API, pulls audio feature vectors from playlists, and uses a trained classification model to infer the "vibe" — then generates generative visual art in real time.</p><p>Analyzes features like <strong>energy, valence, danceability, tempo, and acousticness</strong> across 1,000+ tracks using a scikit-learn pipeline with preprocessing, dimensionality reduction, and classification.</p>',
-    features: ['Spotify OAuth integration for real-time playlist access','scikit-learn pipeline: StandardScaler → PCA → KNN/SVM classifier','6 vibe categories: Melancholic, Euphoric, Focused, Chill, Hype, Dreamy','Generative canvas art driven by classified audio features','Flask REST API backend with JavaScript frontend','Batch processing of 1,000+ audio vectors per session'],
-    urlBar: 'localhost:5000/analyze',
-    demoHTML: '<div class="spotify-demo"><div class="spotify-player"><div class="sp-cover">🎵</div><div class="sp-track">Late Night Drive</div><div class="sp-artist">Indie Chill Playlist · 47 tracks</div><div class="sp-bar"><div class="sp-bar-fill"></div></div><div style="display:flex;justify-content:space-between;font-size:.58rem;color:var(--muted)"><span>2:14</span><span>4:02</span></div><div class="sp-controls"><span>⏮</span><span class="sp-play">▶</span><span>⏭</span></div></div><div class="spotify-viz"><div class="viz-label">Audio Feature Analysis</div><div class="viz-bars"><div class="viz-bar" style="height:90%"></div><div class="viz-bar" style="height:55%;animation-delay:.1s"></div><div class="viz-bar" style="height:72%;animation-delay:.2s"></div><div class="viz-bar" style="height:40%;animation-delay:.3s"></div><div class="viz-bar" style="height:85%;animation-delay:.4s"></div><div class="viz-bar" style="height:60%;animation-delay:.5s"></div><div class="viz-bar" style="height:78%;animation-delay:.6s"></div><div class="viz-bar" style="height:45%;animation-delay:.7s"></div><div class="viz-bar" style="height:92%;animation-delay:.8s"></div><div class="viz-bar" style="height:50%;animation-delay:.9s"></div></div><div class="viz-features" style="margin-top:1.5rem"><div class="viz-feat-row"><span class="viz-feat-label">Energy</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:82%;background:var(--rose)"></div></div></div><div class="viz-feat-row"><span class="viz-feat-label">Valence</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:45%;background:var(--gold)"></div></div></div><div class="viz-feat-row"><span class="viz-feat-label">Danceability</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:67%;background:var(--ember)"></div></div></div><div class="viz-feat-row"><span class="viz-feat-label">Acousticness</span><div class="viz-feat-bar"><div class="viz-feat-fill" style="width:30%;background:var(--muted)"></div></div></div></div><div class="vibe-badge">✦ Classified Vibe: Melancholic</div></div></div>'
-  },
   realestate: {
     eyebrow: 'Oct 2025 – Nov 2025',
     title: 'California Real Estate<br><em>Intelligence Tracker</em>',
@@ -959,7 +1018,7 @@ function openProject(key){
   if(!p) return;
   var feats = p.features.map(function(f){ return '<li>'+f+'</li>'; }).join('');
   var techs = p.tech.map(function(t){ return '<span class="tech-pill">'+t+'</span>'; }).join('');
-  overlayContent.innerHTML = '<button class="overlay-back" id="ov-back">Back to Portfolio</button><div class="overlay-eyebrow">'+p.eyebrow+'</div><h2 class="overlay-title">'+p.title+'</h2><div class="overlay-tech">'+techs+'</div><div class="overlay-divider"></div><div class="overlay-section-title">Overview</div><div class="overlay-body">'+p.overview+'</div><div class="overlay-section-title">Key Features</div><ul class="overlay-features">'+feats+'</ul><div class="overlay-section-title">Interactive Demo</div><div class="overlay-demo"><div class="overlay-demo-header"><div class="demo-dot demo-dot-r"></div><div class="demo-dot demo-dot-y"></div><div class="demo-dot demo-dot-g"></div><div class="demo-url-bar">'+p.urlBar+'</div></div><div class="demo-content">'+p.demoHTML+'</div></div><div class="overlay-links"><a href="#" class="btn-primary"><span>View on GitHub</span></a><button class="btn-ghost" id="ov-back2">Back</button></div>';
+  overlayContent.innerHTML = '<button class="overlay-back" id="ov-back">Back to Portfolio</button><div class="overlay-eyebrow">'+p.eyebrow+'</div><h2 class="overlay-title">'+p.title+'</h2><div class="overlay-tech">'+techs+'</div><div class="overlay-divider"></div><div class="overlay-section-title">Overview</div><div class="overlay-body">'+p.overview+'</div><div class="overlay-section-title">Key Features</div><ul class="overlay-features">'+feats+'</ul><div class="overlay-section-title">Interactive Demo</div><div class="overlay-demo"><div class="overlay-demo-header"><div class="demo-dot demo-dot-r"></div><div class="demo-dot demo-dot-y"></div><div class="demo-dot demo-dot-g"></div><div class="demo-url-bar">'+p.urlBar+'</div></div><div class="demo-content">'+p.demoHTML+'</div></div><div class="overlay-links"><button class="btn-ghost" id="ov-back2">Back to Portfolio</button></div>';
   overlay.classList.add('open');
   overlay.scrollTop = 0;
   document.body.style.overflow = 'hidden';
