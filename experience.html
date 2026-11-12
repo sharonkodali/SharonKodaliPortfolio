@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Experience · Sharon Kodali</title>
+<meta name="description" content="Sharon Kodali's experience: SDSC research, iOS at Rydr, data and ML at Sprout Media, Open Coding Society, UCSD IEM."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="garden.css"/>
+<style>
+  /* timeline: a stem grows down the left as you scroll, each role is a bud that blooms */
+  .timeline { position: relative; margin-top: 50px; padding-left: 120px; }
+  .vine { position: absolute; left: 34px; top: 0; bottom: 0; width: 60px; pointer-events: none; }
+  .vine svg { width: 100%; height: 100%; overflow: visible; }
+  .vine .track { stroke: rgba(238,223,243,.08); }
+  .role { position: relative; margin-bottom: 34px; }
+  .bud { position: absolute; left: -118px; top: 4px; width: 92px; height: 92px; }
+  .role .card { padding: 30px 34px 28px; }
+  .role .top { display: flex; justify-content: space-between; gap: 20px; align-items: baseline; flex-wrap: wrap; }
+  .role h3 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(28px, 3vw, 40px); line-height: 1.05; }
+  .role .org { color: var(--c); font-size: 14.5px; margin-top: 6px; }
+  .role .when { font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--lilac3); white-space: nowrap; display: flex; align-items: center; gap: 8px; }
+  .role .when .now { width: 7px; height: 7px; border-radius: 50%; background: #9be38f; box-shadow: 0 0 0 0 rgba(155,227,143,.6); animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(155,227,143,0); } 100% { box-shadow: 0 0 0 0 rgba(155,227,143,0); } }
+  .role ul { list-style: none; margin: 18px 0 18px; display: grid; gap: 10px; }
+  .role li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.65; color: var(--lilac2); }
+  .role li::before { content: ''; position: absolute; left: 2px; top: .55em; width: 9px; height: 9px; border-radius: 50% 0; background: var(--c); transform: rotate(45deg); opacity: .85; }
+  .stats { display: flex; gap: 12px; flex-wrap: wrap; margin: 4px 0 18px; }
+  .stat { padding: 12px 16px; border-radius: 16px; background: color-mix(in srgb, var(--c) 14%, transparent); border: 1px solid color-mix(in srgb, var(--c) 30%, transparent); min-width: 120px; }
+  .stat b { display: block; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 34px; line-height: 1; color: var(--lilac); }
+  .stat span { font-size: 12px; color: var(--lilac2); }
+  @media (max-width: 860px) {
+    .timeline { padding-left: 44px; }
+    .vine { left: -6px; width: 40px; }
+    .bud { left: -48px; width: 52px; height: 52px; }
+    .role .card { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+<canvas id="petals" aria-hidden="true"></canvas>
+
+<nav class="nav" aria-label="Main">
+  <a class="home" href="index.html">sk<span>.</span></a>
+  <ul>
+    <li><a class="l" href="experience.html" aria-current="page">experience</a></li>
+    <li><a class="l" href="projects.html">projects</a></li>
+    <li><a class="l" href="about.html">about</a></li>
+    <li class="hide-sm"><a class="l" href="contact.html">contact</a></li>
+    <li><a class="l cv" href="Kodali,Sharon-RESUME.pdf" target="_blank" rel="noopener">résumé ↗</a></li>
+  </ul>
+</nav>
+
+<header class="page">
+  <div>
+    <div class="kicker">experience · 2024 to now</div>
+    <h1><span data-split>where i've</span> <em data-split>grown</em></h1>
+    <p class="lede">Research code that has to match a C++ reference to the last decimal, an iOS app with real riders, data pipelines that run unattended, and a platform used by 500+ students. Five roles, each one a little different.</p>
+    <p class="hint">hover the iris · click it to re-bloom</p>
+  </div>
+  <div class="hero-flower" style="--glow: rgba(138,79,184,.42)">
+    <div class="glow"></div>
+    <div class="sway" data-flower="iris" data-stem="1" data-hero></div>
+  </div>
+  <div class="scroll-cue"><i></i>scroll</div>
+</header>
+
+<main>
+  <section class="block">
+    <h2 class="sec-title reveal">the <em>timeline</em></h2>
+    <p class="sec-sub reveal">Newest first. Scroll and the stem grows with you.</p>
+
+    <div class="timeline" id="timeline">
+      <div class="vine" aria-hidden="true">
+        <svg preserveAspectRatio="none" viewBox="0 0 60 1000">
+          <path class="track" d="M30 0 C 50 120, 10 240, 30 360 S 50 600, 30 720 S 10 900, 30 1000" stroke-width="3" fill="none"/>
+          <path id="vine-grow" d="M30 0 C 50 120, 10 240, 30 360 S 50 600, 30 720 S 10 900, 30 1000" stroke="#8fa63a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <article class="role reveal" style="--c:#a77bb0">
+        <div class="bud" data-flower="iris"></div>
+        <div class="card">
+          <div class="top"><div><h3>Undergraduate Research Intern</h3><div class="org">San Diego Supercomputer Center (SDSC) · La Jolla</div></div><span class="when"><i class="now"></i>Nov 2026 – now</span></div>
+          <ul>
+            <li>Porting a C++ fusion plasma simulation to <b class="hl">JAX</b> with Dr. Igor Sfiligoi, for portable GPU execution (XLA, jit) and automatic differentiation in reactor-design optimization.</li>
+            <li>Building the port's regression suite: reading C++ routines for inputs, outputs, invariants and edge cases, then writing parametrized pytest tests against C++ reference outputs.</li>
+            <li>Validating AI-generated and hand-written JAX kernels for numerical equivalence with the originals.</li>
+          </ul>
+          <div class="chips"><span class="chip">JAX</span><span class="chip">C++</span><span class="chip">pytest</span><span class="chip">XLA</span><span class="chip">HPC</span></div>
+        </div>
+      </article>
+
+      <article class="role reveal" style="--c:#d4478a">
+        <div class="bud" data-flower="cosmos"></div>
+        <div class="card">
+          <div class="top"><div><h3>Software Development Intern, iOS</h3><div class="org">Rydr · Remote</div></div><span class="when"><i class="now"></i>Jul 2026 – now</span></div>
+          <div class="stats"><div class="stat"><b>62%</b><span>faster API (800→300ms)</span></div><div class="stat"><b>40%</b><span>fewer crashes</span></div><div class="stat"><b>25+</b><span>reviewed PRs</span></div></div>
+          <ul>
+            <li>Cut API response time with local caching in a ride-sharing app, and the crash rate by tracking down a memory leak.</li>
+            <li>Shipped profile editing and ride history; caught <b class="hl">12 bugs</b> pre-release with 30+ tests on the payment flow (85% coverage).</li>
+            <li>Fixed <b class="hl">3 security vulnerabilities</b> that exposed other users' accounts, plus 18+ auth and account-creation bugs.</li>
+          </ul>
+          <div class="chips"><span class="chip">Swift</span><span class="chip">iOS</span><span class="chip">MySQL</span><span class="chip">REST APIs</span></div>
+        </div>
+      </article>
+
+      <article class="role reveal" style="--c:#e58a2e">
+        <div class="bud" data-flower="poppy"></div>
+        <div class="card">
+          <div class="top"><div><h3>Data &amp; Machine Learning Analyst</h3><div class="org">Sprout Media · Remote</div></div><span class="when">May – Aug 2026</span></div>
+          <div class="stats"><div class="stat"><b>50K+</b><span>records a week</span></div><div class="stat"><b>40%</b><span>faster pipeline</span></div><div class="stat"><b>15%</b><span>weak segment found</span></div></div>
+          <ul>
+            <li>Built an automated Python pipeline pulling from 3 APIs and 4 CSV sources at 99%+ success for 10 weeks.</li>
+            <li>Refactored batch API calls into async requests and cut null and duplicate records 25% with validation checks.</li>
+            <li>Delivered 2 dashboards used by 5 stakeholders; they surfaced an underperforming segment that drove a client budget reallocation.</li>
+          </ul>
+          <div class="chips"><span class="chip">Python</span><span class="chip">asyncio</span><span class="chip">dashboards</span><span class="chip">LLM parsing</span></div>
+        </div>
+      </article>
+
+      <article class="role reveal" style="--c:#c2b13a">
+        <div class="bud" data-flower="daisy"></div>
+        <div class="card">
+          <div class="top"><div><h3>Project Manager &amp; Developer</h3><div class="org">Open Coding Society · San Diego</div></div><span class="when">Nov 2024 – Jun 2025</span></div>
+          <div class="stats"><div class="stat"><b>500+</b><span>students, 5 schools</span></div><div class="stat"><b>60%</b><span>faster bug turnaround</span></div><div class="stat"><b>30</b><span>engineers led</span></div></div>
+          <ul>
+            <li>Owned a Spring Boot and MySQL platform with REST APIs on AWS, from data model to UI.</li>
+            <li>Ran a 7-feature roadmap and the sprint planning, demos and code reviews (40+ PRs) behind it.</li>
+            <li>Presented the roadmap and outcomes to the Poway Unified School District Board.</li>
+          </ul>
+          <div class="chips"><span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">MySQL</span><span class="chip">AWS</span><span class="chip">Product</span></div>
+        </div>
+      </article>
+
+      <article class="role reveal" style="--c:#e07aa8">
+        <div class="bud" data-flower="orchid"></div>
+        <div class="card">
+          <div class="top"><div><h3>Lead Research Intern</h3><div class="org">UCSD Institute of Engineering in Medicine · La Jolla</div></div><span class="when">Jun 2024 – May 2025</span></div>
+          <div class="stats"><div class="stat"><b>5×</b><span>lab throughput</span></div><div class="stat"><b>500+</b><span>microscopy images</span></div><div class="stat"><b>6</b><span>person team</span></div></div>
+          <ul>
+            <li>Led a team building a Python and MATLAB feature-extraction pipeline that took each dataset from 3 hours to 20 minutes.</li>
+            <li>Turned open-ended research questions into technical requirements between engineers and medical researchers; the work fed published BMES abstracts.</li>
+          </ul>
+          <div class="chips"><span class="chip">Python</span><span class="chip">MATLAB</span><span class="chip">ImageJ</span><span class="chip">Research</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="page">
+  <a class="next" href="projects.html">next: <em>projects</em> <span class="arr">→</span></a>
+  <small>© 2026 sharon kodali · san diego</small>
+</footer>
+
+<script src="garden.js"></script>
+<script>
+  // grow the vine with scroll progress through the timeline
+  (function(){
+    var tl = document.getElementById('timeline'), path = document.getElementById('vine-grow');
+    var len = path.getTotalLength();
+    path.style.strokeDasharray = len; path.style.strokeDashoffset = len;
+    function update(){
+      var r = tl.getBoundingClientRect(), vh = innerHeight;
+      var p = Math.min(1, Math.max(0, (vh*.7 - r.top)/r.height));
+      path.style.strokeDashoffset = len*(1 - p);
+    }
+    addEventListener('scroll', update, { passive: true }); addEventListener('resize', update); update();
+  })();
+</script>
+</body>
+</html>

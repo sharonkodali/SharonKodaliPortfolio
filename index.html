@@ -10,16 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --pond: #0e1a14;
-  --pond2: #17301f;
-  --cream: #f3e7cf;
+  --pond: #150a19;
+  --pond2: #2a1533;
+  --cream: #eedff3;
   --cream2: rgba(243,231,207,.62);
-  --pink: #ef8fa6;
+  --pink: #e58fc4;
   --papaya: #f08a3c;
   --mustard: #e8b84a;
   --leaf: #4f7a4a;
   --olive: #8a9a3a;
-  --ink: #15211a;
+  --ink: #150a19;
   --paper: #f6eedc;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,7 +29,7 @@ a { color: inherit; }
 
 /* the pond: one full-screen canvas */
 #pond { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; touch-action: none;
-  background: radial-gradient(ellipse at 50% 42%, #1d3a28 0%, #132619 45%, #0b150f 100%); }
+  background: radial-gradient(ellipse at 50% 40%, #3a1d45 0%, #241130 45%, #12081a 100%); }
 #pond.grab { cursor: grab; }
 #pond.grabbing { cursor: grabbing; }
 
@@ -46,7 +46,7 @@ a { color: inherit; }
 /* center copy */
 .hello { position: fixed; left: 50%; top: 64%; transform: translate(-50%, 0); z-index: 2; text-align: center; width: 92%; pointer-events: none; }
 .hello h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(56px, 9vw, 128px); line-height: .92; letter-spacing: -.01em; color: var(--cream);
-  text-shadow: 0 2px 30px rgba(8,18,12,.65); opacity: 0; transform: translateY(14px); animation: rise 1.1s .9s cubic-bezier(.2,.8,.2,1) forwards; }
+  text-shadow: 0 2px 30px rgba(18,8,26,.7); opacity: 0; transform: translateY(14px); animation: rise 1.1s .9s cubic-bezier(.2,.8,.2,1) forwards; }
 .hello h1 em { color: var(--pink); }
 .hello p { margin-top: 14px; font-size: clamp(13px, 1.2vw, 15px); color: var(--cream2); letter-spacing: .02em; opacity: 0; animation: rise 1s 1.25s cubic-bezier(.2,.8,.2,1) forwards; }
 .pills { position: fixed; left: 50%; bottom: 46px; transform: translateX(-50%); z-index: 3; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; width: 92%;
@@ -182,219 +182,26 @@ a.pill { text-decoration: none; display: inline-block; }
   <p class="status"><span class="live"></span>open to summer 2027 internships · swe, ml, data</p>
 </main>
 
-<div class="pills" role="navigation" aria-label="Sections">
-  <button class="pill" data-open="experience"><span class="dot" style="background:var(--olive)"></span>experience</button>
-  <button class="pill" data-open="projects"><span class="dot" style="background:var(--pink)"></span>projects</button>
-  <button class="pill" data-open="about"><span class="dot" style="background:var(--mustard)"></span>about</button>
-  <a class="pill" href="Kodali,Sharon-RESUME.pdf" target="_blank" rel="noopener"><span class="dot" style="background:var(--cream)"></span>résumé ↗</a>
-  <button class="pill" data-open="contact"><span class="dot" style="background:var(--papaya)"></span>contact</button>
-</div>
-
-<div class="sheet-bg" id="sheet-bg"></div>
-
-<section class="sheet" id="experience" role="dialog" aria-modal="true" aria-labelledby="experience-title" aria-hidden="true">
-  <button class="x" aria-label="Close">×</button>
-  <div class="kick">experience</div>
-  <h2 id="experience-title">where i've <em>worked</em></h2>
-
-  <div class="job">
-    <div><h3>Undergraduate Research Intern</h3><div class="org">San Diego Supercomputer Center (SDSC) · La Jolla</div></div><span class="when">Nov 2026 – now</span>
-    <ul>
-      <li>Porting a C++ fusion plasma simulation to <b>JAX</b> with Dr. Igor Sfiligoi, for portable GPU execution and automatic differentiation in reactor-design optimization.</li>
-      <li>Building the port's regression suite: parametrized pytest tests against C++ reference outputs, and validating JAX kernels for numerical equivalence.</li>
-    </ul>
-    <div class="chips"><span class="chip">JAX</span><span class="chip">C++</span><span class="chip">pytest</span><span class="chip">HPC</span></div>
-  </div>
-
-  <div class="job">
-    <div><h3>Software Development Intern, iOS</h3><div class="org">Rydr · Remote</div></div><span class="when">Jul 2026 – now</span>
-    <ul>
-      <li>Cut API response time <b>62%</b> (800 to 300 ms) with local caching in a ride-sharing app, and cut the crash rate <b>40%</b> by fixing a memory leak.</li>
-      <li>Shipped profile editing and ride history through <b>25+</b> code-reviewed PRs; caught <b>12</b> bugs pre-release with 30+ tests on the payment flow (85% coverage).</li>
-      <li>Fixed <b>3</b> security vulnerabilities that exposed other users' accounts, plus 18+ auth and account-creation bugs.</li>
-    </ul>
-    <div class="chips"><span class="chip">Swift</span><span class="chip">iOS</span><span class="chip">MySQL</span><span class="chip">REST APIs</span></div>
-  </div>
-
-  <div class="job">
-    <div><h3>Data &amp; Machine Learning Analyst</h3><div class="org">Sprout Media · Remote</div></div><span class="when">May – Aug 2026</span>
-    <ul>
-      <li>Built an automated Python pipeline aggregating <b>50K+ records/week</b> from 3 APIs and 4 CSV sources at 99%+ success.</li>
-      <li>Cut pipeline runtime <b>40%</b> with async requests; delivered 2 dashboards used by 5 stakeholders that surfaced a 15% underperforming segment and drove a budget reallocation.</li>
-    </ul>
-    <div class="chips"><span class="chip">Python</span><span class="chip">async</span><span class="chip">dashboards</span><span class="chip">LLM parsing</span></div>
-  </div>
-
-  <div class="job">
-    <div><h3>Project Manager &amp; Developer</h3><div class="org">Open Coding Society · San Diego</div></div><span class="when">Nov 2024 – Jun 2025</span>
-    <ul>
-      <li>Owned a Spring Boot and MySQL platform on AWS used by <b>500+ students</b> at 5 high schools, from data model to UI.</li>
-      <li>Ran a 7-feature roadmap for a 30-person engineering org and cut bug turnaround <b>60%</b> (5 to 2 days); presented to the Poway Unified School Board.</li>
-    </ul>
-    <div class="chips"><span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">AWS</span><span class="chip">Product</span></div>
-  </div>
-
-  <div class="job">
-    <div><h3>Lead Research Intern</h3><div class="org">UCSD Institute of Engineering in Medicine · La Jolla</div></div><span class="when">Jun 2024 – May 2025</span>
-    <ul>
-      <li>Raised lab throughput <b>5x</b> (3 hours to 20 minutes per dataset) by leading a 6-person team to build a feature-extraction pipeline for 500+ microscopy images.</li>
-      <li>Documented methods and results that contributed to published BMES abstracts.</li>
-    </ul>
-    <div class="chips"><span class="chip">Python</span><span class="chip">MATLAB</span><span class="chip">Research</span></div>
-  </div>
-</section>
-
-<section class="sheet wide" id="projects" role="dialog" aria-modal="true" aria-labelledby="projects-title" aria-hidden="true">
-  <button class="x" aria-label="Close">×</button>
-  <div class="kick">selected work</div>
-  <h2 id="projects-title">things i've <em>built</em></h2>
-  <div class="filters" role="group" aria-label="Filter projects">
-    <button class="f on" data-f="all">all</button>
-    <button class="f" data-f="ml">ml &amp; data</button>
-    <button class="f" data-f="sys">systems</button>
-    <button class="f" data-f="web">web &amp; apps</button>
-  </div>
-
-  <div class="featured">
-    <article class="card" data-tags="sys">
-      <div class="top"><span class="sw" style="background:#8a9a3a"></span><h3>Distributed KV Store</h3></div>
-      <p>A 5-node fault-tolerant Raft cluster in Go. Kill the leader mid-write and it re-elects in under 4s with zero data loss.</p>
-      <div class="metrics"><span>3,200 writes/s</span><span>&lt;3ms p99 reads</span><span>100+ tests</span></div>
-      <div class="stack">Go · Raft · Docker</div>
-      <div class="links"><a href="https://github.com/sharonkodali/DistributedKV" target="_blank" rel="noopener">code ↗</a></div>
-    </article>
-    <article class="card" data-tags="ml">
-      <div class="top"><span class="sw" style="background:#f08a3c"></span><h3>TritonETA</h3></div>
-      <p>Real-time UCSD shuttle tracker. An unattended pipeline collects live GPS, and a geospatial matcher derives the arrival-delay signal the feed is missing.</p>
-      <div class="metrics"><span>180K GPS pings</span><span>16 dbt models</span><span>28 data tests</span></div>
-      <div class="stack">Python · SQL · DuckDB · dbt · GitHub Actions</div>
-      <div class="links"><a href="https://github.com/sharonkodali/tritoneta" target="_blank" rel="noopener">code ↗</a></div>
-    </article>
-    <article class="card" data-tags="ml">
-      <div class="top"><span class="sw" style="background:#ef8fa6"></span><h3>xView2 Damage Segmentation</h3></div>
-      <p>A PyTorch U-Net that segments per-building disaster damage from pre/post satellite images, scored with building-level F1 instead of misleading pixel accuracy.</p>
-      <div class="metrics"><span>0.475 macro F1</span><span>vs 0.185 baseline</span><span>42 tests</span></div>
-      <div class="stack">Python · PyTorch · U-Net</div>
-      <div class="links"><a href="https://github.com/sharonkodali/xview2-damage-segmentation" target="_blank" rel="noopener">code ↗</a></div>
-    </article>
-    <article class="card" data-tags="web ml">
-      <div class="top"><span class="sw" style="background:#e8b84a"></span><h3>ResumeTailor</h3></div>
-      <p>A full-stack LLM app that tailors resumes to job posts by rewriting LaTeX bullets in place, with a relevance score to check model output before trusting it.</p>
-      <div class="metrics"><span>83% faster tailoring</span><span>96 tests</span><span>45% lower latency</span></div>
-      <div class="stack">Python · FastAPI · Next.js · TypeScript · OpenAI API</div>
-      <div class="links"><a href="https://resume-tailor-seven-zeta.vercel.app" target="_blank" rel="noopener">live demo ↗</a><a href="https://github.com/sharonkodali/ResumeTailor" target="_blank" rel="noopener">code ↗</a></div>
-    </article>
-  </div>
-
-  <div class="sub">more projects</div>
-  <div class="more">
-    <article class="row" data-tags="ml web">
-      <div><h4>VibeCanvas</h4><p>Clusters 28,351 Spotify tracks and classifies 6 genres (54% vs 16.7% chance), then renders each song as generative art.</p></div>
-      <div class="links"><a href="https://sharonkodali.github.io/vibecanvas/" target="_blank" rel="noopener">demo ↗</a><a href="https://github.com/sharonkodali/vibecanvas" target="_blank" rel="noopener">code ↗</a></div>
-    </article>
-    <article class="row" data-tags="ml web">
-      <div><h4>BlinkGuard</h4><p>Real-time drowsy-driver detection in the browser with MediaPipe Face Mesh, per-driver calibration, and a Fetch.ai agent that escalates alerts.</p></div>
-      <div class="links"><a href="https://blinkguard-one.vercel.app" target="_blank" rel="noopener">demo ↗</a><a href="https://github.com/sharonkodali/blinkguard" target="_blank" rel="noopener">code ↗</a></div>
-    </article>
-    <article class="row" data-tags="web">
-      <div><h4>WattWise SD</h4><p>Hack for Humanity @ UCSD. Explains San Diego electricity bills in plain language and 5 languages and finds your most expensive hours.</p></div>
-      <div class="links"><a href="https://wattwise-sd.vercel.app" target="_blank" rel="noopener">demo ↗</a><a href="https://github.com/sharonkodali/wattwise-sd" target="_blank" rel="noopener">code ↗</a></div>
-    </article>
-    <article class="row" data-tags="web">
-      <div><h4>UCSD Deadlines</h4><p>Browser extension that pulls Canvas assignments through the Planner API, with no stored credentials, into Today, List, and Week views.</p></div>
-      <div class="links"><a href="https://github.com/sharonkodali/ucsd-deadlines" target="_blank" rel="noopener">code ↗</a></div>
-    </article>
-    <article class="row" data-tags="ml">
-      <div><h4>Language Model from Scratch</h4><p>An autograd engine and language model in pure NumPy with hand-derived backprop. Validation loss from 10.5 to 1.45, no ML frameworks.</p></div>
-      <div class="links"><span class="soon">code soon</span></div>
-    </article>
-    <article class="row" data-tags="sys">
-      <div><h4>B+ Tree Index</h4><p>A database index in C++ with search, insertion, and node splits that keep the tree balanced under any insertion order.</p></div>
-      <div class="links"></div>
-    </article>
-  </div>
-</section>
-
-<section class="sheet" id="about" role="dialog" aria-modal="true" aria-labelledby="about-title" aria-hidden="true">
-  <button class="x" aria-label="Close">×</button>
-  <div class="kick">about</div>
-  <h2 id="about-title">a little about <em>me</em></h2>
-  <p>I'm Sharon, a Data Science student at UC San Diego. I like work where the data is messy and the system has to hold up: research code that has to match a reference to the last decimal, pipelines that run unattended, and apps real people use. Right now I'm porting a fusion plasma simulation to JAX at SDSC and building iOS features at Rydr.</p>
-
-  <div class="sub">education</div>
-  <div class="edu">
-    <div><b>University of California, San Diego</b><br>B.S. Data Science, minor in Cognitive Science (Machine Learning)</div>
-    <div class="when">GPA 4.00 · 2028</div>
-  </div>
-  <p class="small">Data Structures &amp; Algorithms · Systems Programming · Linear Algebra · Probability &amp; Statistics · Discrete Mathematics</p>
-
-  <div class="sub">skills</div>
-  <dl class="skills">
-    <dt>languages</dt><dd>Python, Go, C/C++, Java, SQL, JavaScript, TypeScript, MATLAB, Bash</dd>
-    <dt>ml &amp; data</dt><dd>PyTorch, JAX, scikit-learn, pandas, NumPy, MediaPipe, LLM APIs, dbt, DuckDB, PostgreSQL, MySQL</dd>
-    <dt>systems</dt><dd>Distributed systems, Raft, concurrency, networking, Docker, REST APIs, AWS</dd>
-    <dt>web</dt><dd>FastAPI, Next.js, React, Spring Boot, Flask</dd>
-    <dt>tools</dt><dd>Git, GitHub Actions CI/CD, pytest, Agile, Claude Code, Cursor</dd>
-  </dl>
-</section>
-
-<section class="sheet" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-hidden="true">
-  <button class="x" aria-label="Close">×</button>
-  <div class="kick">contact</div>
-  <h2 id="contact-title">let's <em>talk</em></h2>
-  <p style="margin-bottom:18px">I'm looking for summer 2027 internships in software engineering, ML, and data. The fastest way to reach me is email.</p>
-  <div class="contact-list">
-    <a href="mailto:spkodali@ucsd.edu"><span>email</span><span>spkodali@ucsd.edu</span></a>
-    <a href="https://www.linkedin.com/in/sharonkodali" target="_blank" rel="noopener"><span>linkedin</span><span>in/sharonkodali</span></a>
-    <a href="https://github.com/sharonkodali" target="_blank" rel="noopener"><span>github</span><span>@sharonkodali</span></a>
-    <a href="Kodali,Sharon-RESUME.pdf" target="_blank" rel="noopener"><span>résumé</span><span>pdf ↗</span></a>
-  </div>
-</section>
+<nav class="pills" aria-label="Sections">
+  <a class="pill" href="experience.html"><span class="dot" style="background:#c2b13a"></span>experience</a>
+  <a class="pill" href="projects.html"><span class="dot" style="background:#d4478a"></span>projects</a>
+  <a class="pill" href="about.html"><span class="dot" style="background:#a77bb0"></span>about</a>
+  <a class="pill" href="Kodali,Sharon-RESUME.pdf" target="_blank" rel="noopener"><span class="dot" style="background:#eedff3"></span>résumé ↗</a>
+  <a class="pill" href="contact.html"><span class="dot" style="background:#e58a2e"></span>contact</a>
+</nav>
 
 <script>
-// ---------- panels ----------
-(function(){
-  var bg = document.getElementById('sheet-bg'), open = null, opener = null;
-  function show(id, btn){
-    if(open) hide();
-    open = document.getElementById(id); opener = btn || null;
-    open.classList.add('on'); open.setAttribute('aria-hidden', 'false'); bg.classList.add('on');
-    open.scrollTop = 0; open.querySelector('.x').focus({ preventScroll: true });
-    window.pondPaused = true;
-  }
-  function hide(){
-    if(!open) return;
-    open.classList.remove('on'); open.setAttribute('aria-hidden', 'true'); bg.classList.remove('on');
-    open = null; window.pondPaused = false;
-    if(opener) opener.focus({ preventScroll: true });
-  }
-  document.querySelectorAll('[data-open]').forEach(function(b){ b.addEventListener('click', function(){ show(b.dataset.open, b); }); });
-  document.querySelectorAll('.sheet .x').forEach(function(b){ b.addEventListener('click', hide); });
-  bg.addEventListener('click', hide);
-  // project filters
-  document.querySelectorAll('.f').forEach(function(b){
-    b.addEventListener('click', function(){
-      document.querySelectorAll('.f').forEach(function(x){ x.classList.toggle('on', x === b); });
-      var f = b.dataset.f;
-      document.querySelectorAll('#projects [data-tags]').forEach(function(el){
-        el.classList.toggle('hide', f !== 'all' && el.dataset.tags.split(' ').indexOf(f) < 0);
-      });
-    });
-  });
-  window.addEventListener('keydown', function(e){ if(e.key === 'Escape') hide(); });
-})();
-
 // ---------- the pond: an ASCII water lily, lily pads, and ripples on one character grid ----------
 (function(){
   var canvas = document.getElementById('pond'), ctx = canvas.getContext('2d');
   var hint = document.getElementById('hint');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var BG = [16, 34, 24];
+  var BG = [30, 15, 38];
   var RAMP = '.,:-=+*o#%@', FLICK = '*+°o·';
   var C = {
-    water: [120, 168, 138], ripple: [243, 231, 207], wake: [190, 220, 200],
-    pad: [79, 122, 74], pad2: [138, 154, 58], padRim: [56, 92, 56],
-    base: [252, 222, 210], petal: [[222, 92, 128], [236, 126, 156], [244, 160, 150]],
+    water: [176, 138, 204], ripple: [238, 223, 243], wake: [210, 186, 226],
+    pad: [110, 132, 58], pad2: [168, 160, 60], padRim: [74, 96, 44],
+    base: [250, 226, 244], petal: [[196, 60, 140], [178, 110, 210], [232, 136, 190]],
     stamen: [232, 184, 74], anther: [240, 138, 60], pollen: [232, 184, 74]
   };
 

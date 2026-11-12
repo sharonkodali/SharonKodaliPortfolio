@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Projects · Sharon Kodali</title>
+<meta name="description" content="Projects by Sharon Kodali: a Raft key-value store in Go, a real-time shuttle tracker, satellite damage segmentation, an LLM resume tool, and more."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="garden.css"/>
+<style>
+  /* hero garden: one plant per featured project */
+  .bed { position: relative; height: min(78vh, 680px); display: flex; align-items: flex-end; justify-content: center; gap: 0; }
+  .plant { position: relative; flex: 1; max-width: 190px; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; cursor: pointer; text-decoration: none; }
+  .plant .stemwrap { width: 100%; display: flex; justify-content: center; transform-origin: 50% 100%; animation: sway 6s ease-in-out infinite; }
+  .plant:nth-child(2) .stemwrap { animation-duration: 7s; animation-delay: -2s; }
+  .plant:nth-child(3) .stemwrap { animation-duration: 5.5s; animation-delay: -1s; }
+  .plant:nth-child(4) .stemwrap { animation-duration: 6.5s; animation-delay: -3s; }
+  .plant .stemwrap { height: 100%; }
+  .plant .stemwrap > div { width: 160%; margin: 0 -30%; height: 100%; display: flex; justify-content: center; align-items: flex-end; pointer-events: none; }
+  .plant .stemwrap > div { transition: transform .5s cubic-bezier(.2,.9,.25,1); }
+  .plant:hover .stemwrap > div { transform: translateY(-10px); }
+  .plant .tag { position: absolute; bottom: -34px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--lilac3); transition: color .3s; }
+  .plant:hover .tag { color: var(--lilac); }
+  .ground { position: absolute; left: 4%; right: 4%; bottom: -6px; height: 26px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(143,166,58,.25), transparent 70%); filter: blur(6px); }
+
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 30px 0 34px; }
+  .f { font-family: 'Geist Mono', monospace; font-size: 12px; padding: 8px 15px; border-radius: 999px; border: 1px solid var(--line); background: none; color: var(--lilac2); cursor: pointer; transition: all .25s; }
+  .f:hover { color: var(--lilac); border-color: var(--lilac3); }
+  .f.on { background: var(--lilac); color: var(--night); border-color: var(--lilac); }
+
+  .featured { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .proj { padding: 32px 32px 28px; min-height: 360px; display: flex; flex-direction: column; scroll-margin-top: 100px; }
+  .proj .bloom { position: absolute; right: -18px; top: -18px; width: 150px; height: 150px; pointer-events: none; opacity: .95; }
+  .proj .num { font-family: 'Geist Mono', monospace; font-size: 11.5px; color: var(--c); letter-spacing: .12em; }
+  .proj h3 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(32px, 3.2vw, 44px); line-height: 1; margin: 10px 0 12px; max-width: 78%; }
+  .proj p { color: var(--lilac2); font-size: 15px; line-height: 1.65; max-width: 92%; }
+  .proj .stats { display: flex; gap: 22px; margin: 22px 0 18px; flex-wrap: wrap; }
+  .proj .stats div b { display: block; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 36px; line-height: 1; color: var(--lilac); }
+  .proj .stats div span { font-size: 12px; color: var(--lilac3); }
+  .proj .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; flex-wrap: wrap; padding-top: 16px; }
+  .proj .links { display: flex; gap: 8px; }
+
+  .more { margin-top: 70px; }
+  .row { display: grid; grid-template-columns: 56px 1fr auto; gap: 18px; align-items: center; padding: 18px 8px; border-top: 1px solid var(--line); transition: background .3s, padding .3s; border-radius: 14px; }
+  .row:hover { background: rgba(238,223,243,.04); padding-left: 16px; }
+  .row .ic { width: 52px; height: 52px; }
+  .row h4 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 26px; line-height: 1.1; }
+  .row p { color: var(--lilac2); font-size: 14px; line-height: 1.55; margin-top: 3px; }
+  .row .links { display: flex; gap: 8px; }
+  .row .soon { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--lilac3); }
+  [data-tags].hide { display: none; }
+  @media (max-width: 860px) {
+    .bed { height: 46vh; min-height: 300px; margin-bottom: 40px; }
+    .plant .tag { font-size: 9.5px; bottom: -28px; }
+    .featured { grid-template-columns: 1fr; }
+    .proj { padding: 26px 22px; min-height: 0; }
+    .proj .bloom { width: 110px; height: 110px; }
+    .row { grid-template-columns: 44px 1fr; }
+    .row .ic { width: 42px; height: 42px; }
+    .row .links { grid-column: 2; }
+  }
+</style>
+</head>
+<body>
+<canvas id="petals" aria-hidden="true"></canvas>
+
+<nav class="nav" aria-label="Main">
+  <a class="home" href="index.html">sk<span>.</span></a>
+  <ul>
+    <li><a class="l" href="experience.html">experience</a></li>
+    <li><a class="l" href="projects.html" aria-current="page">projects</a></li>
+    <li><a class="l" href="about.html">about</a></li>
+    <li class="hide-sm"><a class="l" href="contact.html">contact</a></li>
+    <li><a class="l cv" href="Kodali,Sharon-RESUME.pdf" target="_blank" rel="noopener">résumé ↗</a></li>
+  </ul>
+</nav>
+
+<header class="page">
+  <div>
+    <div class="kicker">projects · 10 planted</div>
+    <h1><span data-split>things i've</span> <em data-split>planted</em></h1>
+    <p class="lede">Distributed systems that survive a dead leader, pipelines that collect data on their own, and models scored honestly. Each featured project has its own flower. Pick one.</p>
+    <p class="hint">hover a flower · click to jump to it</p>
+  </div>
+  <div class="bed" id="bed">
+    <div class="ground"></div>
+    <a class="plant" href="#kv" style="height:88%"><div class="stemwrap"><div data-flower="iris" data-stem="1" data-delay="0"></div></div><span class="tag">kv store</span></a>
+    <a class="plant" href="#triton" style="height:100%"><div class="stemwrap"><div data-flower="poppy" data-stem="1" data-delay="250"></div></div><span class="tag">tritoneta</span></a>
+    <a class="plant" href="#xview" style="height:80%"><div class="stemwrap"><div data-flower="cosmos" data-stem="1" data-delay="500"></div></div><span class="tag">xview2</span></a>
+    <a class="plant" href="#tailor" style="height:94%"><div class="stemwrap"><div data-flower="daisy" data-stem="1" data-delay="750"></div></div><span class="tag">resumetailor</span></a>
+  </div>
+  <div class="scroll-cue"><i></i>scroll</div>
+</header>
+
+<main>
+  <section class="block">
+    <h2 class="sec-title reveal">featured <em>work</em></h2>
+    <div class="filters reveal" role="group" aria-label="Filter projects">
+      <button class="f on" data-f="all">all</button>
+      <button class="f" data-f="ml">ml &amp; data</button>
+      <button class="f" data-f="sys">systems</button>
+      <button class="f" data-f="web">web &amp; apps</button>
+    </div>
+
+    <div class="featured">
+      <article class="card proj reveal" data-hover-root id="kv" data-tags="sys" style="--c:#a77bb0">
+        <div class="bloom" data-flower="iris"></div>
+        <span class="num">01 · SYSTEMS</span>
+        <h3>Distributed KV Store</h3>
+        <p>A 5-node fault-tolerant Raft cluster in Go. Kill the leader mid-write and the cluster re-elects in under 4 seconds with zero data loss. Two of the bugs I fixed only showed up on a real network.</p>
+        <div class="stats"><div><b>3,200</b><span>writes per second</span></div><div><b>&lt;3ms</b><span>p99 reads</span></div><div><b>100+</b><span>tests, race detector on</span></div></div>
+        <div class="foot"><div class="chips"><span class="chip">Go</span><span class="chip">Raft</span><span class="chip">Docker</span></div>
+          <div class="links"><a class="btnlink" href="https://github.com/sharonkodali/DistributedKV" target="_blank" rel="noopener">code ↗</a></div></div>
+      </article>
+
+      <article class="card proj reveal" data-hover-root id="triton" data-tags="ml" style="--c:#e58a2e">
+        <div class="bloom" data-flower="poppy"></div>
+        <span class="num">02 · DATA</span>
+        <h3>TritonETA</h3>
+        <p>A real-time UCSD shuttle tracker. A GitHub Actions pipeline polls a live GPS feed every 15 to 30 seconds, and a geospatial matcher derives the arrival-delay signal the feed doesn't have.</p>
+        <div class="stats"><div><b>180K</b><span>GPS pings collected</span></div><div><b>16</b><span>dbt models</span></div><div><b>63%</b><span>of stops on time</span></div></div>
+        <div class="foot"><div class="chips"><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">DuckDB</span><span class="chip">dbt</span></div>
+          <div class="links"><a class="btnlink" href="https://github.com/sharonkodali/tritoneta" target="_blank" rel="noopener">code ↗</a></div></div>
+      </article>
+
+      <article class="card proj reveal" data-hover-root id="xview" data-tags="ml" style="--c:#d4478a">
+        <div class="bloom" data-flower="cosmos"></div>
+        <span class="num">03 · ML</span>
+        <h3>xView2 Damage Segmentation</h3>
+        <p>A PyTorch U-Net that segments per-building disaster damage from pre and post satellite images. Pixel accuracy was misleading (92.8% of pixels are background), so I scored it with building-level F1.</p>
+        <div class="stats"><div><b>0.475</b><span>damage macro F1</span></div><div><b>2.6×</b><span>the 0.185 baseline</span></div><div><b>42</b><span>tests in CI</span></div></div>
+        <div class="foot"><div class="chips"><span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">U-Net</span></div>
+          <div class="links"><a class="btnlink" href="https://github.com/sharonkodali/xview2-damage-segmentation" target="_blank" rel="noopener">code ↗</a></div></div>
+      </article>
+
+      <article class="card proj reveal" data-hover-root id="tailor" data-tags="web ml" style="--c:#c9b0dc">
+        <div class="bloom" data-flower="daisy"></div>
+        <span class="num">04 · LLM APP</span>
+        <h3>ResumeTailor</h3>
+        <p>A full-stack LLM app that tailors resumes to job posts by rewriting LaTeX bullets in place, so the document never breaks. A relevance score checks the model's output before it's trusted.</p>
+        <div class="stats"><div><b>83%</b><span>faster tailoring</span></div><div><b>96</b><span>backend tests</span></div><div><b>45%</b><span>lower latency</span></div></div>
+        <div class="foot"><div class="chips"><span class="chip">FastAPI</span><span class="chip">Next.js</span><span class="chip">OpenAI API</span></div>
+          <div class="links"><a class="btnlink solid" href="https://resume-tailor-seven-zeta.vercel.app" target="_blank" rel="noopener">live demo ↗</a><a class="btnlink" href="https://github.com/sharonkodali/ResumeTailor" target="_blank" rel="noopener">code ↗</a></div></div>
+      </article>
+    </div>
+
+    <div class="more">
+      <h2 class="sec-title reveal" style="font-size:clamp(32px,3.6vw,48px)">more in the <em>garden</em></h2>
+      <div style="margin-top:20px">
+        <article class="row reveal" data-tags="ml web" data-hover-root><div class="ic" data-flower="orchid" data-bloom="hover"></div>
+          <div><h4>VibeCanvas</h4><p>Clusters 28,351 Spotify tracks and classifies 6 genres (54% vs 16.7% chance), then paints each song as generative art.</p></div>
+          <div class="links"><a class="btnlink" href="https://sharonkodali.github.io/vibecanvas/" target="_blank" rel="noopener">demo ↗</a><a class="btnlink" href="https://github.com/sharonkodali/vibecanvas" target="_blank" rel="noopener">code ↗</a></div></article>
+        <article class="row reveal" data-tags="ml web" data-hover-root><div class="ic" data-flower="lily" data-bloom="hover"></div>
+          <div><h4>BlinkGuard</h4><p>Real-time drowsy-driver detection with MediaPipe Face Mesh, per-driver calibration, and a Fetch.ai agent that escalates alerts.</p></div>
+          <div class="links"><a class="btnlink" href="https://blinkguard-one.vercel.app" target="_blank" rel="noopener">demo ↗</a><a class="btnlink" href="https://github.com/sharonkodali/blinkguard" target="_blank" rel="noopener">code ↗</a></div></article>
+        <article class="row reveal" data-tags="web" data-hover-root><div class="ic" data-flower="tulip" data-bloom="hover"></div>
+          <div><h4>WattWise SD</h4><p>Hack for Humanity @ UCSD. Explains San Diego electricity bills in plain language and 5 languages, and finds your most expensive hours.</p></div>
+          <div class="links"><a class="btnlink" href="https://wattwise-sd.vercel.app" target="_blank" rel="noopener">demo ↗</a><a class="btnlink" href="https://github.com/sharonkodali/wattwise-sd" target="_blank" rel="noopener">code ↗</a></div></article>
+        <article class="row reveal" data-tags="web" data-hover-root><div class="ic" data-flower="cosmos" data-bloom="hover"></div>
+          <div><h4>UCSD Deadlines</h4><p>A browser extension that pulls Canvas assignments through the Planner API, with no stored credentials, into Today, List and Week views.</p></div>
+          <div class="links"><a class="btnlink" href="https://github.com/sharonkodali/ucsd-deadlines" target="_blank" rel="noopener">code ↗</a></div></article>
+        <article class="row reveal" data-tags="ml" data-hover-root><div class="ic" data-flower="iris" data-bloom="hover"></div>
+          <div><h4>Language Model from Scratch</h4><p>An autograd engine and language model in pure NumPy with hand-derived backprop. Validation loss from 10.5 to 1.45 with no ML frameworks.</p></div>
+          <div class="links"><span class="soon">code soon</span></div></article>
+        <article class="row reveal" data-tags="sys" data-hover-root><div class="ic" data-flower="poppy" data-bloom="hover"></div>
+          <div><h4>B+ Tree Index</h4><p>A database index in C++ with search, insertion and node splits that keep the tree balanced under any insertion order.</p></div>
+          <div class="links"></div></article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="page">
+  <a class="next" href="about.html">next: <em>about me</em> <span class="arr">→</span></a>
+  <small>© 2026 sharon kodali · san diego</small>
+</footer>
+
+<script src="garden.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    // clicking a plant scatters a few petals on the way to its project
+    document.querySelectorAll('.plant').forEach(function(pl){ pl.addEventListener('click', function(e){ Garden.burst(e.clientX, e.clientY, 10); }); });
+    // filters
+    document.querySelectorAll('.f').forEach(function(b){
+      b.addEventListener('click', function(){
+        document.querySelectorAll('.f').forEach(function(x){ x.classList.toggle('on', x === b); });
+        var f = b.dataset.f;
+        document.querySelectorAll('[data-tags]').forEach(function(el){
+          var show = f === 'all' || el.dataset.tags.split(' ').indexOf(f) >= 0;
+          el.classList.toggle('hide', !show);
+          if(show) el.classList.add('in');
+        });
+      });
+    });
+  });
+</script>
+</body>
+</html>

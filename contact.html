@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact · Sharon Kodali</title>
+<meta name="description" content="Get in touch with Sharon Kodali about summer 2027 internships in software engineering, ML, and data."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="garden.css"/>
+<style>
+  #dandelion { width: 100%; height: 100%; display: block; cursor: pointer; touch-action: none; }
+  .links { display: grid; gap: 12px; margin-top: 30px; max-width: 560px; opacity: 0; animation: fadeIn 1s 1s forwards; }
+  .lk { position: relative; display: grid; grid-template-columns: 46px 1fr auto; align-items: center; gap: 16px; padding: 14px 20px 14px 14px; border-radius: 20px; text-decoration: none; overflow: visible; }
+  .lk .ic { width: 46px; height: 46px; }
+  .lk .t { font-family: 'Instrument Serif', serif; font-size: 28px; line-height: 1; }
+  .lk .v { font-family: 'Geist Mono', monospace; font-size: 12.5px; color: var(--lilac2); }
+  .lk .arr { transition: transform .3s; }
+  .lk:hover .arr { transform: translateX(6px) rotate(-12deg); }
+  .lkwrap { position: relative; }
+  .lkwrap .copy { position: absolute; right: 54px; top: 50%; transform: translateY(-50%); z-index: 2; }
+  .copy { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--lilac3); background: none; border: 1px solid var(--line); border-radius: 999px; padding: 3px 9px; cursor: pointer; }
+  .copy:hover { color: var(--lilac); border-color: var(--lilac3); }
+  .hero-flower.dand { align-items: stretch; }
+  @media (max-width: 860px) { .lk .t { font-size: 24px; } .lk { grid-template-columns: 40px 1fr; } .lk .arr { display: none; } }
+</style>
+</head>
+<body>
+<canvas id="petals" aria-hidden="true"></canvas>
+
+<nav class="nav" aria-label="Main">
+  <a class="home" href="index.html">sk<span>.</span></a>
+  <ul>
+    <li><a class="l" href="experience.html">experience</a></li>
+    <li><a class="l" href="projects.html">projects</a></li>
+    <li><a class="l" href="about.html">about</a></li>
+    <li class="hide-sm"><a class="l" href="contact.html" aria-current="page">contact</a></li>
+    <li><a class="l cv" href="Kodali,Sharon-RESUME.pdf" target="_blank" rel="noopener">résumé ↗</a></li>
+  </ul>
+</nav>
+
+<header class="page" style="min-height:100vh">
+  <div>
+    <div class="kicker">contact · open to summer 2027</div>
+    <h1><span data-split>let's</span> <em data-split>talk</em></h1>
+    <p class="lede">I'm looking for summer 2027 internships in software engineering, ML, and data. Email is the fastest way to reach me. Make a wish on the dandelion first.</p>
+    <div class="links">
+      <div class="lkwrap"><a class="lk card" href="mailto:spkodali@ucsd.edu" style="--c:#d4478a" data-hover-root><span class="ic" data-flower="cosmos" data-bloom="hover"></span><span><span class="t">email</span><br><span class="v">spkodali@ucsd.edu</span></span><span class="arr">→</span></a><button class="copy" type="button" data-copy="spkodali@ucsd.edu" aria-label="Copy email address">copy</button></div>
+      <a class="lk card" href="https://www.linkedin.com/in/sharonkodali" target="_blank" rel="noopener" style="--c:#a77bb0" data-hover-root><span class="ic" data-flower="iris" data-bloom="hover"></span><span><span class="t">linkedin</span><br><span class="v">in/sharonkodali</span></span><span class="arr">↗</span></a>
+      <a class="lk card" href="https://github.com/sharonkodali" target="_blank" rel="noopener" style="--c:#c2b13a" data-hover-root><span class="ic" data-flower="daisy" data-bloom="hover"></span><span><span class="t">github</span><br><span class="v">@sharonkodali</span></span><span class="arr">↗</span></a>
+      <a class="lk card" href="Kodali,Sharon-RESUME.pdf" target="_blank" rel="noopener" style="--c:#e58a2e" data-hover-root><span class="ic" data-flower="poppy" data-bloom="hover"></span><span><span class="t">résumé</span><br><span class="v">one page, pdf</span></span><span class="arr">↗</span></a>
+    </div>
+  </div>
+  <div class="hero-flower dand">
+    <div class="glow" style="--glow: rgba(238,223,243,.16)"></div>
+    <canvas id="dandelion" aria-label="A dandelion. Click or swipe across it to blow the seeds away." role="img"></canvas>
+  </div>
+</header>
+
+<footer class="page">
+  <a class="next" href="index.html">back to the <em>pond</em> <span class="arr">→</span></a>
+  <small>© 2026 sharon kodali · san diego</small>
+</footer>
+
+<script src="garden.js"></script>
+<script>
+  // copy email without following the mailto link
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      (navigator.clipboard ? navigator.clipboard.writeText(b.dataset.copy) : Promise.reject()).then(function(){ b.textContent = 'copied'; setTimeout(function(){ b.textContent = 'copy'; }, 1600); }, function(){ b.textContent = 'press ⌘C'; });
+    });
+  });
+
+  // DANDELION: a seed head of ~90 seeds. Click, or swipe across it, and the seeds nearest the wind come loose
+  // and drift off on a gentle curl of air. When the head is bare it slowly grows back.
+  (function(){
+    // everything is drawn on a hidden canvas (ctx), then turned into characters or stitches on the visible one (out)
+    var cv = document.getElementById('dandelion'), out = cv.getContext('2d');
+    var src = document.createElement('canvas'), ctx = src.getContext('2d');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var W, H, cx, cy, R, seeds = [], flying = [], t = 0, last = { x: 0, y: 0, t: 0 }, regrowAt = -1;
+    function size(){
+      var r = cv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+      W = r.width; H = r.height; cv.width = W*dpr; cv.height = H*dpr; out.setTransform(dpr,0,0,dpr,0,0);
+      src.width = Math.ceil(W); src.height = Math.ceil(H);
+      cx = W/2; cy = H*.34; R = Math.min(W, H)*.21;
+    }
+    function grow(){
+      seeds = [];
+      var n = 92;
+      for(var i = 0; i < n; i++){
+        // spread seeds over a sphere, then flatten to 2D
+        var y = 1 - (i + .5)/n*2, rr = Math.sqrt(1 - y*y), a = i*2.39996;
+        seeds.push({ ax: Math.cos(a)*rr, ay: y, az: Math.sin(a)*rr, g: 0, born: t + Math.random()*1.2 });
+      }
+    }
+    size(); grow(); addEventListener('resize', size);
+
+    function drawSeed(x0, y0, x1, y1, alpha, scale){
+      ctx.strokeStyle = 'rgba(238,223,243,' + (alpha*.7) + ')'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+      // the pappus: a little fan of fine hairs at the tip
+      var ang = Math.atan2(y1 - y0, x1 - x0);
+      ctx.strokeStyle = 'rgba(248,240,252,' + (alpha*.9) + ')'; ctx.lineWidth = 1.8;
+      for(var k = -4; k <= 4; k++){
+        var a = ang + k*.22, l = 9*scale;
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x1 + Math.cos(a)*l, y1 + Math.sin(a)*l); ctx.stroke();
+      }
+      ctx.fillStyle = 'rgba(167,123,176,' + alpha + ')';
+      ctx.beginPath(); ctx.arc(x0, y0, 2.6, 0, 6.28); ctx.fill();
+    }
+
+    function blow(x, y, vx, vy, power){
+      var any = false;
+      seeds.forEach(function(s){
+        if(s.gone || s.g < .9) return;
+        var sx = cx + s.ax*R, sy = cy + s.ay*R;
+        var d = Math.hypot(sx - x, sy - y);
+        var reach = R*(.5 + power*1.1);
+        if(d < reach && Math.random() < .55 + power*.4){
+          s.gone = true; any = true;
+          var dir = Math.atan2(sy - cy, sx - cx);
+          flying.push({ x0: cx + s.ax*R*.12, y0: cy + s.ay*R*.12, x: sx, y: sy,
+            vx: Math.cos(dir)*(1 + Math.random()*1.5) + vx*.08, vy: Math.sin(dir)*(1 + Math.random()*1.5) + vy*.08 - .6,
+            rot: dir, life: 1, ph: Math.random()*6.28 });
+        }
+      });
+      if(any && seeds.every(function(s){ return s.gone; })) regrowAt = t + 3.2;
+    }
+    cv.addEventListener('pointerdown', function(e){
+      var r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      blow(x, y, 0, 0, .6); last = { x: x, y: y, t: performance.now() };
+    });
+    cv.addEventListener('pointermove', function(e){
+      var r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, now = performance.now();
+      var dt = Math.max(16, now - last.t), vx = (x - last.x)/dt*16, vy = (y - last.y)/dt*16, sp = Math.hypot(vx, vy);
+      if(sp > 9 && Math.hypot(x - cx, y - cy) < R*1.6) blow(x, y, vx, vy, Math.min(1, sp/40));
+      last = { x: x, y: y, t: now };
+    });
+
+    var prevT = performance.now(), dt = 1/60;
+    function frame(now){
+      now = now || performance.now(); dt = Math.min(.1, (now - prevT)/1000); prevT = now; t += dt;
+      ctx.clearRect(0, 0, W, H);
+      if(regrowAt > 0 && t > regrowAt){ grow(); regrowAt = -1; }
+      // stem with a gentle sway
+      var sway = Math.sin(t*.8)*6;
+      var hx = cx + sway, hy = cy;
+      ctx.strokeStyle = '#7d9a3e'; ctx.lineWidth = 7; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(cx, H); ctx.bezierCurveTo(cx + 12, H*.75, hx - 10, H*.55, hx, hy + R*.15); ctx.stroke();
+      // two leaves at the base
+      ctx.fillStyle = '#4f6a34';
+      ctx.beginPath(); ctx.moveTo(cx, H); ctx.bezierCurveTo(cx - 40, H*.9, cx - 90, H*.88, cx - 110, H*.8); ctx.bezierCurveTo(cx - 70, H*.86, cx - 30, H*.92, cx, H); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(cx, H); ctx.bezierCurveTo(cx + 50, H*.92, cx + 80, H*.86, cx + 104, H*.76); ctx.bezierCurveTo(cx + 70, H*.84, cx + 36, H*.9, cx, H); ctx.fill();
+      // head: the seeds still attached, back ones dimmer
+      var spin = t*.12, cs = Math.cos(spin), sn = Math.sin(spin);
+      var order = seeds.map(function(s){ var x = s.ax*cs + s.az*sn, z = -s.ax*sn + s.az*cs; return { s: s, x: x, z: z }; }).sort(function(a, b){ return a.z - b.z; });
+      order.forEach(function(o){
+        var s = o.s; if(s.gone) return;
+        s.g = Math.min(1, s.g + (t > s.born ? dt*1.4 : 0));
+        var e = s.g*s.g*(3 - 2*s.g);
+        var x1 = hx + o.x*R*e, y1 = hy + s.ay*R*e;
+        drawSeed(hx + o.x*R*.1, hy + s.ay*R*.1, x1, y1, (.45 + (o.z + 1)*.28)*e, .6 + .5*e);
+      });
+      ctx.fillStyle = '#8a7a3a'; ctx.beginPath(); ctx.arc(hx, hy, R*.1, 0, 6.28); ctx.fill();
+      // seeds in flight: drift up and away on a slow curl
+      for(var i = flying.length - 1; i >= 0; i--){
+        var f = flying[i];
+        f.ph += .03;
+        f.vx += Math.sin(f.ph + f.y*.01)*.03 + .012; f.vy += Math.cos(f.ph*.7 + f.x*.01)*.02 - .012;
+        f.vx *= .992; f.vy *= .992;
+        f.x += f.vx; f.y += f.vy; f.life -= .0035;
+        var dir = Math.atan2(f.vy, f.vx) + Math.PI;
+        if(f.life <= 0 || f.x < -40 || f.x > W + 40 || f.y < -40 || f.y > H + 40){ flying.splice(i, 1); continue; }
+        drawSeed(f.x + Math.cos(dir)*14, f.y + Math.sin(dir)*14, f.x, f.y, f.life, 1);
+      }
+      Garden.cells(src, 1, out, W, H, { threshold: 10 });
+      requestAnimationFrame(frame);
+    }
+    frame();
+  })();
+</script>
+</body>
+</html>

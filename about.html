@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About · Sharon Kodali</title>
+<meta name="description" content="About Sharon Kodali: Data Science at UC San Diego, class of 2028. Research at SDSC, iOS at Rydr."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="garden.css"/>
+<style>
+  .statement { font-family: 'Instrument Serif', serif; font-size: clamp(30px, 3.6vw, 52px); line-height: 1.2; max-width: 1000px; color: var(--lilac); }
+  .statement em { color: var(--orchid); }
+  .statement .dim { color: var(--lilac3); }
+
+  .now { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+  .now .card { padding: 28px 30px; }
+  .now .live { display: inline-flex; align-items: center; gap: 8px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #9be38f; }
+  .now .live i { width: 7px; height: 7px; border-radius: 50%; background: #9be38f; animation: pulse 2s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(155,227,143,.6); } 70% { box-shadow: 0 0 0 8px rgba(155,227,143,0); } 100% { box-shadow: 0 0 0 0 rgba(155,227,143,0); } }
+  .now h3 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 32px; margin: 12px 0 6px; line-height: 1.1; }
+  .now p { color: var(--lilac2); font-size: 15px; line-height: 1.6; }
+
+  .edu { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; margin-top: 40px; }
+  .edu .card { padding: 30px; }
+  .edu h3 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 34px; line-height: 1.05; }
+  .edu .deg { color: var(--lilac2); margin-top: 8px; font-size: 15px; line-height: 1.6; }
+  .edu .big { display: flex; gap: 30px; margin-top: 22px; }
+  .edu .big b { display: block; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 54px; line-height: 1; color: var(--lilac); }
+  .edu .big span { font-size: 12px; color: var(--lilac3); }
+  .courses { list-style: none; display: grid; gap: 10px; margin-top: 6px; }
+  .courses li { display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--lilac2); }
+  .courses li::before { content: ''; width: 8px; height: 8px; border-radius: 50% 0; transform: rotate(45deg); background: var(--mauve); flex-shrink: 0; }
+
+  .beds { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 40px; }
+  .bedcol { padding: 22px 20px; }
+  .bedcol h4 { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--c); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .bedcol h4::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
+  .bedcol .chips { gap: 7px; }
+  .bedcol .chip { opacity: 0; transform: translateY(14px) scale(.8); transition: opacity .5s, transform .6s cubic-bezier(.2,.9,.25,1.4), background .2s, color .2s; transition-delay: calc(var(--i) * 45ms); }
+  .bedcol.in .chip { opacity: 1; transform: none; }
+  .bedcol .chip:hover { background: var(--c); color: var(--night); }
+
+  /* meadow: click to plant */
+  .meadow { position: relative; height: 280px; margin-top: 30px; border-radius: 28px; overflow: hidden; cursor: crosshair; border: 1px solid var(--line);
+    background: linear-gradient(to bottom, rgba(138,79,184,.08), rgba(143,166,58,.12)); }
+  .meadow::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: linear-gradient(transparent, rgba(63,90,46,.35)); pointer-events: none; }
+  .meadow .sprout { position: absolute; bottom: -8px; transform-origin: 50% 100%; pointer-events: none; animation: sway 5s ease-in-out infinite; }
+  .meadow .sprout svg { width: 100%; height: 100%; overflow: visible; }
+  .meadow .say { position: absolute; left: 24px; top: 20px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--lilac3); pointer-events: none; z-index: 2; }
+  .meadow .count { position: absolute; right: 24px; top: 20px; font-family: 'Instrument Serif', serif; font-size: 22px; color: var(--lilac2); pointer-events: none; z-index: 2; }
+  @media (max-width: 1000px) { .beds { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 860px) {
+    .now, .edu { grid-template-columns: 1fr; }
+    .beds { grid-template-columns: 1fr; }
+    .meadow { height: 220px; }
+  }
+</style>
+</head>
+<body>
+<canvas id="petals" aria-hidden="true"></canvas>
+
+<nav class="nav" aria-label="Main">
+  <a class="home" href="index.html">sk<span>.</span></a>
+  <ul>
+    <li><a class="l" href="experience.html">experience</a></li>
+    <li><a class="l" href="projects.html">projects</a></li>
+    <li><a class="l" href="about.html" aria-current="page">about</a></li>
+    <li class="hide-sm"><a class="l" href="contact.html">contact</a></li>
+    <li><a class="l cv" href="Kodali,Sharon-RESUME.pdf" target="_blank" rel="noopener">résumé ↗</a></li>
+  </ul>
+</nav>
+
+<header class="page">
+  <div>
+    <div class="kicker">about · uc san diego, 2028</div>
+    <h1><span data-split>a little</span> <em data-split>about me</em></h1>
+    <p class="lede">I'm Sharon, a Data Science student at UC San Diego with a minor in Cognitive Science focused on machine learning. I like problems where the data is messy and the system has to hold up anyway.</p>
+    <p class="hint">hover the orchid · click it to re-bloom</p>
+  </div>
+  <div class="hero-flower" style="--glow: rgba(212,71,138,.34)">
+    <div class="glow"></div>
+    <div class="sway" data-flower="orchid" data-stem="1" data-hero></div>
+  </div>
+  <div class="scroll-cue"><i></i>scroll</div>
+</header>
+
+<main>
+  <section class="block">
+    <p class="statement reveal">I build things that touch real data: <em>research code</em> that has to match a reference to the last decimal, <em>pipelines</em> that run while I sleep, and <em>apps</em> real people use. <span class="dim">I care most about whether it still works when something breaks.</span></p>
+
+    <div class="now">
+      <div class="card reveal" style="--c:#a77bb0"><span class="live"><i></i>right now</span><h3>Fusion plasma, in JAX</h3><p>At the San Diego Supercomputer Center I'm porting a C++ plasma simulation to JAX for GPUs and automatic differentiation, and building the tests that prove the port matches.</p></div>
+      <div class="card reveal" style="--c:#d4478a"><span class="live"><i></i>right now</span><h3>iOS at Rydr</h3><p>Shipping features in a ride-sharing app. So far: a 62% faster API with local caching, 40% fewer crashes, and 3 account-security holes closed.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2 class="sec-title reveal">school</h2>
+    <div class="edu">
+      <div class="card reveal" style="--c:#e58a2e">
+        <h3>University of California, San Diego</h3>
+        <p class="deg">B.S. Data Science, minor in Cognitive Science (Machine Learning)</p>
+        <div class="big"><div><b>4.00</b><span>GPA</span></div><div><b>2028</b><span>expected graduation</span></div></div>
+      </div>
+      <div class="card reveal" style="--c:#c2b13a">
+        <h4 class="kicker" style="margin-bottom:16px">relevant courses</h4>
+        <ul class="courses"><li>Data Structures &amp; Algorithms</li><li>Systems Programming</li><li>Linear Algebra</li><li>Probability &amp; Statistics</li><li>Discrete Mathematics</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2 class="sec-title reveal">what i <em>work with</em></h2>
+    <div class="beds">
+      <div class="card bedcol reveal" style="--c:#d4478a"><h4>languages</h4><div class="chips">
+        <span class="chip" style="--i:0">Python</span><span class="chip" style="--i:1">Go</span><span class="chip" style="--i:2">C/C++</span><span class="chip" style="--i:3">Java</span><span class="chip" style="--i:4">SQL</span><span class="chip" style="--i:5">TypeScript</span><span class="chip" style="--i:6">JavaScript</span><span class="chip" style="--i:7">MATLAB</span><span class="chip" style="--i:8">Bash</span></div></div>
+      <div class="card bedcol reveal" style="--c:#a77bb0"><h4>ml &amp; data</h4><div class="chips">
+        <span class="chip" style="--i:0">PyTorch</span><span class="chip" style="--i:1">JAX</span><span class="chip" style="--i:2">scikit-learn</span><span class="chip" style="--i:3">pandas</span><span class="chip" style="--i:4">NumPy</span><span class="chip" style="--i:5">MediaPipe</span><span class="chip" style="--i:6">LLM APIs</span><span class="chip" style="--i:7">dbt</span><span class="chip" style="--i:8">DuckDB</span></div></div>
+      <div class="card bedcol reveal" style="--c:#e58a2e"><h4>systems</h4><div class="chips">
+        <span class="chip" style="--i:0">Distributed systems</span><span class="chip" style="--i:1">Raft</span><span class="chip" style="--i:2">Concurrency</span><span class="chip" style="--i:3">Networking</span><span class="chip" style="--i:4">Docker</span><span class="chip" style="--i:5">REST APIs</span><span class="chip" style="--i:6">AWS</span></div></div>
+      <div class="card bedcol reveal" style="--c:#c2b13a"><h4>web</h4><div class="chips">
+        <span class="chip" style="--i:0">FastAPI</span><span class="chip" style="--i:1">Next.js</span><span class="chip" style="--i:2">React</span><span class="chip" style="--i:3">Spring Boot</span><span class="chip" style="--i:4">Flask</span><span class="chip" style="--i:5">PostgreSQL</span><span class="chip" style="--i:6">MySQL</span></div></div>
+      <div class="card bedcol reveal" style="--c:#e07aa8"><h4>tools</h4><div class="chips">
+        <span class="chip" style="--i:0">Git</span><span class="chip" style="--i:1">GitHub Actions</span><span class="chip" style="--i:2">pytest</span><span class="chip" style="--i:3">Agile</span><span class="chip" style="--i:4">Claude Code</span><span class="chip" style="--i:5">Cursor</span></div></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2 class="sec-title reveal">plant <em>something</em></h2>
+    <p class="sec-sub reveal">Click anywhere in the meadow and a flower grows there.</p>
+    <div class="meadow reveal" id="meadow" role="button" tabindex="0" aria-label="Meadow: click or press Enter to plant a flower">
+      <span class="say">click to plant</span><span class="count" id="count"></span>
+    </div>
+  </section>
+</main>
+
+<footer class="page">
+  <a class="next" href="contact.html">next: <em>say hi</em> <span class="arr">→</span></a>
+  <small>© 2026 sharon kodali · san diego</small>
+</footer>
+
+<script src="garden.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var meadow = document.getElementById('meadow'), count = document.getElementById('count');
+    var holder = document.createElement('div'); holder.style.cssText = 'position:absolute;inset:0'; meadow.appendChild(holder);
+    var scene = Garden.scene(holder, { cell: 7, noClick: true });
+    var TYPES = ['lily', 'iris', 'cosmos', 'poppy', 'daisy', 'orchid', 'tulip'], planted = 0;
+    function sow(xFrac, counted){
+      var H = meadow.clientHeight, f = scene.add({ type: TYPES[(Math.random()*TYPES.length)|0], stem: true, xFrac: xFrac, h: H*(.55 + Math.random()*.4) });
+      scene.bloom(f, 0);
+      if(scene.flowers.length > 26) scene.flowers.shift();
+      if(counted){ planted++; count.textContent = planted + (planted === 1 ? ' flower planted' : ' flowers planted'); }
+    }
+    meadow.addEventListener('click', function(e){
+      var r = meadow.getBoundingClientRect();
+      sow((e.clientX - r.left)/r.width, true);
+      Garden.burst(e.clientX, e.clientY, 6);
+    });
+    meadow.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); sow(Math.random(), true); } });
+    // a few to start, so the meadow isn't empty
+    var seeded = false;
+    new IntersectionObserver(function(es){
+      if(es[0].isIntersecting && !seeded){ seeded = true; [.08, .24, .42, .6, .78, .93].forEach(function(x, i){ setTimeout(function(){ sow(x, false); }, i*240); }); }
+    }, { threshold: .4 }).observe(meadow);
+  });
+</script>
+</body>
+</html>
