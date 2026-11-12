@@ -1,3 +1,5 @@
-# Sharon Kodali — portfolio (moved)
+# Sharon Kodali Portfolio
 
-This GitHub Pages site now redirects to my current portfolio: **https://sharon-kodali-portfolio.vercel.app**
+Live site: https://sharon-kodali-portfolio.vercel.app
+
+A single static page (`index.html`) deployed on Vercel from the `main` branch.
