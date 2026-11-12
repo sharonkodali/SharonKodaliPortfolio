@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Sharon Kodali</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;0,900;1,600;1,700&family=Abril+Fatface&family=Anton&family=Caveat:wght@500;700&display=swap" rel="stylesheet"/>
 <style>
 :root {
   --maroon: #3d0a0a;
@@ -18,6 +18,13 @@
   --muted: #9e7b65;
   --glow: rgba(192,57,43,0.4);
   --glow2: rgba(201,169,110,0.25);
+  /* collage accents, pulled from the Pinterest board */
+  --papaya: #e8742a;
+  --fuchsia: #c2275e;
+  --mustard: #d9a520;
+  --palm: #2f4a32;
+  --ink: #1a0c0c;
+  --news: #f4efe4;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -48,13 +55,73 @@ nav ul a:hover::after { right: 0; }
 section { position: relative; z-index: 2; }
 
 /* HERO */
-#hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10vw; overflow: hidden; }
-h1.hero-name { font-family: 'Playfair Display', serif; font-size: clamp(4rem,9vw,9rem); font-weight: 700; line-height: .95; color: var(--parchment); opacity: 0; animation: fadeUp .7s .4s forwards; }
-h1.hero-name em { font-style: italic; color: var(--gold); text-shadow: 0 0 80px rgba(201,169,110,.55); }
-.hero-tagline { margin-top: 1.8rem; font-size: clamp(.85rem,1.6vw,1rem); color: var(--tan); max-width: 560px; line-height: 1.9; opacity: 0; animation: fadeUp .7s .6s forwards; }
-.hero-badges { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .7rem; opacity: 0; animation: fadeUp .7s .75s forwards; }
-.badge { padding: .35rem .9rem; border: 1px solid rgba(201,169,110,.3); border-radius: 2px; font-size: .62rem; letter-spacing: .12em; color: var(--gold); background: rgba(201,169,110,.07); }
-.hero-ctas { margin-top: 2.8rem; display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp .7s .9s forwards; }
+/* HERO: collage desk. Name letters and project scraps are draggable paper pieces. */
+#hero { position: relative; width: 100%; height: 100vh; min-height: 660px; overflow: hidden; }
+#hero h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.piece { position: absolute; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; will-change: transform; transition: filter .2s; z-index: 5; }
+.piece.dragging { cursor: grabbing; filter: drop-shadow(0 18px 22px rgba(0,0,0,.55)) !important; }
+.piece.settle { transition: left .7s cubic-bezier(.2,.9,.25,1.15), top .7s cubic-bezier(.2,.9,.25,1.15), transform .7s cubic-bezier(.2,.9,.25,1.15); }
+.letter { display: flex; align-items: center; justify-content: center; line-height: 1; filter: drop-shadow(0 4px 6px rgba(0,0,0,.45)); }
+.letter:hover { filter: drop-shadow(0 8px 12px rgba(0,0,0,.55)); }
+.scrap { width: 200px; filter: drop-shadow(0 6px 10px rgba(0,0,0,.5)); }
+.scrap:hover { filter: drop-shadow(0 12px 18px rgba(0,0,0,.6)); }
+.scrap .tape { position: absolute; top: -12px; left: 50%; width: 78px; height: 24px; margin-left: -39px; background: rgba(240,230,211,.55); box-shadow: 0 1px 2px rgba(0,0,0,.15); z-index: 2; }
+.scrap .body { position: relative; padding: 14px; color: var(--ink); }
+.scrap .kicker { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; opacity: .7; }
+.scrap h3 { font-family: 'Playfair Display', serif; font-size: 21px; margin: 4px 0 8px; line-height: 1.05; }
+.scrap .metric { font-family: 'Abril Fatface', serif; font-size: 40px; line-height: .95; }
+.scrap .cap { font-size: 11px; line-height: 1.35; margin-top: 4px; }
+.scrap .open { font-family: 'Caveat', cursive; font-size: 18px; margin-top: 8px; opacity: .75; }
+.scrap.polaroid .body { background: var(--news); padding: 12px 12px 16px; }
+.scrap .photo { height: 108px; display: flex; align-items: flex-end; padding: 10px; color: var(--parchment); margin-bottom: 10px; }
+.scrap.chip .body { background: var(--news); padding: 0; }
+.scrap .swatch { height: 112px; padding: 12px; display: flex; align-items: flex-end; color: var(--parchment); }
+.scrap .label { padding: 10px 12px 12px; }
+.scrap.ticket .body { background: var(--mustard); border-left: 2px dashed rgba(0,0,0,.35); }
+.scrap.lined .body { background: #fbf8f0 repeating-linear-gradient(transparent 0 21px, #c9d6e8 21px 22px); border-left: 3px solid #e8a1a1; }
+.desk-note { position: absolute; font-family: 'Caveat', cursive; font-size: 24px; color: var(--parchment); pointer-events: none; opacity: .85; z-index: 4; transition: opacity .4s; }
+.desk-note svg { display: block; margin-top: 4px; transform: scale(-1,1) rotate(-20deg); }
+.desk-tagline { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; font-size: 13px; letter-spacing: .06em; color: var(--parchment); opacity: .85; z-index: 4; pointer-events: none; width: 90%; line-height: 1.7; }
+.desk-controls { position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 6; }
+.desk-controls button { white-space: nowrap; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; padding: 12px 18px; border: 1px solid rgba(240,230,211,.35); background: rgba(42,10,16,.6); color: var(--parchment); cursor: pointer; backdrop-filter: blur(4px); transition: all .2s; }
+.desk-controls button:hover { background: var(--papaya); border-color: var(--papaya); color: var(--ink); transform: rotate(-2deg); }
+.desk-controls button.primary { background: var(--papaya); border-color: var(--papaya); color: var(--ink); }
+@media (pointer: coarse) { .scrap { touch-action: manipulation; cursor: pointer; } }
+
+/* magazine spread opened from a scrap */
+#spread { position: fixed; inset: 0; z-index: 1600; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(20,5,8,.8); backdrop-filter: blur(3px); }
+#spread.on { display: flex; }
+.spread-page { position: relative; display: grid; grid-template-columns: 1fr 1.2fr; max-width: 920px; width: 100%; background: var(--news); color: var(--ink); box-shadow: 0 30px 60px rgba(0,0,0,.6); animation: spreadDrop .45s cubic-bezier(.2,.9,.25,1.2); max-height: calc(100vh - 48px); overflow-y: auto; }
+@keyframes spreadDrop { from { transform: translateY(30px) rotate(-3deg); opacity: 0; } }
+.spread-left { padding: 36px; color: var(--parchment); display: flex; flex-direction: column; justify-content: space-between; min-height: 380px; }
+.spread-num { font-family: 'Abril Fatface', serif; font-size: clamp(60px,9vw,104px); line-height: .9; }
+.spread-what { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+.spread-right { padding: 36px 36px 30px; }
+.spread-right .spread-kick { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fuchsia); }
+.spread-right h2 { font-family: 'Playfair Display', serif; font-size: 38px; line-height: 1; margin: 8px 0 18px; }
+.spread-right p { font-family: 'Playfair Display', serif; font-size: 15.5px; line-height: 1.6; }
+.spread-right p::first-letter { font-family: 'Abril Fatface', serif; float: left; font-size: 56px; line-height: .85; padding: 4px 8px 0 0; color: var(--papaya); }
+.spread-tags { list-style: none; margin-top: 18px; font-size: 11px; display: flex; flex-wrap: wrap; gap: 6px; }
+.spread-tags li { border: 1px solid var(--ink); padding: 4px 8px; }
+.spread-links { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+.spread-links a, .spread-links button { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; padding: 10px 14px; border: 1px solid var(--ink); color: var(--ink); background: none; text-decoration: none; cursor: pointer; transition: all .2s; }
+.spread-links a:first-child, .spread-links button:first-child { background: var(--ink); color: var(--news); }
+.spread-links a:hover, .spread-links button:hover { background: var(--papaya); border-color: var(--papaya); color: var(--ink); }
+.spread-close { position: absolute; top: 18px; right: 22px; background: none; border: none; color: var(--ink); font-family: 'Caveat', cursive; font-size: 28px; cursor: pointer; }
+
+@media (max-width: 720px) {
+  #hero { height: auto; min-height: 0; }
+  .scrap { width: 158px; }
+  .scrap h3 { font-size: 17px; }
+  .scrap .metric { font-size: 30px; }
+  .scrap .photo, .scrap .swatch { height: 80px; }
+  .desk-controls { gap: 8px; bottom: 26px; }
+  .desk-controls button { padding: 10px 12px; font-size: 10px; }
+  .spread-page { grid-template-columns: 1fr; }
+  .spread-left { min-height: 180px; padding: 24px; }
+  .spread-right { padding: 24px; }
+  .spread-right h2 { font-size: 28px; }
+}
 .btn-primary { padding: .75rem 2rem; background: var(--crimson); color: var(--parchment); text-decoration: none; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; border: 1px solid var(--rose); position: relative; overflow: hidden; transition: box-shadow .3s; cursor: pointer; font-family: 'DM Mono', monospace; display: inline-block; }
 .btn-primary::before { content: ''; position: absolute; inset: 0; background: var(--rose); transform: translateX(-101%); transition: transform .35s ease; }
 .btn-primary:hover { box-shadow: 0 0 30px var(--glow); }
@@ -213,7 +280,7 @@ h2.section-title em { font-style: italic; color: var(--gold); }
 .exp-company { font-size: .75rem; color: var(--gold); margin-bottom: 1rem; }
 .exp-bullets { list-style: none; }
 .exp-bullets li { font-size: .8rem; line-height: 1.75; color: var(--tan); padding-left: 1.2rem; position: relative; margin-bottom: .4rem; }
-.exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--rose); }
+.exp-bullets li::before { content: '•'; position: absolute; left: 0; color: var(--rose); }
 
 /* CERTIFICATIONS */
 #certifications { padding: 7rem 10vw; background: rgba(0,0,0,.08); }
@@ -309,11 +376,68 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
 .ri-note { font-size: .7rem; color: var(--muted); line-height: 1.7; margin-top: .3rem; }
 .ri-ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: .4rem; }
 .ri-ul li { font-size: .75rem; color: var(--tan); line-height: 1.75; padding-left: 1.2rem; position: relative; }
-.ri-ul li::before { content: '—'; position: absolute; left: 0; color: var(--rose); }
+.ri-ul li::before { content: '•'; position: absolute; left: 0; color: var(--rose); }
 .ri-skills { display: flex; flex-direction: column; gap: .6rem; }
 .ri-skill-row { display: flex; gap: 1rem; align-items: baseline; }
 .ri-skill-cat { font-size: .6rem; color: var(--gold); letter-spacing: .08em; text-transform: uppercase; min-width: 155px; flex-shrink: 0; }
 .ri-skill-list { font-size: .75rem; color: var(--tan); line-height: 1.7; }
+
+/* COLLAGE RESTYLE: the sections below the desk, matched to the hero */
+.section-label { font-family: 'Caveat', cursive; font-size: 1.6rem; letter-spacing: 0; text-transform: none; color: var(--papaya); }
+.section-label::after { background: rgba(232,116,42,.35); }
+h2.section-title, h2.contact-title { font-family: 'Playfair Display', serif; font-weight: 900; letter-spacing: -.01em; }
+h2.section-title em, h2.contact-title em { display: inline-block; font-family: 'Abril Fatface', serif; font-style: normal; font-size: .82em; color: var(--fuchsia); background: var(--parchment); padding: .02em .16em; margin-left: .1em; transform: rotate(-2.5deg); text-shadow: none;
+  clip-path: polygon(0 5%,12% 0,30% 6%,52% 1%,74% 6%,100% 2%,98% 50%,100% 96%,80% 100%,55% 94%,30% 100%,8% 95%,0 100%,2% 50%); }
+#experience h2.section-title em { color: var(--ink); background: var(--mustard); transform: rotate(2deg); }
+#skills h2.section-title em { color: var(--parchment); background: var(--palm); }
+#certifications h2.section-title em { color: var(--ink); background: var(--papaya); transform: rotate(1.5deg); }
+
+/* project cards become taped paper */
+.projects-grid { gap: 3rem 2.5rem; }
+.project-card { --r: -1.2deg; background: var(--news); border: none; overflow: visible; transform: rotate(var(--r)); box-shadow: 0 10px 24px rgba(0,0,0,.35); transition: transform .35s cubic-bezier(.2,.9,.25,1.3), box-shadow .35s; }
+.project-card:nth-child(2n) { --r: 1.4deg; }
+.project-card:nth-child(3n) { --r: -.6deg; }
+.project-card:hover { transform: rotate(0deg) translateY(-8px); box-shadow: 0 26px 50px rgba(0,0,0,.5); }
+.project-card::before { content: ''; top: -13px; left: 50%; right: auto; width: 96px; height: 26px; margin-left: -48px; background: rgba(240,230,211,.6); transform: rotate(-3deg); box-shadow: 0 1px 2px rgba(0,0,0,.2); z-index: 2; transition: none; }
+.project-card:hover::before { transform: rotate(-3deg); }
+.project-card:nth-child(2n)::before { transform: rotate(4deg); background: rgba(232,116,42,.55); }
+.project-card:nth-child(3n)::before { background: rgba(194,39,94,.45); }
+.project-num { font-family: 'Abril Fatface', serif; color: rgba(26,12,12,.09); font-size: 4rem; }
+.project-date { color: var(--fuchsia); }
+.project-title { font-family: 'Playfair Display', serif; font-weight: 900; color: var(--ink); font-size: 1.75rem; }
+.project-bullets li { color: #3b2723; }
+.project-bullets li::before { color: var(--papaya); }
+.tech-pill { background: none; border: 1px solid var(--ink); color: var(--ink); border-radius: 0; }
+.project-demo-btn { color: var(--ink); background: var(--papaya); border: none; padding: .55rem .9rem; }
+.project-demo-btn:hover { color: var(--ink); background: var(--mustard); }
+.project-gh-link { color: #6b4a3f; }
+.project-gh-link:hover { color: var(--fuchsia); }
+
+/* timeline, skills, certs, contact pick up the papaya accent */
+.timeline::before { background: linear-gradient(to bottom, transparent, var(--papaya) 10%, var(--papaya) 90%, transparent); opacity: .6; }
+.exp-dot { border-color: var(--papaya); }
+.exp-item:hover .exp-dot { background: var(--papaya); border-color: var(--papaya); }
+.exp-meta, .project-date, .cert-issuer-badge, .degree-box-label, .course-group-title { color: var(--papaya); }
+.exp-bullets li::before, .ri-ul li::before { content: '•'; color: var(--papaya); }
+.skill-name { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; color: var(--parchment); }
+.skill-card:hover .skill-tag { background: var(--parchment); color: var(--ink); }
+.cert-card { overflow: visible; transform: rotate(-.6deg); transition: transform .35s cubic-bezier(.2,.9,.25,1.3), border-color .35s, box-shadow .35s; }
+.cert-card:nth-child(2n) { transform: rotate(.7deg); }
+.cert-card:hover, .cert-card:nth-child(2n):hover { transform: rotate(0) translateY(-5px); }
+.cert-card::after { top: -11px; left: 50%; right: auto; width: 80px; height: 22px; margin-left: -40px; background: rgba(240,230,211,.45); transform: rotate(-4deg); }
+.cert-card:hover::after { transform: rotate(-4deg); }
+.contact-intro { font-family: 'Caveat', cursive; font-size: 1.6rem; letter-spacing: 0; text-transform: none; color: var(--papaya); }
+.contact-link:hover { border-color: var(--papaya); background: rgba(232,116,42,.1); }
+.contact-link-icon { color: var(--papaya); }
+.nav-logo { font-family: 'Playfair Display', serif; font-weight: 900; letter-spacing: 0; }
+.nav-logo span, nav ul a:hover { color: var(--papaya); }
+nav ul a::after { background: var(--papaya); }
+@media (max-width: 760px) {
+  nav { padding: 1rem 1.2rem; }
+  nav ul { display: flex !important; }
+  nav ul li:not(:last-child) { display: none; }
+  .projects-grid { grid-template-columns: 1fr; }
+}
 
 /* KEYFRAMES */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
@@ -349,7 +473,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
 <!-- RESUME MODAL -->
 <div id="resume-modal">
   <div class="modal-toolbar">
-    <span class="modal-title">Sharon Kodali — Résumé</span>
+    <span class="modal-title">Sharon Kodali · Résumé</span>
     <a href="Kodali,Sharon-RESUME.pdf" download class="modal-download-btn">↓ Download PDF</a>
     <button class="modal-close-btn" id="modal-close">✕ Close</button>
   </div>
@@ -459,20 +583,36 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
 </nav>
 
 <!-- HERO -->
-<section id="hero">
-  <h1 class="hero-name">Sharon<br><em>Kodali.</em></h1>
-  <p class="hero-tagline">Data Science student at UC San Diego,<br>passionate about using data to solve real-world problems —<br>from ML research to full-stack data applications.</p>
-  <div class="hero-badges">
-    <span class="badge">B.S. Data Science</span>
-    <span class="badge">Minor · Cognitive Science (ML)</span>
-    <span class="badge">UC San Diego · GPA 4.0 · Class of 2029</span>
+<section id="hero" aria-label="Intro">
+  <h1>Sharon Kodali, Data Science student at UC San Diego</h1>
+  <div class="desk-note" id="desk-note">drag anything.<br>tap a scrap to open it
+    <svg width="70" height="40" viewBox="0 0 70 40" aria-hidden="true"><path d="M5 5 C 20 35, 45 35, 62 22" stroke="#f0e6d3" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M54 16 L63 22 L53 28" stroke="#f0e6d3" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
   </div>
-  <div class="hero-ctas">
-    <a href="#projects" class="btn-primary"><span>View Projects</span></a>
-    <a href="#contact" class="btn-ghost">Get In Touch</a>
-    <button class="btn-gold" id="resume-open-hero">Résumé</button>
+  <p class="desk-tagline" id="desk-tagline">Data Science student at UC San Diego who builds things.<br>ML pipelines, full-stack apps, distributed systems.</p>
+  <div class="desk-controls">
+    <button class="primary" id="desk-mess">Make a mess</button>
+    <button id="desk-tidy">Tidy up</button>
+    <button id="desk-reroll">New letters</button>
   </div>
 </section>
+
+<!-- SPREAD (opened from a hero scrap) -->
+<div id="spread" role="dialog" aria-modal="true" aria-labelledby="spread-title">
+  <div class="spread-page">
+    <div class="spread-left" id="spread-left">
+      <div class="spread-what" id="spread-what"></div>
+      <div><div class="spread-num" id="spread-num"></div><div class="spread-what" id="spread-numcap" style="margin-top:8px"></div></div>
+    </div>
+    <div class="spread-right">
+      <div class="spread-kick">Project</div>
+      <h2 id="spread-title"></h2>
+      <p id="spread-body"></p>
+      <ul class="spread-tags" id="spread-tags"></ul>
+      <div class="spread-links" id="spread-links"></div>
+    </div>
+    <button class="spread-close" id="spread-close" aria-label="Close">close ×</button>
+  </div>
+</div>
 
 <!-- ABOUT -->
 <section id="about">
@@ -480,7 +620,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
     <div class="section-label">About</div>
     <h2 class="section-title">A little about <em>me</em></h2>
     <div class="about-body">
-      <p>I'm <strong>Sharon Kodali</strong>, a Data Science student at UC San Diego who likes building things that touch real data — ML models, full-stack apps, whatever the problem needs.</p>
+      <p>I'm <strong>Sharon Kodali</strong>, a Data Science student at UC San Diego who likes building things that touch real data. ML models, full-stack apps, whatever the problem needs.</p>
     </div>
     <div class="degree-boxes">
       <div class="degree-box">
@@ -614,7 +754,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
         <div class="project-title">ResumeTailor</div>
         <ul class="project-bullets">
           <li>AI-powered resume tailoring platform: rewrites bullets against a target job description with an ATS match score, keyword extraction, and per-bullet reasoning.</li>
-          <li>LaTeX-aware tailoring engine splices model-rewritten bullets back into the original .tex at exact character offsets — never touches document structure, so output always compiles. FastAPI backend with 96 passing tests.</li>
+          <li>LaTeX-aware tailoring engine splices model-rewritten bullets back into the original .tex at exact character offsets. It never touches document structure, so output always compiles. FastAPI backend with 96 passing tests.</li>
         </ul>
         <div class="project-tech">
           <span class="tech-pill">Next.js</span><span class="tech-pill">FastAPI</span><span class="tech-pill">TypeScript</span><span class="tech-pill">SQLAlchemy</span><span class="tech-pill">OpenAI API</span>
@@ -631,7 +771,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
         <div class="project-date">Aug 2026</div>
         <div class="project-title">Distributed Key-Value Store</div>
         <ul class="project-bullets">
-          <li>5-node Raft consensus cluster in Go (hashicorp/raft) with leader election and majority-commit log replication — killing the leader triggers automatic failover with zero data loss.</li>
+          <li>5-node Raft consensus cluster in Go (hashicorp/raft) with leader election and majority-commit log replication. Killing the leader triggers automatic failover with zero data loss.</li>
           <li>Diagnosed and fixed two real distributed-systems bugs: a hostname/IP resolution mismatch in write-forwarding, and a Docker Compose DNS startup race between containers.</li>
         </ul>
         <div class="project-tech">
@@ -649,7 +789,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
         <div class="project-title">BlinkGuard</div>
         <ul class="project-bullets">
           <li>Real-time drowsy-driving detection: MediaPipe eye/mouth-aspect-ratio tracking in the browser streams telemetry every 2 seconds to a Next.js API bridge.</li>
-          <li>Adaptive safety coach built on Fetch.ai uAgents — escalates alerts from recent history, logs incidents by severity, and tracks a rolling trip safety score.</li>
+          <li>Adaptive safety coach built on Fetch.ai uAgents. It escalates alerts from recent history, logs incidents by severity, and tracks a rolling trip safety score.</li>
         </ul>
         <div class="project-tech">
           <span class="tech-pill">Next.js</span><span class="tech-pill">MediaPipe</span><span class="tech-pill">Fetch.ai uAgents</span><span class="tech-pill">TypeScript</span>
@@ -666,7 +806,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
         <div class="project-date">Feb 2026 – Apr 2026</div>
         <div class="project-title">Vibe Canvas</div>
         <ul class="project-bullets">
-          <li> Built an end-to-end 7-stage ML pipeline in Python trained on 28,351 real Spotify tracks — from data cleaning and EDA to PCA, KMeans clustering, and Random Forest classification (54.1% accuracy, 3× above baseline).</li>
+          <li> Built an end-to-end 7-stage ML pipeline in Python trained on 28,351 real Spotify tracks, from data cleaning and EDA to PCA, KMeans clustering, and Random Forest classification (54.1% accuracy, 3× above baseline).</li>
           <li>Engineered 9 interaction audio features and built a generative art engine mapping real Spotify audio features (energy, valence, danceability, tempo) directly to HTML5 Canvas visuals.</li>
         </ul>
         <div class="project-tech">
@@ -737,7 +877,7 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
 <section id="certifications">
   <div class="reveal">
     <div class="section-label">Credentials</div>
-    <h2 class="section-title">Certifi<em>cations</em></h2>
+    <h2 class="section-title">Paper <em>trail</em></h2>
   </div>
   <div class="cert-grid reveal">
 
@@ -815,40 +955,64 @@ footer { padding: 2.5rem 10vw; border-top: 1px solid rgba(212,184,150,.08); disp
   <span>UC San Diego</span>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// BG CANVAS
+<script>
+// BG: interactive plexus network. Nodes drift, nearby nodes link up,
+// the cursor pulls close nodes toward it and draws threads to them, and a click drops new nodes.
 (function(){
-  var canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d'), W, H;
-  function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  var canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
+  var W, H, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var nodes = [], mouse = { x: -9999, y: -9999 };
+  var LINK = 140, GRAB = 190;
+  function count(){ return Math.round(Math.min(110, Math.max(36, W * H / 14000))); }
+  function node(x, y){ return { x: x, y: y, vx: (Math.random()-.5)*.35, vy: (Math.random()-.5)*.35, r: Math.random()*1.6+1, gold: Math.random() < .25 }; }
+  function resize(){
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W*dpr; canvas.height = H*dpr; canvas.style.width = W+'px'; canvas.style.height = H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    var n = count();
+    while(nodes.length < n) nodes.push(node(Math.random()*W, Math.random()*H));
+    if(nodes.length > n) nodes.length = n;
+  }
   resize();
   window.addEventListener('resize', resize);
-  var particles = [];
-  for(var i = 0; i < 55; i++){
-    particles.push({ x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, r: Math.random()*1.8+.3, vx: (Math.random()-.5)*.22, vy: (Math.random()-.5)*.18, alpha: Math.random()*.35+.05, hue: Math.random()>.7 ? 'gold' : 'rose' });
-  }
-  var veins = [];
-  for(var j = 0; j < 6; j++){
-    veins.push({ x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, vx: (Math.random()-.5)*.08, vy: (Math.random()-.5)*.08 });
-  }
-  function draw(){
+  window.addEventListener('pointermove', function(e){ mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
+  document.addEventListener('pointerleave', function(){ mouse.x = mouse.y = -9999; });
+  window.addEventListener('click', function(e){
+    if(e.target.closest('a,button,.piece,#spread,#resume-modal,#project-overlay,#cert-overlay,.degree-box')) return;
+    for(var i = 0; i < 3; i++) nodes.push(node(e.clientX + (Math.random()-.5)*30, e.clientY + (Math.random()-.5)*30));
+    if(nodes.length > count() + 30) nodes.splice(0, 3);
+  });
+  function frame(){
     ctx.clearRect(0,0,W,H);
-    for(var a = 0; a < veins.length; a++){
-      for(var b = a+1; b < veins.length; b++){
-        var dx = veins[a].x - veins[b].x, dy = veins[a].y - veins[b].y, d = Math.sqrt(dx*dx+dy*dy);
-        if(d < 340){ ctx.beginPath(); ctx.moveTo(veins[a].x,veins[a].y); ctx.lineTo(veins[b].x,veins[b].y); ctx.strokeStyle = 'rgba(139,26,26,'+(1-d/340)*.04+')'; ctx.lineWidth = .6; ctx.stroke(); }
+    var i, j, a, b, dx, dy, d;
+    for(i = 0; i < nodes.length; i++){
+      a = nodes[i];
+      dx = mouse.x - a.x; dy = mouse.y - a.y; d = Math.sqrt(dx*dx + dy*dy);
+      if(d < GRAB){
+        // gentle pull toward the cursor plus a thread to it
+        a.x += dx * .006; a.y += dy * .006;
+        ctx.strokeStyle = 'rgba(232,116,42,' + (1 - d/GRAB)*.55 + ')';
+        ctx.lineWidth = .9; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+      }
+      for(j = i+1; j < nodes.length; j++){
+        b = nodes[j]; dx = a.x - b.x; dy = a.y - b.y;
+        if(Math.abs(dx) > LINK || Math.abs(dy) > LINK) continue;
+        d = Math.sqrt(dx*dx + dy*dy);
+        if(d < LINK){ ctx.strokeStyle = 'rgba(240,230,211,' + (1 - d/LINK)*.22 + ')'; ctx.lineWidth = .7; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
       }
     }
-    particles.forEach(function(p){
-      var c = p.hue === 'gold' ? 'rgba(201,169,110,'+p.alpha+')' : 'rgba(192,57,43,'+p.alpha+')';
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle = c; ctx.fill();
-      p.x += p.vx; p.y += p.vy;
-      if(p.x < -10) p.x = W+10; if(p.x > W+10) p.x = -10;
-      if(p.y < -10) p.y = H+10; if(p.y > H+10) p.y = -10;
-    });
-    veins.forEach(function(v){ v.x += v.vx; v.y += v.vy; if(v.x<0||v.x>W) v.vx*=-1; if(v.y<0||v.y>H) v.vy*=-1; });
-    requestAnimationFrame(draw);
+    for(i = 0; i < nodes.length; i++){
+      a = nodes[i];
+      ctx.fillStyle = a.gold ? 'rgba(232,201,126,.85)' : 'rgba(240,230,211,.7)';
+      ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI*2); ctx.fill();
+      if(!reduce){ a.x += a.vx; a.y += a.vy; }
+      if(a.x < -20) a.x = W+20; else if(a.x > W+20) a.x = -20;
+      if(a.y < -20) a.y = H+20; else if(a.y > H+20) a.y = -20;
+    }
+    requestAnimationFrame(frame);
   }
-  draw();
+  frame();
 })();
 
 // SCROLL REVEAL
@@ -865,7 +1029,6 @@ var resumeModal = document.getElementById('resume-modal');
 function openResume(e){ e.preventDefault(); resumeModal.classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeResume(){ resumeModal.classList.remove('open'); document.body.style.overflow = ''; }
 document.getElementById('resume-open').addEventListener('click', openResume);
-document.getElementById('resume-open-hero').addEventListener('click', openResume);
 document.getElementById('modal-close').addEventListener('click', closeResume);
 resumeModal.addEventListener('click', function(e){ if(e.target === resumeModal) closeResume(); });
 
@@ -886,7 +1049,7 @@ var certs = {
     issuer: 'Google · Coursera',
     title: 'Google AI<br><em>Professional Certificate</em>',
     platform: 'Professional Certificate · 3–6 Months · Beginner',
-    description: '<p>The Google AI Professional Certificate is a comprehensive program covering the full landscape of modern AI tooling and workflows. It prepares learners to apply AI practically across business, research, and creative domains.</p><p>The curriculum spans <strong>generative AI fundamentals</strong>, prompt engineering, AI-assisted data analysis, content creation pipelines, and responsible AI usage — with hands-on projects that mirror real-world applications.</p>',
+    description: '<p>The Google AI Professional Certificate is a comprehensive program covering the full landscape of modern AI tooling and workflows. It prepares learners to apply AI practically across business, research, and creative domains.</p><p>The curriculum spans <strong>generative AI fundamentals</strong>, prompt engineering, AI-assisted data analysis, content creation pipelines, and responsible AI usage, with hands-on projects that mirror real-world applications.</p>',
     learned: ['Prompt engineering and generative AI workflows', 'AI-powered data analysis and visualization', 'Content creation using AI tools at scale', 'Planning and executing AI-assisted projects', 'Responsible AI practices and ethics', 'Integrating AI tools into business workflows'],
     topics: [
       { label: 'Generative AI', pct: 90 },
@@ -901,7 +1064,7 @@ var certs = {
     issuer: 'Google · Coursera',
     title: 'Google Project<br><em>Management Certificate</em>',
     platform: 'Professional Certificate · 3–6 Months · Beginner',
-    description: '<p>The Google Project Management Certificate covers the full project lifecycle — from initiation and planning through execution, monitoring, and closure. It builds both traditional and Agile project management skills.</p><p>Core focus areas include <strong>Agile and Scrum frameworks</strong>, stakeholder communication, risk management, resource planning, and the use of PM tools like Asana and Jira to coordinate cross-functional teams.</p>',
+    description: '<p>The Google Project Management Certificate covers the full project lifecycle, from initiation and planning through execution, monitoring, and closure. It builds both traditional and Agile project management skills.</p><p>Core focus areas include <strong>Agile and Scrum frameworks</strong>, stakeholder communication, risk management, resource planning, and the use of PM tools like Asana and Jira to coordinate cross-functional teams.</p>',
     learned: ['Agile and Scrum sprint planning and retrospectives', 'Stakeholder identification and communication strategies', 'Risk assessment and mitigation planning', 'Project charter and timeline creation', 'Quality management and project closure', 'Team leadership and conflict resolution'],
     topics: [
       { label: 'Agile / Scrum', pct: 88 },
@@ -916,7 +1079,7 @@ var certs = {
     issuer: 'Google · Coursera',
     title: 'Google AI<br><em>Essentials</em>',
     platform: 'Specialization · 3–6 Months · Beginner',
-    description: '<p>Google AI Essentials is a foundational specialization that builds fluency with AI concepts and tools across multiple domains. It focuses on practical, real-world application of generative AI in professional contexts.</p><p>The course develops <strong>critical thinking frameworks</strong> for evaluating AI outputs, understanding technology roadmaps, and building an innovation mindset — key skills for applying AI responsibly in research and industry settings.</p>',
+    description: '<p>Google AI Essentials is a foundational specialization that builds fluency with AI concepts and tools across multiple domains. It focuses on practical, real-world application of generative AI in professional contexts.</p><p>The course develops <strong>critical thinking frameworks</strong> for evaluating AI outputs, understanding technology roadmaps, and building an innovation mindset. These are key skills for applying AI responsibly in research and industry settings.</p>',
     learned: ['Generative AI fundamentals and core terminology', 'Evaluating AI outputs critically and responsibly', 'Technology roadmapping and AI strategy', 'Innovation frameworks for AI-driven problem solving', 'Applying AI tools in professional workflows', 'Understanding AI limitations and bias'],
     topics: [
       { label: 'Generative AI', pct: 85 },
@@ -931,7 +1094,7 @@ var certs = {
     issuer: 'LinkedIn Learning',
     title: 'SQL for<br><em>Data Analysis</em>',
     platform: 'Course · LinkedIn Learning',
-    description: '<p>This LinkedIn Learning course provides a thorough grounding in SQL as a data analysis tool. It covers everything from basic querying to advanced analytical functions used in real data science workflows.</p><p>Emphasis is placed on <strong>real-world data wrangling</strong> — filtering, aggregating, joining datasets, and using window functions to derive insights from structured databases in analytics and ML pipelines.</p>',
+    description: '<p>This LinkedIn Learning course provides a thorough grounding in SQL as a data analysis tool. It covers everything from basic querying to advanced analytical functions used in real data science workflows.</p><p>Emphasis is placed on <strong>real-world data wrangling</strong>: filtering, aggregating, joining datasets, and using window functions to derive insights from structured databases in analytics and ML pipelines.</p>',
     learned: ['Writing complex SELECT queries with filters and sorting', 'Multi-table JOINs: INNER, LEFT, RIGHT, FULL OUTER', 'Aggregation with GROUP BY, HAVING, and subqueries', 'Window functions: ROW_NUMBER, RANK, LEAD, LAG', 'Data transformation and cleaning with SQL', 'Applying SQL in data science and analytics workflows'],
     topics: [
       { label: 'Query Writing', pct: 92 },
@@ -1003,7 +1166,7 @@ var projects = {
     eyebrow: 'Oct 2025 – Nov 2025',
     title: 'California Real Estate<br><em>Intelligence Tracker</em>',
     tech: ['Python','Flask','MySQL','Google Maps API','Pandas','HTML/CSS','JavaScript'],
-    overview: '<p>A full-stack data platform aggregating over <strong>5,000 Zillow listings</strong> across California, stored in an indexed SQL database and surfaced through an interactive map-based interface with smart filtering.</p><p>Users filter by price range, estimated ROI, square footage, and proximity radius — rendered in real time on a Google Maps overlay with color-coded pins.</p>',
+    overview: '<p>A full-stack data platform aggregating over <strong>5,000 Zillow listings</strong> across California, stored in an indexed SQL database and surfaced through an interactive map-based interface with smart filtering.</p><p>Users filter by price range, estimated ROI, square footage, and proximity radius, rendered in real time on a Google Maps overlay with color-coded pins.</p>',
     features: ['5,000+ Zillow listings scraped and normalized into MySQL','Google Maps API integration with dynamic pin rendering','ROI estimation engine based on rental yield data','Multi-filter UI: price, ROI, sqft, bedrooms, location radius','Flask REST API with indexed SQL queries for fast response','Responsive frontend with map + listing card split view'],
     urlBar: 'localhost:5000/map?filter=roi&min=6&radius=25mi',
     demoHTML: '<div class="realestate-demo"><div class="re-map"><div class="re-map-grid"></div><div class="re-pin re-pin-gold" style="left:28%;top:35%"></div><div class="re-pin re-pin-gold" style="left:45%;top:55%"></div><div class="re-pin re-pin-red" style="left:62%;top:30%"></div><div class="re-pin re-pin-red" style="left:38%;top:70%"></div><div class="re-pin re-pin-gold" style="left:72%;top:60%"></div><div class="re-pin re-pin-red" style="left:20%;top:55%"></div><div class="re-pin re-pin-gold" style="left:55%;top:42%"></div><div class="re-pin re-pin-red" style="left:80%;top:45%"></div><div style="position:absolute;bottom:.8rem;left:1rem;font-size:.55rem;color:rgba(212,184,150,.4);letter-spacing:.1em">CALIFORNIA · 5,247 LISTINGS</div></div><div class="re-legend"><div class="re-legend-item"><div class="re-legend-dot" style="background:var(--gold)"></div>High ROI (&gt;6%)</div><div class="re-legend-item"><div class="re-legend-dot" style="background:var(--rose)"></div>Standard ROI</div></div><div class="re-listings"><div class="re-card"><div class="re-price">$849,000</div><div class="re-loc">San Diego, CA · 3bd 2ba</div><div class="re-roi">↑ ROI est. 7.2%</div></div><div class="re-card"><div class="re-price">$1,200,000</div><div class="re-loc">Los Angeles, CA · 4bd 3ba</div><div class="re-roi" style="color:var(--muted)">ROI est. 4.1%</div></div><div class="re-card"><div class="re-price">$620,000</div><div class="re-loc">Sacramento, CA · 3bd 2ba</div><div class="re-roi">↑ ROI est. 6.8%</div></div><div class="re-card"><div class="re-price">$975,000</div><div class="re-loc">San Jose, CA · 4bd 2ba</div><div class="re-roi" style="color:var(--muted)">ROI est. 3.9%</div></div></div></div>'
@@ -1031,6 +1194,249 @@ function closeProject(){ overlay.classList.remove('open'); document.body.style.o
 document.querySelectorAll('[data-project]').forEach(function(el){
   el.addEventListener('click', function(){ openProject(el.dataset.project); });
 });
+
+// HERO COLLAGE DESK
+(function(){
+  var C = { parch:'#f0e6d3', papaya:'#e8742a', fuchsia:'#c2275e', mustard:'#d9a520', palm:'#2f4a32', ink:'#1a0c0c', news:'#f4efe4', crimson:'#8b1a1a' };
+  var projects = [
+    { kind:'polaroid', color:C.fuchsia, kick:'LLM app · Next.js + FastAPI', title:'ResumeTailor', metric:'96', cap:'passing backend tests',
+      num:'96', numCap:'passing backend tests',
+      body:'An AI resume tailoring platform. It rewrites bullets against a job description with an ATS match score, keyword extraction, and the reasoning behind every change. The LaTeX-aware engine splices new bullets back into the original .tex at exact offsets, so the output always compiles.',
+      tags:['Next.js','FastAPI','TypeScript','SQLAlchemy','OpenAI API'], demo:'https://resume-tailor-seven-zeta.vercel.app', gh:'https://github.com/sharonkodali/ResumeTailor' },
+    { kind:'ticket', color:C.ink, kick:'Distributed systems · Go', title:'Distributed KV Store', metric:'5 nodes', cap:'Raft cluster, zero data loss on failover',
+      num:'0', numCap:'data lost when the leader dies',
+      body:'A 5-node Raft consensus cluster in Go with leader election and majority-commit log replication. Kill the leader and the cluster fails over on its own with zero data loss. I also tracked down two real distributed systems bugs: a hostname resolution mismatch in write forwarding and a Docker DNS startup race.',
+      tags:['Go','Raft','Docker','Distributed systems'], gh:'https://github.com/sharonkodali/DistributedKV' },
+    { kind:'chip', color:C.papaya, kick:'Computer vision', title:'BlinkGuard', metric:'2s', cap:'between drowsiness checks',
+      num:'2s', numCap:'between live safety checks',
+      body:'Real-time drowsy driving detection. MediaPipe tracks eye and mouth aspect ratios in the browser and streams telemetry every 2 seconds. A safety coach built on Fetch.ai uAgents escalates alerts, logs incidents by severity, and keeps a rolling trip safety score.',
+      tags:['Next.js','MediaPipe','Fetch.ai uAgents','TypeScript'], demo:'https://blinkguard-one.vercel.app', gh:'https://github.com/sharonkodali/blinkguard' },
+    { kind:'polaroid', color:C.palm, kick:'ML pipeline · Python', title:'Vibe Canvas', metric:'3×', cap:'above baseline accuracy',
+      num:'28,351', numCap:'Spotify tracks in the training set',
+      body:'A 7-stage ML pipeline trained on 28,351 Spotify tracks: cleaning, EDA, PCA, KMeans clustering, and a Random Forest classifier at 54.1% accuracy, 3× above baseline. A generative art engine maps energy, valence, danceability, and tempo to live canvas visuals.',
+      tags:['Python','pandas','scikit-learn','HTML5 Canvas'], demo:'https://sharonkodali.github.io/vibecanvas/', gh:'https://github.com/sharonkodali/vibecanvas' },
+    { kind:'lined', color:C.crimson, kick:'Full stack · Flask', title:'CA Real Estate Tracker', metric:'5,000+', cap:'Zillow listings mapped',
+      num:'5,000+', numCap:'listings aggregated',
+      body:'A full-stack Python and Flask platform that pulls 5,000+ Zillow listings onto a Google Maps view. An indexed SQL database powers filtering by price, ROI, and distance.',
+      tags:['Python','Flask','SQL','Google Maps API'], demoProject:'realestate' },
+    { kind:'chip', color:C.mustard, kick:'B.S. Data Science · UCSD', title:'Résumé', metric:'4.0', cap:'GPA · class of 2029', resume:true }
+  ];
+  var fonts = [
+    { f:"'Abril Fatface',serif", w:400 }, { f:"'Playfair Display',serif", w:900 }, { f:"'Playfair Display',serif", w:700, i:true },
+    { f:"'Anton',sans-serif", w:400 }, { f:"'DM Mono',monospace", w:500 }, { f:"'Caveat',cursive", w:700 }
+  ];
+  var paints = [[C.news,C.ink],[C.papaya,C.ink],[C.fuchsia,C.parch],[C.mustard,C.ink],[C.palm,C.parch],[C.ink,C.parch],[C.parch,C.fuchsia],[C.news,C.papaya]];
+
+  var desk = document.getElementById('hero');
+  var note = document.getElementById('desk-note'), tag = document.getElementById('desk-tagline');
+  function rand(a,b){ return a + Math.random()*(b-a); }
+  function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+  function isMobile(){ return window.innerWidth <= 720; }
+  var zTop = 10, mStart = 380, layoutVer = 0;
+
+  function torn(jag, steps){
+    var pts = [], i;
+    for(i = 0; i <= steps; i++) pts.push((i*100/steps)+'% '+rand(0,jag)+'%');
+    for(i = 0; i <= steps; i++) pts.push((100-rand(0,jag/2))+'% '+(i*100/steps)+'%');
+    for(i = steps; i >= 0; i--) pts.push((i*100/steps)+'% '+(100-rand(0,jag))+'%');
+    for(i = steps; i >= 0; i--) pts.push(rand(0,jag/2)+'% '+(i*100/steps)+'%');
+    return 'polygon('+pts.join(',')+')';
+  }
+
+  // letters
+  var lines = ['SHARON','KODALI'], letters = [];
+  function styleLetter(el){
+    var ft = pick(fonts), pt = pick(paints), size = isMobile() ? rand(40,54) : rand(70,104);
+    el.style.fontFamily = ft.f; el.style.fontWeight = ft.w; el.style.fontStyle = ft.i ? 'italic' : 'normal';
+    el.style.background = pt[0]; el.style.color = pt[1]; el.style.fontSize = size+'px';
+    el.style.padding = (rand(.08,.2)*size)+'px '+(rand(.12,.26)*size)+'px';
+    el.style.clipPath = torn(4,6);
+    el.dataset.rot = rand(-9,9).toFixed(1);
+    el.style.transform = 'rotate('+el.dataset.rot+'deg)';
+  }
+  lines.forEach(function(word, li){
+    word.split('').forEach(function(ch){
+      var el = document.createElement('div');
+      el.className = 'piece letter'; el.textContent = ch; el.dataset.line = li; el.setAttribute('aria-hidden','true');
+      styleLetter(el); desk.appendChild(el); letters.push(el); draggable(el);
+    });
+  });
+
+  // scraps
+  var scraps = projects.map(function(p){
+    var el = document.createElement('div'), inner;
+    var openTxt = p.resume ? 'read it →' : 'open me →';
+    el.className = 'piece scrap '+p.kind;
+    el.setAttribute('role','button'); el.setAttribute('tabindex','0'); el.setAttribute('aria-label','Open '+p.title);
+    if(p.kind === 'polaroid') inner = '<div class="photo" style="background:'+p.color+'"><div class="metric">'+p.metric+'</div></div><div class="kicker">'+p.kick+'</div><h3>'+p.title+'</h3><div class="cap">'+p.cap+'</div>';
+    else if(p.kind === 'chip') inner = '<div class="swatch" style="background:'+p.color+'"><div class="metric">'+p.metric+'</div></div><div class="label"><div class="kicker">'+p.kick+'</div><h3>'+p.title+'</h3><div class="cap">'+p.cap+'</div><div class="open">'+openTxt+'</div></div>';
+    else inner = '<div class="kicker">'+p.kick+'</div><h3>'+p.title+'</h3><div class="metric" style="color:'+(p.kind==='lined'?C.fuchsia:C.ink)+'">'+p.metric+'</div><div class="cap">'+p.cap+'</div><div class="open">'+openTxt+'</div>';
+    el.innerHTML = '<div class="tape" style="transform:rotate('+rand(-8,8)+'deg)"></div><div class="body">'+inner+'</div>';
+    if(p.kind === 'ticket' || p.kind === 'lined') el.querySelector('.body').style.clipPath = torn(2.5,8);
+    el.dataset.rot = rand(-10,10).toFixed(1);
+    el.style.transform = 'rotate('+el.dataset.rot+'deg)';
+    var open = function(){ openScrap(p); };
+    el.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(); } });
+    desk.appendChild(el); draggable(el, open);
+    return el;
+  });
+
+  function place(el,x,y){ el.style.left = x+'px'; el.style.top = y+'px'; }
+  function applyRot(els){ els.forEach(function(e){ e.style.transform = 'rotate('+e.dataset.rot+'deg)'; }); }
+  function top0(){ return isMobile() ? 90 : Math.max(110, desk.clientHeight*.2); }
+
+  function layoutLetters(){
+    var W = desk.clientWidth, mobile = isMobile(), t = top0();
+    lines.forEach(function(_, li){
+      var row = letters.filter(function(l){ return +l.dataset.line === li; });
+      var widths = row.map(function(l){ return l.offsetWidth; });
+      var gap = mobile ? 2 : 6;
+      var total = widths.reduce(function(a,b){ return a+b; },0) + gap*(row.length-1);
+      var x = (W-total)/2 + (mobile ? 0 : (li ? 60 : -60));
+      var y = t + li*(mobile ? 70 : 125);
+      row.forEach(function(l,i){ place(l, x, y+rand(-8,8)); x += widths[i]+gap; });
+    });
+  }
+  function tidyScraps(){
+    var W = desk.clientWidth, mobile = isMobile(), sw = scraps[0].offsetWidth;
+    var cols = mobile ? 2 : Math.min(6, Math.floor((W-40)/(sw+18)));
+    var gapX = mobile ? 12 : 18, rowW = cols*sw + (cols-1)*gapX;
+    var startY = mobile ? mStart : desk.clientHeight*.58, rowH = mobile ? 250 : 270;
+    scraps.forEach(function(s,i){
+      place(s, (W-rowW)/2 + (i%cols)*(sw+gapX), startY + Math.floor(i/cols)*rowH);
+      s.dataset.rot = rand(-2.5,2.5).toFixed(1);
+    });
+    if(mobile) desk.style.height = (startY + Math.ceil(scraps.length/cols)*rowH + 110)+'px';
+  }
+  function messScraps(){
+    var W = desk.clientWidth, H = desk.clientHeight;
+    if(isMobile()){
+      tidyScraps();
+      scraps.forEach(function(s){ s.style.left = (parseFloat(s.style.left)+rand(-12,12))+'px'; s.style.top = (parseFloat(s.style.top)+rand(-18,18))+'px'; s.dataset.rot = rand(-10,10).toFixed(1); });
+      return;
+    }
+    var spots = [[.04,.14],[.80,.12],[.02,.56],[.82,.52],[.26,.60],[.58,.62]];
+    var tagBottom = tag.offsetTop + tag.offsetHeight + 18;
+    scraps.forEach(function(s,i){
+      var x = Math.min(W-s.offsetWidth-10, spots[i][0]*W + rand(-20,20));
+      var y = spots[i][1]*H + rand(-20,20);
+      // center scraps sit under the tagline and may hang off the bottom edge; side scraps stay on the desk
+      if(i >= 4) y = Math.min(H-150, Math.max(tagBottom, y));
+      else y = Math.max(70, Math.min(H-s.offsetHeight-20, y));
+      place(s, x, y);
+      s.dataset.rot = rand(-12,12).toFixed(1);
+    });
+  }
+  function positionExtras(){
+    var svg = note.querySelector('svg');
+    if(isMobile()){
+      // stack tagline, note and scraps by their real heights so narrow phones don't overlap
+      tag.style.top = '250px';
+      note.style.left = '16px'; note.style.fontSize = '20px'; svg.style.display = 'none';
+      note.style.top = (250 + tag.offsetHeight + 12)+'px';
+      mStart = 250 + tag.offsetHeight + 12 + note.offsetHeight + 34;
+    } else {
+      note.style.left = (desk.clientWidth*.6)+'px'; note.style.top = (top0()-70)+'px'; note.style.fontSize = '24px'; svg.style.display = 'block';
+      tag.style.top = (top0()+262)+'px';
+    }
+  }
+  function settle(fn){
+    var all = letters.concat(scraps);
+    all.forEach(function(e){ e.classList.add('settle'); });
+    fn(); applyRot(all);
+    setTimeout(function(){ all.forEach(function(e){ e.classList.remove('settle'); }); }, 750);
+  }
+
+  function draggable(el, onTap){
+    var sx, sy, ox, oy, moved = false, id = null, ty = null;
+    el.addEventListener('pointerdown', function(e){
+      // on touch screens scraps scroll the page and open on tap; only letters drag
+      if(e.pointerType === 'touch' && onTap){ ty = e.clientY; return; }
+      id = e.pointerId; el.setPointerCapture(id); moved = false;
+      sx = e.clientX; sy = e.clientY; ox = el.offsetLeft; oy = el.offsetTop;
+      el.style.zIndex = ++zTop; el.classList.add('dragging');
+      el.style.transform = 'rotate('+(el.dataset.rot*.4)+'deg) scale(1.06)';
+      note.style.opacity = 0;
+    });
+    el.addEventListener('pointermove', function(e){
+      if(e.pointerId !== id) return;
+      var dx = e.clientX-sx, dy = e.clientY-sy;
+      if(Math.abs(dx)+Math.abs(dy) > 4) moved = true;
+      el.style.left = (ox+dx)+'px'; el.style.top = (oy+dy)+'px';
+      el.style.transform = 'rotate('+(el.dataset.rot*.4 + Math.max(-14, Math.min(14, e.movementX*1.2))).toFixed(1)+'deg) scale(1.06)';
+    });
+    function end(e){
+      if(e.pointerType === 'touch' && onTap){ if(ty !== null && Math.abs(e.clientY-ty) < 8 && e.type === 'pointerup') onTap(); ty = null; return; }
+      if(e.pointerId !== id) return; id = null;
+      el.classList.remove('dragging');
+      if(moved) el.dataset.rot = rand(-10,10).toFixed(1);
+      el.style.transform = 'rotate('+el.dataset.rot+'deg)';
+      if(!moved && onTap) onTap();
+    }
+    el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end);
+  }
+
+  // spread
+  var spread = document.getElementById('spread');
+  function closeSpread(){ spread.classList.remove('on'); document.body.style.overflow = ''; }
+  function openScrap(p){
+    if(p.resume){ openResume({ preventDefault: function(){} }); return; }
+    document.getElementById('spread-left').style.background = p.color;
+    document.getElementById('spread-what').textContent = p.kick;
+    document.getElementById('spread-num').textContent = p.num;
+    document.getElementById('spread-numcap').textContent = p.numCap;
+    document.getElementById('spread-title').textContent = p.title;
+    document.getElementById('spread-body').textContent = p.body;
+    document.getElementById('spread-tags').innerHTML = p.tags.map(function(t){ return '<li>'+t+'</li>'; }).join('');
+    var links = '';
+    if(p.demo) links += '<a href="'+p.demo+'" target="_blank" rel="noopener">See demo ↗</a>';
+    if(p.demoProject) links += '<button id="spread-demo">See demo ↗</button>';
+    if(p.gh) links += '<a href="'+p.gh+'" target="_blank" rel="noopener">GitHub →</a>';
+    document.getElementById('spread-links').innerHTML = links;
+    if(p.demoProject) document.getElementById('spread-demo').onclick = function(){ closeSpread(); openProject(p.demoProject); };
+    spread.classList.add('on'); document.body.style.overflow = 'hidden';
+    document.getElementById('spread-close').focus({ preventScroll: true });
+  }
+  document.getElementById('spread-close').onclick = closeSpread;
+  spread.addEventListener('click', function(e){ if(e.target === spread) closeSpread(); });
+  window.addEventListener('keydown', function(e){ if(e.key === 'Escape' && spread.classList.contains('on')) closeSpread(); });
+
+  // controls
+  document.getElementById('desk-mess').onclick = function(){ settle(function(){
+    layoutLetters();
+    letters.forEach(function(l){ l.style.left = (parseFloat(l.style.left)+rand(-30,30))+'px'; l.style.top = (parseFloat(l.style.top)+rand(-25,25))+'px'; l.dataset.rot = rand(-18,18).toFixed(1); });
+    messScraps();
+  }); };
+  document.getElementById('desk-tidy').onclick = function(){ settle(function(){ letters.forEach(function(l){ l.dataset.rot = rand(-4,4).toFixed(1); }); layoutLetters(); tidyScraps(); }); };
+  document.getElementById('desk-reroll').onclick = function(){ letters.forEach(styleLetter); settle(layoutLetters); };
+
+  // init: pieces drop onto the desk
+  function init(){
+    positionExtras(); layoutLetters(); messScraps();
+    var all = letters.concat(scraps);
+    var finals = all.map(function(e){ return [e.style.left, e.style.top]; });
+    var v = layoutVer;
+    all.forEach(function(e){ e.style.left = rand(-200, desk.clientWidth+200)+'px'; e.style.top = (-300-rand(0,300))+'px'; });
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      all.forEach(function(e,i){ setTimeout(function(){ if(v !== layoutVer) return; e.classList.add('settle'); e.style.left = finals[i][0]; e.style.top = finals[i][1]; e.style.transform = 'rotate('+e.dataset.rot+'deg)'; }, i*45); });
+      setTimeout(function(){ all.forEach(function(e){ e.classList.remove('settle'); }); }, all.length*45+800);
+    }); });
+  }
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(init);
+
+  var rt, wasMobile = isMobile(), lastW = window.innerWidth;
+  window.addEventListener('resize', function(){
+    if(window.innerWidth === lastW) return;
+    lastW = window.innerWidth;
+    clearTimeout(rt);
+    rt = setTimeout(function(){
+      if(isMobile() !== wasMobile){ wasMobile = isMobile(); letters.forEach(styleLetter); }
+      if(!isMobile()) desk.style.height = '';
+      layoutVer++;
+      positionExtras(); layoutLetters(); messScraps(); applyRot(letters.concat(scraps));
+    }, 150);
+  });
+})();
 </script>
 </body>
 </html>
